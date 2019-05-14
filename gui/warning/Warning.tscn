@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://gui/warning/warning.gd" type="Script" id=1]
+
+
+[node name="Warning" type="VBoxContainer"]
+margin_left = 494.952
+margin_top = 3.20455
+margin_right = 494.952
+margin_bottom = 3.20455
+script = ExtResource( 1 )

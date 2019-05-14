@@ -2,21 +2,37 @@ extends Node
 
 var debug_info
 var bullet_id : int = 0
+var global_do_debug : bool = true
+var weapons_do_debug : bool = false
 
 signal debug_updated(node,text)
 signal debug_delete(node)
 
 func _ready():
-	debug_info = get_tree().get_root().get_node("Game").get_node("DebugInfo")
-	connect("debug_updated", DebugManager.debug_info, "_on_signal_updateLabel")
-	connect("debug_delete", DebugManager.debug_info, "_on_signal_deleteLabel")
+	var main_node = get_tree().get_root().get_node(ConstManager.GAME_NODE_NAME)
+			
+	if main_node.has_node(ConstManager.DEBUG_NODE_NAME):
+		debug_info = main_node.get_node(ConstManager.DEBUG_NODE_NAME)
+		connect("debug_updated", DebugManager.debug_info, "_on_signal_updateLabel")
+		connect("debug_delete", DebugManager.debug_info, "_on_signal_deleteLabel")
+	else:
+		global_do_debug = false
+	
 
 func debug(_node, _text, do_debug = true) -> void:
-	if do_debug:
+	if global_do_debug and do_debug:
 		emit_signal("debug_updated", _node, str(_text))
 
 func debug_remove(_node) -> void:
-	emit_signal("debug_delete", _node)
+	if global_do_debug:
+		emit_signal("debug_delete", _node)
+		
+func debug_states(_node, _states_stack) ->void:
+	if global_do_debug:
+		var states_name = ""
+		for s in _states_stack:
+			states_name += s.name + " | "
+		emit_signal("debug_updated", _node, states_name)
 
 func get_new_bullet_id() -> int:
 	bullet_id += 1

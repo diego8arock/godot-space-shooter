@@ -1,4 +1,4 @@
-extends Area2D
+extends Weapon
 
 export var speed : float = 200.0
 export var speed_multiplier : int = 5
@@ -9,17 +9,17 @@ onready var bullet_id_str = "bullet-" + str(bullet_id)
 var velocity = Vector2()
 
 func _ready():
-	pass 
+	pass
 
 func _process(delta):
 	global_position += velocity * delta
-	DebugManager.debug(bullet_id_str, "position: " + str(global_position) + " rotation:" + str(global_rotation))
+	DebugManager.debug(bullet_id_str, "position: " + str(global_position) + " rotation:" + str(global_rotation), DebugManager.weapons_do_debug)
 	pass
 
 func shoot(_position, _rotation):
 	global_position = _position
 	global_rotation = _rotation.angle()
-	DebugManager.debug(bullet_id_str, "position: " + str(global_position) + " rotation:" + str(global_rotation))
+	DebugManager.debug(bullet_id_str, "position: " + str(global_position) + " rotation:" + str(global_rotation), DebugManager.weapons_do_debug)
 	velocity = _rotation * speed * speed_multiplier
 
 func _on_VisibilityEnabler2D_screen_exited():

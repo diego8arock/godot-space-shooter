@@ -1,16 +1,19 @@
 extends VBoxContainer
 
 var labels = {}
+const TAG = "[WARN]:"
+onready var width = get_viewport().size.x / 2
 
-func _ready():
-	pass # Replace with function body.
+func _process(delta):
+	rect_global_position = Vector2(width, 0)
 
 func _on_signal_updateLabel(_node, _text) -> void:
-	var new_text = _node + " - " + _text
+	var new_text = TAG + _node + " - " + _text
 	if labels.has(_node):
 		labels[_node].text = new_text
 	else:
 		var label = Label.new()
+		label.rect_global_position = Vector2(width, 0)
 		label.text = new_text
 		add_child(label)
 		labels[_node] = label

@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://enemies/turret/turret.gd" type="Script" id=1]
 [ext_resource path="res://assets/turret/base.png" type="Texture" id=2]
 [ext_resource path="res://assets/turret/pivot.png" type="Texture" id=3]
 [ext_resource path="res://assets/turret/muzzle.png" type="Texture" id=4]
+[ext_resource path="res://enemies/turret/states/idle.gd" type="Script" id=5]
+[ext_resource path="res://enemies/turret/states/shoot_bullet.gd" type="Script" id=6]
+[ext_resource path="res://enemies/turret/states/shoot_missile.gd" type="Script" id=7]
+[ext_resource path="res://gui/enemy/EnemyGui.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 86.5835
@@ -20,6 +24,7 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Pivot" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="SpritePivot" type="Sprite" parent="Pivot"]
 rotation = 1.5708
@@ -34,6 +39,44 @@ offset = Vector2( -5, -10 )
 [node name="Muzzle" type="Position2D" parent="Pivot"]
 position = Vector2( 111.587, 0 )
 
-[node name="Cooldown" type="Timer" parent="."]
-wait_time = 0.5
-[connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]
+[node name="States" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="States/Idle"]
+wait_time = 3.0
+one_shot = true
+
+[node name="ShootBullet" type="Node" parent="States"]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="States/ShootBullet"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="States/ShootBullet"]
+
+[node name="Shoot" type="Timer" parent="States/ShootBullet"]
+wait_time = 0.07
+
+[node name="ShootMissile" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="Timer" type="Timer" parent="States/ShootMissile"]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="EnemyGui" parent="." instance=ExtResource( 8 )]
+margin_left = -74.2864
+margin_top = -106.942
+margin_right = 181.714
+margin_bottom = -74.942
+rect_scale = Vector2( 0.6, 0.6 )
+[connection signal="area_entered" from="." to="." method="_on_Turret_area_entered"]
+[connection signal="timeout" from="States/Idle/Timer" to="States/Idle" method="_on_Timer_timeout"]
+[connection signal="timeout" from="States/ShootBullet/Timer" to="States/ShootBullet" method="_on_Timer_timeout"]
+[connection signal="timeout" from="States/ShootBullet/Cooldown" to="States/ShootBullet" method="_on_Cooldown_timeout"]
+[connection signal="timeout" from="States/ShootBullet/Shoot" to="States/ShootBullet" method="_on_Shoot_timeout"]
+[connection signal="timeout" from="States/ShootMissile/Timer" to="States/ShootMissile" method="_on_Timer_timeout"]
