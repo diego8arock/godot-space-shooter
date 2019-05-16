@@ -2,7 +2,7 @@ extends State
 
 export var max_bullets : int = 3
 
-onready var bullet : PackedScene = preload("res://weapons/bullet/Bullet.tscn")
+onready var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
 
 var bullet_counter : int = 0
 var muzzle = null
@@ -30,9 +30,8 @@ func update(_host, _delta) -> String:
 
 func shoot_at_player():
 	if GameManager.enemy_aim_to:
-		var new_bullet = bullet.instance()
-		new_bullet.weapon_damage = WeaponManager.ENEMY_BULLETS_DAMAGE_BASE
-		new_bullet.owner_name = WeaponManager.OWNER_WEAPON_ENEMY
+		var new_bullet : BaseBullet = bullet.instance()
+		new_bullet.initialize(WeaponManager.ENEMY_BULLETS_DAMAGE_BASE, self, WeaponManager.GROUP_WEAPON_ENEMY)
 		WeaponManager.add_weapon(new_bullet, host_scale.x, host_scale.y)
 		var direction = Vector2(1, 0).rotated(muzzle.global_rotation)
 		new_bullet.shoot(muzzle.global_position, direction)

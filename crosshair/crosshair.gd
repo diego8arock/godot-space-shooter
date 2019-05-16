@@ -1,5 +1,5 @@
 extends Position2D
-
+class_name Crosshair
 
 export var debug : bool = true
 export var rotate_sprite : bool = false
@@ -30,7 +30,8 @@ func _ready():
 		
 	pass 
 
-func _process(delta):
+# warning-ignore:unused_argument
+func _process(delta : float) -> void:
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		rotation_angle += rotation_speed

@@ -1,17 +1,14 @@
 extends Area2D
 
 export var turret_speed : float = 2.0
-export var attack_precision : float = 0.00006
 export var health : float = 100
-export var max_bullets : int = 3
-
-onready var muzzle = $Pivot/Muzzle
 
 const BUFFER_10 : int = 10
 const ZERO_VALUE_FLOAT : float = 0.0
 
 var states_stack = []
 var current_state = null
+# warning-ignore:unused_signal
 signal state_changed(states_stack)
 
 onready var gui = $EnemyGui
@@ -24,6 +21,7 @@ onready var states_map = {
 }
 
 func _ready():
+# warning-ignore:return_value_discarded
 	connect("update_health", gui, "update_healthbar")
 	states_stack.push_back($States/Idle)
 	current_state = states_stack[0]
@@ -31,7 +29,7 @@ func _ready():
 	
 func _process(delta):
 	
-	DebugManager.debug("turret-health", health)
+	DebugManager.debug("turret-health", health, false)
 	evaluate_health()
 
 	call_deferred("aim_at_player", delta)
@@ -62,7 +60,7 @@ func _change_state(_state_name) -> void:
 	DebugManager.debug_states("turret-states", states_stack)
 
 func _on_Turret_area_entered(area):
-	if area is Weapon and area.owner_name == WeaponManager.OWNER_WEAPON_PLAYER:
+	if area.is_in_group(WeaponManager.GROUP_WEAPON_PLAYER):
 		take_damage(area.weapon_damage)
 		area.queue_free()
 

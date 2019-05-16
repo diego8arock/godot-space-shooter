@@ -1,0 +1,31 @@
+[DEBUG] [debug] [16:19:52][DEBUG]:[ID:1]: GameCommander - command has 2 subordiantes
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:2]: InitCommander - command initializing: InitGuiCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:3]: InitCommander - command executing: InitGuiCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:4]: InitCommander - command initializing: InitCrosshairCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:5]: InitCommander - command executing: InitCrosshairCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:6]: InitCommander - command initializing: InitPlayerCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:7]: InitCommander - command executing: InitPlayerCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:8]: InitCommander - command initializing: InitEnemiesCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:9]: turret-current_state - Idle
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:10]: turret-states - Idle | 
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:11]: InitCommander - command executing: InitEnemiesCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:12]: InitCommander - command finalizing: InitGuiCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:13]: InitCommander - command finalizing: InitCrosshairCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:14]: InitCommander - command finalizing: InitPlayerCommand
+[DEBUG] [debug] [16:19:54][DEBUG]:[ID:15]: InitCommander - command finalizing: InitEnemiesCommand
+[DEBUG] [debug] [16:19:57][DEBUG]:[ID:16]: turret-current_state - ShootBullet
+[DEBUG] [debug] [16:19:57][DEBUG]:[ID:17]: turret-states - ShootBullet | 
+[DEBUG] [debug] [16:20:2][DEBUG]:[ID:18]: turret-current_state - Idle
+[DEBUG] [debug] [16:20:2][DEBUG]:[ID:19]: turret-states - Idle | 
+[DEBUG] [debug] [16:20:5][DEBUG]:[ID:20]: turret-current_state - ShootMissile
+[DEBUG] [debug] [16:20:5][DEBUG]:[ID:21]: turret-states - ShootMissile | 
+[DEBUG] [debug] [16:20:8][DEBUG]:[ID:22]: turret-current_state - Idle
+[DEBUG] [debug] [16:20:8][DEBUG]:[ID:23]: turret-states - Idle | 
+[DEBUG] [debug] [16:20:11][DEBUG]:[ID:24]: turret-current_state - ShootBullet
+[DEBUG] [debug] [16:20:11][DEBUG]:[ID:25]: turret-states - ShootBullet | 
+[DEBUG] [debug] [16:20:16][DEBUG]:[ID:26]: turret-current_state - Idle
+[DEBUG] [debug] [16:20:16][DEBUG]:[ID:27]: turret-states - Idle | 
+[DEBUG] [debug] [16:20:19][DEBUG]:[ID:28]: turret-current_state - ShootMissile
+[DEBUG] [debug] [16:20:19][DEBUG]:[ID:29]: turret-states - ShootMissile | 
+[DEBUG] [debug] [16:20:22][DEBUG]:[ID:30]: turret-current_state - Idle
+[DEBUG] [debug] [16:20:22][DEBUG]:[ID:31]: turret-states - Idle | 

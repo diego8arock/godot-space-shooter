@@ -12,6 +12,10 @@ func _ready() -> void:
 	DebugManager.debug_remove("missile-collision")
 	DebugManager.debug_remove("missile-visibility")
 	DebugManager.debug_remove("missile-ttl")
+	
+func initialize(_weapon_damage : float, _parent : Node, _group_name : String ) -> void:
+	.initialize(_weapon_damage, _parent, _group_name)
+	connect("destroyed", parent, "_on_signal_destroyed")
 
 func _process(delta: float) -> void:
 	if GameManager.enemy_aim_to:
@@ -22,6 +26,7 @@ func _process(delta: float) -> void:
 	global_position += velocity * delta
 
 func shoot(_position, _rotation):
+	DebugManager.debug("missile", "shoot", DebugManager.weapons_do_debug)
 	global_position = _position
 	global_rotation = _rotation.angle()
 	velocity = _rotation * speed
@@ -31,10 +36,6 @@ func seek() -> Vector2:
     var desired = (GameManager.enemy_aim_to.global_position - global_position).normalized() * speed
     var steer = (desired - velocity).normalized() * steer_force
     return steer
-	
-func connect_destroyed_signal() -> void:
-	if parent:
-		connect("destroyed", parent, "_on_signal_destroyed")
 
 func _on_Missile_body_entered(body: PhysicsBody2D) -> void:
 	DebugManager.debug("missile-collision", "missile collided", DebugManager.weapons_do_debug)

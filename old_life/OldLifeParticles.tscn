@@ -7,13 +7,14 @@ offsets = PoolRealArray( 0.629139, 1 )
 colors = PoolColorArray( 0.862745, 0.862745, 0.862745, 0.862745, 1, 1, 1, 1 )
 
 [node name="OldLifeParticles" type="CPUParticles2D"]
+amount = 50
 texture = ExtResource( 1 )
 emission_shape = 1
-emission_sphere_radius = 1.0
-spread = 114.19
+emission_sphere_radius = 0.5
+spread = 29.04
 flatness = 0.55
 gravity = Vector2( 0, 0 )
-initial_velocity = 22.51
+initial_velocity = 11.76
 initial_velocity_random = 1.0
 angular_velocity = 40.97
 angular_velocity_random = 1.0

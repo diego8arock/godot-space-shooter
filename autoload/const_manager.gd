@@ -20,3 +20,11 @@ const CROSSHAIR_SCALE_Y : float = 0.2
 
 const TURRET_SCALE_X : float = 0.5
 const TURRET_SCALE_Y : float = 0.5
+
+#Command const
+const CHAIN_COMMAND_GROUP = "chain_command_action"
+const COMMAND_GROUP = "command_action"
+const COMMAND_FINISHED_SIGNAL = "command_finished"
+
+#Area and body const
+const BODY_SHIP_NAME = "Ship"

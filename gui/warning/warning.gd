@@ -4,11 +4,13 @@ var labels = {}
 const TAG = "[WARN]:"
 onready var width = get_viewport().size.x / 2
 
-func _process(delta):
+# warning-ignore:unused_argument
+func _process(delta : float) -> void:
 	rect_global_position = Vector2(width, 0)
 
 func _on_signal_updateLabel(_node, _text) -> void:
 	var new_text = TAG + _node + " - " + _text
+	Logger.warn(new_text,"warn")
 	if labels.has(_node):
 		labels[_node].text = new_text
 	else:

@@ -2,8 +2,8 @@ extends Node
 
 var weapon_container = null
 
-const OWNER_WEAPON_PLAYER = "Player"
-const OWNER_WEAPON_ENEMY = "Enemy"
+const GROUP_WEAPON_PLAYER = "player"
+const GROUP_WEAPON_ENEMY = "enemy"
 
 const PLAYER_BULLET_DAMAGE_BASE : float = 5.0
 const PLAYER_SUPER_BULLET_DAMAGE_BASE : float = 8.0

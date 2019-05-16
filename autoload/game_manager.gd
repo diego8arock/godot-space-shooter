@@ -6,7 +6,7 @@ onready var player_init_position = game.get_node(ConstManager.PLAYER_INITIAL_POS
 onready var enemy_container = game.get_node(ConstManager.ENEMIES_NODE_NAME)
 
 #Player scenes
-onready var old_life_scene : PackedScene = preload("res://player/OldLife.tscn")
+onready var old_life_scene : PackedScene = preload("res://old_life/OldLife.tscn")
 onready var player_scene : PackedScene = preload("res://player/Player.tscn")
 onready var crosshair_scene : PackedScene = preload("res://crosshair/Crosshair.tscn")
 onready var player_gui_scene : PackedScene = preload("res://gui/player/PlayerGUI.tscn")

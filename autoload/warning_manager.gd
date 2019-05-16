@@ -11,7 +11,9 @@ func _ready():
 	
 	if main_node.has_node(ConstManager.WARNING_NODE_NAME):
 		warning_info = main_node.get_node(ConstManager.WARNING_NODE_NAME)
+# warning-ignore:return_value_discarded
 		connect("warning_updated", WarningManager.warning_info, "_on_signal_updateLabel")
+# warning-ignore:return_value_discarded
 		connect("warning_delete", WarningManager.warning_info, "_on_signal_deleteLabel")
 	else:
 		global_do_warning = false	

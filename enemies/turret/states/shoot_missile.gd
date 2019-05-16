@@ -25,14 +25,13 @@ func update(_host, _delta) -> String:
 func shoot_at_player():
 	if GameManager.enemy_aim_to:
 		var new_missile = missile.instance()
-		new_missile.weapon_damage = WeaponManager.ENEMY_MISSILE_DAMAGE_BASE
-		new_missile.owner_name = WeaponManager.OWNER_WEAPON_ENEMY
-		new_missile.parent = self
-		new_missile.connect_destroyed_signal()
+		new_missile.initialize(WeaponManager.ENEMY_MISSILE_DAMAGE_BASE, self, WeaponManager.GROUP_WEAPON_ENEMY)
 		WeaponManager.add_weapon(new_missile, host_scale.x, host_scale.y)
 		var direction = Vector2(1, 0).rotated(muzzle.global_rotation)
 		new_missile.shoot(muzzle.global_position, direction)
 		DebugManager.debug("missile-active", true, DebugManager.weapons_do_debug)
+	else:
+		WarningManager.warn("shoot_missile", "no target assigned")
 		
 func _on_signal_destroyed() -> void:
 	DebugManager.debug("missile-active", false, DebugManager.weapons_do_debug)

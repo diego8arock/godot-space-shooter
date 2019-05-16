@@ -1,4 +1,5 @@
 extends Node2D
+class_name Player, "res://player/player.gd"
 
 export var debug : bool = true
 export var charge_rate : float = 1.5
@@ -14,8 +15,8 @@ var is_charge_possible : bool = true
 var radius_x : float
 var radius_y : float
 
-var bullet : PackedScene = preload("res://weapons/bullet/Bullet.tscn")
-var super_bullet : PackedScene = preload("res://weapons/super_bullet/SuperBullet.tscn")
+var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
+var super_bullet : PackedScene = preload("res://weapons/bullet/super_bullet/SuperBullet.tscn")
 
 onready var crosshair = GameManager.crosshair
 onready var pivot = $Pivot
@@ -34,9 +35,12 @@ func _ready():
 	GameManager.enemy_aim_to = aim_to
 	radius_x = ship_radius * scale.x
 	radius_y = ship_radius * scale.y
+# warning-ignore:return_value_discarded
 	connect("update_health", player_gui, "update_healthbar")
+# warning-ignore:return_value_discarded
 	connect("update_power", player_gui, "update_powerbar")
 
+# warning-ignore:unused_argument
 func _process(delta):
 	
 	if Input.is_key_pressed(KEY_SPACE) and is_charge_possible:
@@ -55,6 +59,7 @@ func _process(delta):
 		DebugManager.debug("player-charge", actual_charge, debug)
 		emit_signal("update_power", max_charge - actual_charge)	
 
+# warning-ignore:unused_argument
 func _physics_process(delta):
 	
 	if crosshair:
@@ -71,22 +76,23 @@ func _input(event):
 
 func _on_ShootTimer_timeout():
 	if not is_charging:
-		var new_bullet = bullet.instance()
-		new_bullet.owner_name = WeaponManager.OWNER_WEAPON_PLAYER
-		new_bullet.weapon_damage = WeaponManager.PLAYER_BULLET_DAMAGE_BASE
+		var new_bullet : BaseBullet = bullet.instance()
+		new_bullet.initialize( WeaponManager.PLAYER_BULLET_DAMAGE_BASE, self,  WeaponManager.GROUP_WEAPON_PLAYER) 
 		shoot(new_bullet)
 
 func super_shoot():
-	var new_super_bullet = super_bullet.instance()
-	new_super_bullet.owner_name = WeaponManager.OWNER_WEAPON_PLAYER
+	var new_super_bullet : BaseBullet = super_bullet.instance()
+	new_super_bullet.initialize(calculate_super_bullet_damage(), self,  WeaponManager.GROUP_WEAPON_PLAYER) 
+	DebugManager.debug("new_super_bullet.weapon_damage", new_super_bullet.weapon_damage, debug)
+	shoot(new_super_bullet)
+	
+func calculate_super_bullet_damage() -> float:
 	var percentage : float = actual_charge / 100
 	var real_multiplier : float = super_shoot_multiplier * percentage
 	var real_damage  : float = WeaponManager.PLAYER_SUPER_BULLET_DAMAGE_BASE * real_multiplier
-	new_super_bullet.weapon_damage = real_damage
-	DebugManager.debug("new_super_bullet.weapon_damage", new_super_bullet.weapon_damage, debug)
-	shoot(new_super_bullet)
+	return real_damage
 
-func shoot(new_bullet) -> void:
+func shoot(new_bullet : BaseBullet) -> void:
 	WeaponManager.add_weapon(new_bullet, scale.x, scale.y)
 	var direction = Vector2(1, 0).rotated(muzzle.global_rotation)
 	new_bullet.shoot(muzzle.global_position, direction)	
