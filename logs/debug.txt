@@ -1,31 +1,174 @@
-[DEBUG] [debug] [16:19:52][DEBUG]:[ID:1]: GameCommander - command has 2 subordiantes
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:2]: InitCommander - command initializing: InitGuiCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:3]: InitCommander - command executing: InitGuiCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:4]: InitCommander - command initializing: InitCrosshairCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:5]: InitCommander - command executing: InitCrosshairCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:6]: InitCommander - command initializing: InitPlayerCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:7]: InitCommander - command executing: InitPlayerCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:8]: InitCommander - command initializing: InitEnemiesCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:9]: turret-current_state - Idle
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:10]: turret-states - Idle | 
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:11]: InitCommander - command executing: InitEnemiesCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:12]: InitCommander - command finalizing: InitGuiCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:13]: InitCommander - command finalizing: InitCrosshairCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:14]: InitCommander - command finalizing: InitPlayerCommand
-[DEBUG] [debug] [16:19:54][DEBUG]:[ID:15]: InitCommander - command finalizing: InitEnemiesCommand
-[DEBUG] [debug] [16:19:57][DEBUG]:[ID:16]: turret-current_state - ShootBullet
-[DEBUG] [debug] [16:19:57][DEBUG]:[ID:17]: turret-states - ShootBullet | 
-[DEBUG] [debug] [16:20:2][DEBUG]:[ID:18]: turret-current_state - Idle
-[DEBUG] [debug] [16:20:2][DEBUG]:[ID:19]: turret-states - Idle | 
-[DEBUG] [debug] [16:20:5][DEBUG]:[ID:20]: turret-current_state - ShootMissile
-[DEBUG] [debug] [16:20:5][DEBUG]:[ID:21]: turret-states - ShootMissile | 
-[DEBUG] [debug] [16:20:8][DEBUG]:[ID:22]: turret-current_state - Idle
-[DEBUG] [debug] [16:20:8][DEBUG]:[ID:23]: turret-states - Idle | 
-[DEBUG] [debug] [16:20:11][DEBUG]:[ID:24]: turret-current_state - ShootBullet
-[DEBUG] [debug] [16:20:11][DEBUG]:[ID:25]: turret-states - ShootBullet | 
-[DEBUG] [debug] [16:20:16][DEBUG]:[ID:26]: turret-current_state - Idle
-[DEBUG] [debug] [16:20:16][DEBUG]:[ID:27]: turret-states - Idle | 
-[DEBUG] [debug] [16:20:19][DEBUG]:[ID:28]: turret-current_state - ShootMissile
-[DEBUG] [debug] [16:20:19][DEBUG]:[ID:29]: turret-states - ShootMissile | 
-[DEBUG] [debug] [16:20:22][DEBUG]:[ID:30]: turret-current_state - Idle
-[DEBUG] [debug] [16:20:22][DEBUG]:[ID:31]: turret-states - Idle | 
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:1]: Game-level-start - 2.983333
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:2]: Game-level-start - 2.966667
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:3]: Game-level-start - 2.818785
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:4]: Game-level-start - 2.799227
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:5]: Game-level-start - 2.795533
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:6]: Game-level-start - 2.793475
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:7]: Game-level-start - 2.78327
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:8]: Game-level-start - 2.774937
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:9]: Game-level-start - 2.758289
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:10]: Game-level-start - 2.74155
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:11]: Game-level-start - 2.725032
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:12]: Game-level-start - 2.708322
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:13]: Game-level-start - 2.691634
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:14]: Game-level-start - 2.674952
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:15]: Game-level-start - 2.658245
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:16]: Game-level-start - 2.641669
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:17]: Game-level-start - 2.625028
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:18]: Game-level-start - 2.608362
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:19]: Game-level-start - 2.591728
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:20]: Game-level-start - 2.574994
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:21]: Game-level-start - 2.558327
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:22]: Game-level-start - 2.54166
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:23]: Game-level-start - 2.524994
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:24]: Game-level-start - 2.508327
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:25]: Game-level-start - 2.49159
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:26]: Game-level-start - 2.474923
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:27]: Game-level-start - 2.458256
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:28]: Game-level-start - 2.44159
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:29]: Game-level-start - 2.424923
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:30]: Game-level-start - 2.408256
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:31]: Game-level-start - 2.39159
+[DEBUG] [debug] [11:55:56][DEBUG]:[ID:32]: Game-level-start - 2.374923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:33]: Game-level-start - 2.358256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:34]: Game-level-start - 2.34159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:35]: Game-level-start - 2.324923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:36]: Game-level-start - 2.308256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:37]: Game-level-start - 2.29159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:38]: Game-level-start - 2.274923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:39]: Game-level-start - 2.258256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:40]: Game-level-start - 2.24159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:41]: Game-level-start - 2.224923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:42]: Game-level-start - 2.208256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:43]: Game-level-start - 2.19159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:44]: Game-level-start - 2.174923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:45]: Game-level-start - 2.158256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:46]: Game-level-start - 2.14159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:47]: Game-level-start - 2.124923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:48]: Game-level-start - 2.108256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:49]: Game-level-start - 2.09159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:50]: Game-level-start - 2.074923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:51]: Game-level-start - 2.058256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:52]: Game-level-start - 2.04159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:53]: Game-level-start - 2.024923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:54]: Game-level-start - 2.008256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:55]: Game-level-start - 1.99159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:56]: Game-level-start - 1.974923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:57]: Game-level-start - 1.958256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:58]: Game-level-start - 1.94159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:59]: Game-level-start - 1.924923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:60]: Game-level-start - 1.908256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:61]: Game-level-start - 1.89159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:62]: Game-level-start - 1.874923
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:63]: Game-level-start - 1.858256
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:64]: Game-level-start - 1.84159
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:65]: Game-level-start - 1.824899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:66]: Game-level-start - 1.808232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:67]: Game-level-start - 1.791565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:68]: Game-level-start - 1.774899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:69]: Game-level-start - 1.758232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:70]: Game-level-start - 1.741565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:71]: Game-level-start - 1.724899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:72]: Game-level-start - 1.708232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:73]: Game-level-start - 1.691565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:74]: Game-level-start - 1.674899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:75]: Game-level-start - 1.658232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:76]: Game-level-start - 1.641565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:77]: Game-level-start - 1.624899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:78]: Game-level-start - 1.608232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:79]: Game-level-start - 1.591565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:80]: Game-level-start - 1.574899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:81]: Game-level-start - 1.558232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:82]: Game-level-start - 1.541565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:83]: Game-level-start - 1.524899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:84]: Game-level-start - 1.508232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:85]: Game-level-start - 1.491565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:86]: Game-level-start - 1.474899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:87]: Game-level-start - 1.458232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:88]: Game-level-start - 1.441565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:89]: Game-level-start - 1.424899
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:90]: Game-level-start - 1.408232
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:91]: Game-level-start - 1.391565
+[DEBUG] [debug] [11:55:57][DEBUG]:[ID:92]: Game-level-start - 1.374899
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:93]: Game-level-start - 1.358232
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:94]: Game-level-start - 1.341565
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:95]: Game-level-start - 1.324899
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:96]: Game-level-start - 1.308232
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:97]: Game-level-start - 1.291565
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:98]: Game-level-start - 1.274899
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:99]: Game-level-start - 1.258232
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:100]: Game-level-start - 1.241565
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:101]: Game-level-start - 1.224899
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:102]: Game-level-start - 1.208232
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:103]: Game-level-start - 1.191524
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:104]: Game-level-start - 1.174857
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:105]: Game-level-start - 1.15819
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:106]: Game-level-start - 1.141524
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:107]: Game-level-start - 1.124857
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:108]: Game-level-start - 1.10819
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:109]: Game-level-start - 1.091524
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:110]: Game-level-start - 1.074846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:111]: Game-level-start - 1.058179
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:112]: Game-level-start - 1.041512
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:113]: Game-level-start - 1.024846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:114]: Game-level-start - 1.008179
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:115]: Game-level-start - 0.991512
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:116]: Game-level-start - 0.974846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:117]: Game-level-start - 0.958179
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:118]: Game-level-start - 0.941512
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:119]: Game-level-start - 0.924846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:120]: Game-level-start - 0.908179
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:121]: Game-level-start - 0.891512
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:122]: Game-level-start - 0.874846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:123]: Game-level-start - 0.858179
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:124]: Game-level-start - 0.841512
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:125]: Game-level-start - 0.824846
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:126]: Game-level-start - 0.80805
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:127]: Game-level-start - 0.791383
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:128]: Game-level-start - 0.774716
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:129]: Game-level-start - 0.75805
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:130]: Game-level-start - 0.741383
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:131]: Game-level-start - 0.724716
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:132]: Game-level-start - 0.70805
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:133]: Game-level-start - 0.691383
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:134]: Game-level-start - 0.674716
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:135]: Game-level-start - 0.65805
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:136]: Game-level-start - 0.641383
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:137]: Game-level-start - 0.624691
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:138]: Game-level-start - 0.608024
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:139]: Game-level-start - 0.591357
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:140]: Game-level-start - 0.574691
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:141]: Game-level-start - 0.558024
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:142]: Game-level-start - 0.541357
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:143]: Game-level-start - 0.524691
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:144]: Game-level-start - 0.508024
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:145]: Game-level-start - 0.491357
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:146]: Game-level-start - 0.474691
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:147]: Game-level-start - 0.458024
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:148]: Game-level-start - 0.441357
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:149]: Game-level-start - 0.424691
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:150]: Game-level-start - 0.408024
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:151]: Game-level-start - 0.391357
+[DEBUG] [debug] [11:55:58][DEBUG]:[ID:152]: Game-level-start - 0.374691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:153]: Game-level-start - 0.358024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:154]: Game-level-start - 0.341357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:155]: Game-level-start - 0.324691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:156]: Game-level-start - 0.308024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:157]: Game-level-start - 0.291357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:158]: Game-level-start - 0.274691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:159]: Game-level-start - 0.258024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:160]: Game-level-start - 0.241357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:161]: Game-level-start - 0.224691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:162]: Game-level-start - 0.208024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:163]: Game-level-start - 0.191357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:164]: Game-level-start - 0.174691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:165]: Game-level-start - 0.158024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:166]: Game-level-start - 0.141357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:167]: Game-level-start - 0.124691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:168]: Game-level-start - 0.108024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:169]: Game-level-start - 0.091357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:170]: Game-level-start - 0.074691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:171]: Game-level-start - 0.058024
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:172]: Game-level-start - 0.041357
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:173]: Game-level-start - 0.024691
+[DEBUG] [debug] [11:55:59][DEBUG]:[ID:174]: Game-level-start - 0.008024

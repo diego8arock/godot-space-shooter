@@ -1,16 +1,15 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://game/game.gd" type="Script" id=1]
+[ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://gui/debug/DebugInfo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/warning/Warning.tscn" type="PackedScene" id=3]
-[ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=4]
-[ext_resource path="res://commanders/game_commander.gd" type="Script" id=5]
-[ext_resource path="res://commanders/init_commander.gd" type="Script" id=6]
-[ext_resource path="res://commands/init_gui_command.gd" type="Script" id=7]
-[ext_resource path="res://commands/init_crosshair_command.gd" type="Script" id=8]
-[ext_resource path="res://commands/init_player_command.gd" type="Script" id=9]
-[ext_resource path="res://game/init_enemies_command.gd" type="Script" id=10]
-[ext_resource path="res://game/play_commander.gd" type="Script" id=11]
+[ext_resource path="res://gui/player/StatsGUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://gui/player/PlayerGUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/EnemyContainer.gd" type="Script" id=7]
+[ext_resource path="res://game/GameCommander.gd" type="Script" id=8]
+[ext_resource path="res://game/SetUpCommand.gd" type="Script" id=9]
+[ext_resource path="res://game/commands/PlayGameCommand.gd" type="Script" id=10]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,35 +18,386 @@ script = ExtResource( 1 )
 
 [node name="Warning" parent="." instance=ExtResource( 3 )]
 
-[node name="Screens" parent="." instance=ExtResource( 4 )]
+[node name="StatsGUI" parent="." instance=ExtResource( 4 )]
+margin_left = 448.962
+margin_top = 155.41
+margin_right = 596.962
+margin_bottom = 391.41
+
+[node name="PlayerGUI" parent="." instance=ExtResource( 5 )]
+
+[node name="Screens" parent="." instance=ExtResource( 6 )]
+editor/display_folded = true
 
 [node name="PlayerInitialPosition" type="Position2D" parent="."]
-position = Vector2( 512, 450 )
+position = Vector2( 533.5, 450 )
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 
 [node name="EnemyContainer" type="Node2D" parent="."]
-
-[node name="GameCommander" type="Node" parent="."]
-script = ExtResource( 5 )
-debug = true
-warn = true
-
-[node name="InitCommander" type="Node" parent="GameCommander"]
-script = ExtResource( 6 )
-
-[node name="InitGuiCommand" type="Node" parent="GameCommander/InitCommander"]
 script = ExtResource( 7 )
 
-[node name="InitCrosshairCommand" type="Node" parent="GameCommander/InitCommander"]
+[node name="Grid" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="R1" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( -48.5, 50 )
+
+[node name="P1" type="Position2D" parent="Grid/R1"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R1"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R1"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R1"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R1"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R1"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R1"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R1"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R1"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R1"]
+position = Vector2( 970, 0 )
+
+[node name="R2" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( 0, 100 )
+
+[node name="P1" type="Position2D" parent="Grid/R2"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R2"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R2"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R2"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R2"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R2"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R2"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R2"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R2"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R2"]
+position = Vector2( 970, 0 )
+
+[node name="R3" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( -48.5, 150 )
+
+[node name="P1" type="Position2D" parent="Grid/R3"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R3"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R3"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R3"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R3"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R3"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R3"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R3"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R3"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R3"]
+position = Vector2( 970, 0 )
+
+[node name="R4" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( 0, 200 )
+
+[node name="P1" type="Position2D" parent="Grid/R4"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R4"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R4"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R4"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R4"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R4"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R4"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R4"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R4"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R4"]
+position = Vector2( 970, 0 )
+
+[node name="R5" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( -48.5, 250 )
+
+[node name="P1" type="Position2D" parent="Grid/R5"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R5"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R5"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R5"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R5"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R5"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R5"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R5"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R5"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R5"]
+position = Vector2( 970, 0 )
+
+[node name="R6" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( 0, 300 )
+
+[node name="P1" type="Position2D" parent="Grid/R6"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R6"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R6"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R6"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R6"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R6"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R6"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R6"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R6"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R6"]
+position = Vector2( 970, 0 )
+
+[node name="R7" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( -48.5, 350 )
+
+[node name="P1" type="Position2D" parent="Grid/R7"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R7"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R7"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R7"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R7"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R7"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R7"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R7"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R7"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R7"]
+position = Vector2( 970, 0 )
+
+[node name="R8" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( 0, 400 )
+
+[node name="P1" type="Position2D" parent="Grid/R8"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R8"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R8"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R8"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R8"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R8"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R8"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R8"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R8"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R8"]
+position = Vector2( 970, 0 )
+
+[node name="R9" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( -48.5, 450 )
+
+[node name="P1" type="Position2D" parent="Grid/R9"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R9"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R9"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R9"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R9"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R9"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R9"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R9"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R9"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R9"]
+position = Vector2( 970, 0 )
+
+[node name="R10" type="Node2D" parent="Grid"]
+editor/display_folded = true
+position = Vector2( 0, 500 )
+
+[node name="P1" type="Position2D" parent="Grid/R10"]
+position = Vector2( 97, 0 )
+
+[node name="P2" type="Position2D" parent="Grid/R10"]
+position = Vector2( 194, 0 )
+
+[node name="P3" type="Position2D" parent="Grid/R10"]
+position = Vector2( 291, 0 )
+
+[node name="P4" type="Position2D" parent="Grid/R10"]
+position = Vector2( 388, 0 )
+
+[node name="P5" type="Position2D" parent="Grid/R10"]
+position = Vector2( 485, 0 )
+
+[node name="P6" type="Position2D" parent="Grid/R10"]
+position = Vector2( 582, 0 )
+
+[node name="P7" type="Position2D" parent="Grid/R10"]
+position = Vector2( 679, 0 )
+
+[node name="P8" type="Position2D" parent="Grid/R10"]
+position = Vector2( 776, 0 )
+
+[node name="P9" type="Position2D" parent="Grid/R10"]
+position = Vector2( 873, 0 )
+
+[node name="P10" type="Position2D" parent="Grid/R10"]
+position = Vector2( 970, 0 )
+
+[node name="PlayerRespawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="LevelStartTimer" type="Timer" parent="."]
+pause_mode = 2
+wait_time = 3.0
+one_shot = true
+
+[node name="GameCommander" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="InitPlayerCommand" type="Node" parent="GameCommander/InitCommander"]
+[node name="SetUpCommand" type="Node" parent="GameCommander"]
 script = ExtResource( 9 )
 
-[node name="InitEnemiesCommand" type="Node" parent="GameCommander/InitCommander"]
+[node name="PlayGameCommand" type="Node" parent="GameCommander"]
 script = ExtResource( 10 )
-
-[node name="PlayCommander" type="Node" parent="GameCommander"]
-script = ExtResource( 11 )
 [connection signal="start_game" from="Screens" to="." method="_on_Screens_start_game"]
+[connection signal="all_destroyed" from="EnemyContainer" to="." method="_on_EnemyContainer_all_destroyed"]
+[connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_PlayerRespawnTimer_timeout"]
+[connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStartTimer_timeout"]

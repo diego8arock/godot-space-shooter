@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Weapon",
 "class": "BaseBullet",
 "language": "GDScript",
-"path": "res://weapons/bullet/base_bullet.gd"
+"path": "res://weapons/bullet/BaseBullet.gd"
 }, {
 "base": "CanvasLayer",
 "class": "BaseScreen",
 "language": "GDScript",
-"path": "res://screens/base_screen.gd"
+"path": "res://screens/BaseScreen.gd"
 }, {
 "base": "Node",
 "class": "Command",
@@ -32,17 +32,32 @@ _global_script_classes=[ {
 "base": "Position2D",
 "class": "Crosshair",
 "language": "GDScript",
-"path": "res://crosshair/crosshair.gd"
+"path": "res://crosshair/Crosshair.gd"
+}, {
+"base": "Node",
+"class": "EnemyLoader",
+"language": "GDScript",
+"path": "res://enemies/enemy_loader.gd"
 }, {
 "base": "Node2D",
 "class": "Game",
 "language": "GDScript",
-"path": "res://game/game.gd"
+"path": "res://game/Game.gd"
+}, {
+"base": "Area2D",
+"class": "NPC",
+"language": "GDScript",
+"path": "res://interfaces/npc.gd"
+}, {
+"base": "Resource",
+"class": "NpcStartingStats",
+"language": "GDScript",
+"path": "res://stats/npc_base_stats.gd"
 }, {
 "base": "Node2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://player/player.gd"
+"path": "res://player/Player.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -55,12 +70,15 @@ _global_script_classes=[ {
 "path": "res://interfaces/weapon.gd"
 } ]
 _global_script_class_icons={
-"BaseBullet": "res://weapons/bullet/base_bullet.gd",
-"BaseScreen": "res://screens/base_screen.gd",
+"BaseBullet": "",
+"BaseScreen": "",
 "Command": "res://interfaces/command.gd",
 "Commander": "res://interfaces/commander.gd",
 "Crosshair": "",
+"EnemyLoader": "",
 "Game": "",
+"NPC": "res://interfaces/npc.gd",
+"NpcStartingStats": "",
 "Player": "res://player/player.gd",
 "State": "res://interfaces/state.gd",
 "Weapon": "res://interfaces/weapon.gd"
@@ -78,12 +96,14 @@ ConstManager="*res://autoload/const_manager.gd"
 DebugManager="*res://autoload/debug_manager.gd"
 WarningManager="*res://autoload/warning_manager.gd"
 WeaponManager="*res://autoload/weapon_manager.gd"
+LevelManager="*res://autoload/level_manager.gd"
 GameManager="*res://autoload/game_manager.gd"
 Logger="*res://autoload/logger.gd"
 
 [display]
 
 window/size/fullscreen=true
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [input]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://screens/base_screen.gd" type="Script" id=1]
+[ext_resource path="res://screens/BaseScreen.gd" type="Script" id=1]
+
 
 [node name="BaseScreen" type="CanvasLayer"]
 script = ExtResource( 1 )

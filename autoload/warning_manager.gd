@@ -9,6 +9,9 @@ signal warning_delete(node)
 func _ready():
 	var main_node = get_tree().get_root().get_node(ConstManager.GAME_NODE_NAME)
 	
+	if not main_node:
+		return
+	
 	if main_node.has_node(ConstManager.WARNING_NODE_NAME):
 		warning_info = main_node.get_node(ConstManager.WARNING_NODE_NAME)
 # warning-ignore:return_value_discarded

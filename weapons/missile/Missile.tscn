@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://weapons/missile/missile.gd" type="Script" id=1]
+[ext_resource path="res://weapons/missile/Missile.gd" type="Script" id=1]
 [ext_resource path="res://assets/weapons/missile/missile.png" type="Texture" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.6063, 20.3798 )

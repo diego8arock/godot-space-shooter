@@ -1,8 +1,0 @@
-[WARN] [warn] [WARN]:InitGuiCommand3 - execute method was not overriden
-[WARN] [warn] [WARN]:InitCrosshairCommand5 - execute method was not overriden
-[WARN] [warn] [WARN]:InitPlayerCommand7 - execute method was not overriden
-[WARN] [warn] [WARN]:InitEnemiesCommand9 - execute method was not overriden
-[WARN] [warn] [WARN]:InitGuiCommand11 - finalize method was not overriden
-[WARN] [warn] [WARN]:InitCrosshairCommand12 - finalize method was not overriden
-[WARN] [warn] [WARN]:InitPlayerCommand13 - finalize method was not overriden
-[WARN] [warn] [WARN]:InitEnemiesCommand14 - finalize method was not overriden

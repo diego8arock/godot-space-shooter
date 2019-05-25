@@ -12,19 +12,16 @@ const ENEMIES_NODE_NAME = "EnemyContainer"
 const MANAGER_SUBSTRING = "Manager"
 const PLAYER_INITIAL_POSITION  = "PlayerInitialPosition"
 
-#Scale const
-const PLAYER_SCALE_X : float = 0.3
-const PLAYER_SCALE_Y : float = 0.3
-const CROSSHAIR_SCALE_X : float = 0.2
-const CROSSHAIR_SCALE_Y : float = 0.2
-
-const TURRET_SCALE_X : float = 0.5
-const TURRET_SCALE_Y : float = 0.5
-
-#Command const
-const CHAIN_COMMAND_GROUP = "chain_command_action"
-const COMMAND_GROUP = "command_action"
-const COMMAND_FINISHED_SIGNAL = "command_finished"
-
 #Area and body const
 const BODY_SHIP_NAME = "Ship"
+
+#Actors
+const MAX_HEALTH : float = 100.0
+const MIN_HEALTH : float = 0.0
+const MAX_CHARGE: float = 100.0
+const MIN_CHARGE : float = 0.0
+const MAX_COMBO : float = 100.0
+const MIN_COMBO : float = 0.0
+
+
+

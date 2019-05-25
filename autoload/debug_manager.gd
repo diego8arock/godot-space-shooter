@@ -14,11 +14,12 @@ signal debug_delete(node)
 func _ready():
 	var main_node = get_tree().get_root().get_node(ConstManager.GAME_NODE_NAME)
 			
+	if not main_node:
+		return		
+			
 	if main_node.has_node(ConstManager.DEBUG_NODE_NAME):
 		debug_info = main_node.get_node(ConstManager.DEBUG_NODE_NAME)
-# warning-ignore:return_value_discarded
 		connect("debug_updated", DebugManager.debug_info, "_on_signal_updateLabel")
-# warning-ignore:return_value_discarded
 		connect("debug_delete", DebugManager.debug_info, "_on_signal_deleteLabel")
 	else:
 		global_do_debug = false
@@ -33,8 +34,8 @@ func debug_remove(_node) -> void:
 	if global_do_debug:
 		emit_signal("debug_delete", _node)
 		
-func debug_states(_node, _states_stack) ->void:
-	if global_do_debug:
+func debug_states(_node, _states_stack, do_debug = true) ->void:
+	if global_do_debug and do_debug:
 		debug_id += 1
 		var states_name = ""
 		for s in _states_stack:

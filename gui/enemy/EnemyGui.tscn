@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://gui/enemy/enemy_gui.gd" type="Script" id=1]
+[ext_resource path="res://gui/enemy/EnemyGUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/enemy/health.png" type="Texture" id=2]
+
 
 
 
