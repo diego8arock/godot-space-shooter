@@ -1,16 +1,18 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gui/enemy/EnemyGUI.gd" type="Script" id=1]
-[ext_resource path="res://assets/gui/enemy/health.png" type="Texture" id=2]
-
-
-
+[ext_resource path="res://assets/gui/enemy/red_button11.png" type="Texture" id=2]
 
 [node name="EnemyGui" type="VBoxContainer"]
+margin_right = 191.0
+margin_bottom = 49.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HealthBar" type="TextureProgress" parent="."]
-margin_right = 256.0
-margin_bottom = 32.0
+margin_right = 191.0
+margin_bottom = 49.0
 value = 100.0
 texture_progress = ExtResource( 2 )

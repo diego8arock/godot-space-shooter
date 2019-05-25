@@ -1,8 +1,9 @@
 extends State
 
 export var max_bullets : int = 3
+export var bullet_scale : float
 
-onready var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
+onready var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBulletEnemy.tscn")
 
 var bullet_counter : int = 0
 var muzzle = null
@@ -32,7 +33,7 @@ func shoot_at_player():
 	if GameManager.is_enemy_to_attack():
 		var new_bullet : BaseBullet = bullet.instance()
 		new_bullet.initialize(WeaponManager.ENEMY_BULLETS_DAMAGE_BASE, self, WeaponManager.GROUP_WEAPON_ENEMY)
-		WeaponManager.add_weapon(new_bullet, host_scale.x, host_scale.y)
+		WeaponManager.add_weapon(new_bullet, host_scale.x * bullet_scale, host_scale.y * bullet_scale)
 		var direction = Vector2(1, 0).rotated(muzzle.global_rotation)
 		new_bullet.shoot(muzzle.global_position, direction)
 	else:

@@ -17,6 +17,8 @@ signal player_died()
 signal player_respawned(_position)
 signal old_life_picked()
 
+var is_countdown_tween_completed : bool = false
+
 func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -27,12 +29,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	if $LevelStartTimer.time_left > 0:
-		DebugManager.debug(name + "-level-start", $LevelStartTimer.time_left)
+	if $LevelStartTimer.time_left > 0.0 and is_countdown_tween_completed:
+		$Screens/Countdown.update_text_as_timer(int($LevelStartTimer.time_left))
 		
-	if $PlayerRespawnTimer.time_left > 0:
-		DebugManager.debug(name + "-player-resapawn", $PlayerRespawnTimer.time_left)
-
 func _unhandled_key_input(event):	
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
@@ -43,8 +42,13 @@ func _on_Screens_start_game() -> void:
 	init_crosshair()
 	init_player()
 	init_enemies()
-	$LevelStartTimer.start()
 	get_tree().paused = true
+	$Screens/Countdown.update_text_as_timer(3)
+	$Screens/Countdown.appear()
+	yield($Screens/Countdown.tween, "tween_completed")
+	is_countdown_tween_completed = true
+	yield(get_tree().create_timer(0.5), "timeout")
+	$LevelStartTimer.start()	
 	
 func init_guid() -> void:
 	$PlayerGUI/Margin.show()
@@ -104,6 +108,8 @@ func on_OldLife_player_entered() -> void:
 	emit_signal("old_life_picked")
 
 func _on_LevelStartTimer_timeout() -> void:
+	$Screens/Countdown.disappear()
+	yield($Screens/Countdown.tween, "tween_completed")
 	enemy_container.start_processing()
 	get_tree().paused = false
 

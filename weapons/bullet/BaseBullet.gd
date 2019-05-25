@@ -1,5 +1,5 @@
 extends Weapon
-class_name BaseBullet, "res://weapons/bullet/base_bullet.gd"
+class_name BaseBullet, "res://weapons/bullet/BaseBullet.gd"
 
 export var speed : float = 200.0
 export var speed_multiplier : int = 5

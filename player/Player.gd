@@ -1,5 +1,5 @@
 extends Node2D
-class_name Player, "res://player/player.gd"
+class_name Player, "res://player/Player.gd"
 
 export var debug : bool = true
 export var charge_rate : float = 1.5
@@ -40,7 +40,6 @@ func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_STOP
 
 func _ready() -> void:
-	$AnimationPlayer.play("fly")
 	GameManager.enemy_aim_to = aim_to
 	radius_x = ship_radius * scale.x
 	radius_y = ship_radius * scale.y
@@ -70,7 +69,16 @@ func _process(delta: float) -> void:
 			is_charge_possible = actual_charge == ConstManager.MIN_CHARGE
 			is_charging = false
 			DebugManager.debug("player-charge", actual_charge, debug)
-			emit_signal("update_power", ConstManager.MAX_CHARGE - actual_charge)	
+			emit_signal("update_power", ConstManager.MAX_CHARGE - actual_charge)
+			
+		if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+			$Pivot/Ship/FireThrustLeft.start()
+		else:
+			$Pivot/Ship/FireThrustLeft.stop()
+		if Input.is_mouse_button_pressed(BUTTON_LEFT):
+			$Pivot/Ship/FireThrustRight.start()
+		else:
+			$Pivot/Ship/FireThrustRight.stop()	
 
 func _physics_process(delta: float) -> void:
 	
@@ -128,7 +136,6 @@ func _on_Ship_take_damage(_value) -> void:
 			emit_signal("player_died", aim_to.global_position)
 		
 func on_Game_player_died() -> void:
-	$AnimationPlayer.stop()
 	hide()
 		
 func on_Game_player_respawned(_position) -> void:
@@ -136,7 +143,6 @@ func on_Game_player_respawned(_position) -> void:
 	emit_signal("update_health", ConstManager.MAX_HEALTH)
 	health = ConstManager.MAX_HEALTH
 	$Pivot/Ship.show()
-	$AnimationPlayer.play("fly")
 	
 func on_NPC_got_hit(_value) -> void:
 	increase_combo_level(false)
@@ -155,7 +161,7 @@ func increase_combo_level(npc_dead : bool = false) -> void:
 		emit_signal("update_combo_level",combo_level)
 	emit_signal("update_combo", combo_value)
 	
-	
+
 	
 	
 	

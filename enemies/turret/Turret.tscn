@@ -2,18 +2,14 @@
 
 [ext_resource path="res://enemies/turret/Turret.gd" type="Script" id=1]
 [ext_resource path="res://stats/turret/turret_base_stats.tres" type="Resource" id=2]
-[ext_resource path="res://assets/turret/base.png" type="Texture" id=3]
-[ext_resource path="res://assets/turret/pivot.png" type="Texture" id=4]
-[ext_resource path="res://assets/turret/muzzle.png" type="Texture" id=5]
+[ext_resource path="res://assets/turret/turretBase_big.png" type="Texture" id=3]
+[ext_resource path="res://assets/turret/turretBase_small.png" type="Texture" id=4]
+[ext_resource path="res://assets/turret/gun06.png" type="Texture" id=5]
 [ext_resource path="res://enemies/turret/stats.gd" type="Script" id=6]
 [ext_resource path="res://enemies/turret/states/Idle.gd" type="Script" id=7]
 [ext_resource path="res://enemies/turret/states/ShootBullet.gd" type="Script" id=8]
 [ext_resource path="res://enemies/turret/states/ShootMissile.gd" type="Script" id=9]
 [ext_resource path="res://gui/enemy/EnemyGui.tscn" type="PackedScene" id=10]
-
-
-
-
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 86.5835
@@ -24,24 +20,25 @@ script = ExtResource( 1 )
 base_stats = ExtResource( 2 )
 
 [node name="SpriteBase" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
 texture = ExtResource( 3 )
-offset = Vector2( -5, -15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Pivot" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="SpritePivot" type="Sprite" parent="Pivot"]
 rotation = 1.5708
+scale = Vector2( 4, 4 )
 texture = ExtResource( 4 )
-offset = Vector2( -5, -15 )
 
 [node name="SpriteMuzzle" type="Sprite" parent="Pivot"]
 rotation = -1.5708
+scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
-offset = Vector2( -5, -10 )
+offset = Vector2( 0, 10 )
 
 [node name="Muzzle" type="Position2D" parent="Pivot"]
 position = Vector2( 111.587, 0 )
@@ -50,10 +47,8 @@ position = Vector2( 111.587, 0 )
 script = ExtResource( 6 )
 
 [node name="States" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="Idle" type="Node" parent="States"]
-editor/display_folded = true
 script = ExtResource( 7 )
 
 [node name="Timer" type="Timer" parent="States/Idle"]
@@ -62,6 +57,7 @@ one_shot = true
 
 [node name="ShootBullet" type="Node" parent="States"]
 script = ExtResource( 8 )
+bullet_scale = 2.0
 
 [node name="Timer" type="Timer" parent="States/ShootBullet"]
 wait_time = 5.0
@@ -81,10 +77,10 @@ one_shot = true
 autostart = true
 
 [node name="EnemyGui" parent="." instance=ExtResource( 10 )]
-margin_left = -74.2864
-margin_top = -106.942
-margin_right = 181.714
-margin_bottom = -74.942
+margin_left = -58.0
+margin_top = -122.157
+margin_right = 133.0
+margin_bottom = -73.1572
 rect_scale = Vector2( 0.6, 0.6 )
 [connection signal="area_entered" from="." to="." method="_on_Turret_area_entered"]
 [connection signal="timeout" from="States/Idle/Timer" to="States/Idle" method="_on_Timer_timeout"]

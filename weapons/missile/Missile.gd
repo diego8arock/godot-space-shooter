@@ -34,7 +34,6 @@ func shoot(_position, _rotation):
 	global_position = _position
 	global_rotation = _rotation.angle()
 	velocity = _rotation * speed
-	$AnimationPlayer.play("fly")
 	
 func seek() -> Vector2:
 	

@@ -70,16 +70,16 @@ _global_script_classes=[ {
 "path": "res://interfaces/weapon.gd"
 } ]
 _global_script_class_icons={
-"BaseBullet": "",
-"BaseScreen": "",
+"BaseBullet": "res://weapons/bullet/BaseBullet.gd",
+"BaseScreen": "res://screens/BaseScreen.gd",
 "Command": "res://interfaces/command.gd",
 "Commander": "res://interfaces/commander.gd",
 "Crosshair": "",
-"EnemyLoader": "",
+"EnemyLoader": "res://enemies/enemy_loader.gd",
 "Game": "",
 "NPC": "res://interfaces/npc.gd",
 "NpcStartingStats": "",
-"Player": "res://player/player.gd",
+"Player": "res://player/Player.gd",
 "State": "res://interfaces/state.gd",
 "Weapon": "res://interfaces/weapon.gd"
 }

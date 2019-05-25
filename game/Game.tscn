@@ -41,7 +41,6 @@ script = ExtResource( 7 )
 editor/display_folded = true
 
 [node name="R1" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( -48.5, 50 )
 
 [node name="P1" type="Position2D" parent="Grid/R1"]
@@ -75,7 +74,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R2" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( 0, 100 )
 
 [node name="P1" type="Position2D" parent="Grid/R2"]
@@ -109,7 +107,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R3" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( -48.5, 150 )
 
 [node name="P1" type="Position2D" parent="Grid/R3"]
@@ -143,7 +140,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R4" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( 0, 200 )
 
 [node name="P1" type="Position2D" parent="Grid/R4"]
@@ -177,7 +173,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R5" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( -48.5, 250 )
 
 [node name="P1" type="Position2D" parent="Grid/R5"]
@@ -211,7 +206,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R6" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( 0, 300 )
 
 [node name="P1" type="Position2D" parent="Grid/R6"]
@@ -245,7 +239,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R7" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( -48.5, 350 )
 
 [node name="P1" type="Position2D" parent="Grid/R7"]
@@ -279,7 +272,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R8" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( 0, 400 )
 
 [node name="P1" type="Position2D" parent="Grid/R8"]
@@ -313,7 +305,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R9" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( -48.5, 450 )
 
 [node name="P1" type="Position2D" parent="Grid/R9"]
@@ -347,7 +338,6 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R10" type="Node2D" parent="Grid"]
-editor/display_folded = true
 position = Vector2( 0, 500 )
 
 [node name="P1" type="Position2D" parent="Grid/R10"]
@@ -401,3 +391,5 @@ script = ExtResource( 10 )
 [connection signal="all_destroyed" from="EnemyContainer" to="." method="_on_EnemyContainer_all_destroyed"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_PlayerRespawnTimer_timeout"]
 [connection signal="timeout" from="LevelStartTimer" to="." method="_on_LevelStartTimer_timeout"]
+
+[editable path="Screens"]

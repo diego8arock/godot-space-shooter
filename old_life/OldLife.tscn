@@ -3,7 +3,6 @@
 [ext_resource path="res://old_life/OldLife.gd" type="Script" id=1]
 [ext_resource path="res://old_life/OldLifeParticles.tscn" type="PackedScene" id=2]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 35.8308
 
