@@ -89,7 +89,6 @@ func create_old_life(_position) -> void:
 	connect("old_life_picked", old_life, "on_Game_old_life_picked")
 	old_life.start_at(_position)
 
-
 #Signals recieved
 func on_Player_player_died(_position) -> void:
 	GameManager.player_lifes -= 1
@@ -118,7 +117,6 @@ func _on_PlayerRespawnTimer_timeout() -> void:
 	emit_signal("player_respawned",player_inital_position.global_position)
 
 func _on_EnemyContainer_all_destroyed() -> void:
-	DebugManager.debug(name, "all_destroyed")
 	GameManager.level += 1
 	if GameManager.level <= GameManager.max_level:
 		init_enemies()
