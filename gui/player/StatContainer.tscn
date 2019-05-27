@@ -3,6 +3,8 @@
 [ext_resource path="res://gui/player/StatContainer.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/player/stats_dynamicfont.tres" type="DynamicFont" id=3]
 
+
+
 [node name="StatContainer" type="HBoxContainer"]
 pause_mode = 2
 margin_right = 278.0

@@ -20,6 +20,8 @@ var radius_y : float
 
 var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
 var super_bullet : PackedScene = preload("res://weapons/bullet/super_bullet/SuperBullet.tscn")
+var shoot_sound = preload("res://sounds/laser6.ogg")
+var super_shoot_sound = preload("res://sounds/laser3.ogg")
 
 onready var pivot = $Pivot
 onready var muzzle = $Pivot/Ship/Muzzle
@@ -40,6 +42,8 @@ func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_STOP
 
 func _ready() -> void:
+	$AudioShoot.stream = shoot_sound
+	$AudioSuperShoot.stream = super_shoot_sound
 	GameManager.enemy_aim_to = aim_to
 	radius_x = ship_radius * scale.x
 	radius_y = ship_radius * scale.y
@@ -101,12 +105,14 @@ func _on_ShootTimer_timeout() -> void:
 	if GameManager.is_player_alive and not is_charging:
 		var new_bullet : BaseBullet = bullet.instance()
 		new_bullet.initialize( WeaponManager.PLAYER_BULLET_DAMAGE_BASE, self,  WeaponManager.GROUP_WEAPON_PLAYER) 
+		$AudioShoot.play()
 		shoot(new_bullet)
 
 func super_shoot() -> void:
 	var new_super_bullet : BaseBullet = super_bullet.instance()
 	new_super_bullet.initialize(calculate_super_bullet_damage(), self,  WeaponManager.GROUP_WEAPON_PLAYER) 
 	DebugManager.debug("new_super_bullet.weapon_damage", new_super_bullet.weapon_damage, debug)
+	$AudioSuperShoot.play()
 	shoot(new_super_bullet)
 	
 func calculate_super_bullet_damage() -> float:
@@ -118,7 +124,7 @@ func calculate_super_bullet_damage() -> float:
 func shoot(new_bullet : BaseBullet) -> void:
 	WeaponManager.add_weapon(new_bullet, scale.x, scale.y)
 	var direction = Vector2(1, 0).rotated(muzzle.global_rotation)
-	new_bullet.shoot(muzzle.global_position, direction)	
+	new_bullet.shoot(muzzle.global_position, direction)		
 
 func _on_Ship_take_damage(_value) -> void:
 	if health > ConstManager.MIN_HEALTH:		

@@ -61,5 +61,11 @@ scale = Vector2( 0.2, 0.2 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 5 )
+
+[node name="AudioShoot" type="AudioStreamPlayer2D" parent="."]
+bus = "PlayerShoot"
+
+[node name="AudioSuperShoot" type="AudioStreamPlayer2D" parent="."]
+bus = "PlayerShoot"
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="take_damage" from="Pivot/Ship" to="." method="_on_Ship_take_damage"]

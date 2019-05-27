@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://gui/player/PlayerGUI.gd" type="Script" id=1]
-[ext_resource path="res://assets/gui/player/player_dynamicfont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/gui/player/power.png" type="Texture" id=3]
-[ext_resource path="res://assets/gui/player/health.png" type="Texture" id=4]
-[ext_resource path="res://assets/gui/player/combo_bar.png" type="Texture" id=5]
-[ext_resource path="res://assets/gui/player/life.png" type="Texture" id=6]
-[ext_resource path="res://assets/gui/player/power_bar.png" type="Texture" id=7]
-[ext_resource path="res://assets/gui/player/life_bar.png" type="Texture" id=9]
-[ext_resource path="res://assets/gui/player/combo.png" type="Texture" id=10]
+[ext_resource path="res://assets/gui/player/health.png" type="Texture" id=2]
+[ext_resource path="res://assets/gui/player/life_bar.png" type="Texture" id=3]
+[ext_resource path="res://assets/gui/player/life.png" type="Texture" id=4]
+[ext_resource path="res://assets/gui/player/power.png" type="Texture" id=5]
+[ext_resource path="res://assets/gui/player/power_bar.png" type="Texture" id=6]
+[ext_resource path="res://assets/gui/player/combo_bar.png" type="Texture" id=7]
+[ext_resource path="res://assets/gui/player/player_dynamicfont.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/gui/player/combo.png" type="Texture" id=9]
 
 [node name="PlayerGUI" type="CanvasLayer"]
 scale = Vector2( 0.7, 0.7 )
@@ -60,7 +60,7 @@ custom_constants/separation = 9
 [node name="HealthIcon" type="TextureRect" parent="Margin/Container/HBoxContainer/VBoxContainer/HeatlhContainer"]
 margin_right = 30.0
 margin_bottom = 49.0
-texture = ExtResource( 4 )
+texture = ExtResource( 2 )
 stretch_mode = 4
 
 [node name="HealthBar" type="TextureProgress" parent="Margin/Container/HBoxContainer/VBoxContainer/HeatlhContainer"]
@@ -68,14 +68,14 @@ margin_left = 39.0
 margin_right = 229.0
 margin_bottom = 49.0
 value = 100.0
-texture_progress = ExtResource( 9 )
+texture_progress = ExtResource( 3 )
 
 [node name="Life" type="TextureRect" parent="Margin/Container/HBoxContainer/VBoxContainer/HeatlhContainer"]
 margin_left = 238.0
 margin_right = 262.0
 margin_bottom = 49.0
 rect_pivot_offset = Vector2( 0, 5 )
-texture = ExtResource( 6 )
+texture = ExtResource( 4 )
 stretch_mode = 4
 
 [node name="PowerContainer" type="HBoxContainer" parent="Margin/Container/HBoxContainer/VBoxContainer"]
@@ -87,7 +87,7 @@ custom_constants/separation = 20
 [node name="PowerIcon" type="TextureRect" parent="Margin/Container/HBoxContainer/VBoxContainer/PowerContainer"]
 margin_right = 19.0
 margin_bottom = 49.0
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="PowerBar" type="TextureProgress" parent="Margin/Container/HBoxContainer/VBoxContainer/PowerContainer"]
@@ -95,7 +95,7 @@ margin_left = 39.0
 margin_right = 229.0
 margin_bottom = 49.0
 value = 100.0
-texture_progress = ExtResource( 7 )
+texture_progress = ExtResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Margin/Container/HBoxContainer"]
 margin_left = 266.0
@@ -116,7 +116,7 @@ margin_bottom = 49.0
 margin_right = 190.0
 margin_bottom = 49.0
 value = 100.0
-texture_progress = ExtResource( 5 )
+texture_progress = ExtResource( 7 )
 fill_mode = 1
 
 [node name="ComboCounter" type="Label" parent="Margin/Container/HBoxContainer/VBoxContainer2/ComboContainer"]
@@ -124,14 +124,14 @@ margin_left = 194.0
 margin_top = 4.0
 margin_right = 214.0
 margin_bottom = 44.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 8 )
 text = "0"
 
 [node name="ComboIcon" type="TextureRect" parent="Margin/Container/HBoxContainer/VBoxContainer2/ComboContainer"]
 margin_left = 218.0
 margin_right = 252.0
 margin_bottom = 49.0
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 stretch_mode = 4
 
 [node name="XPContainer" type="HBoxContainer" parent="Margin/Container/HBoxContainer/VBoxContainer2"]
@@ -147,7 +147,7 @@ size_flags_horizontal = 3
 [node name="XPCounter" type="Label" parent="Margin/Container/HBoxContainer/VBoxContainer2/XPContainer/VBoxContainer"]
 margin_right = 208.0
 margin_bottom = 40.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 8 )
 text = "0"
 align = 2
 
@@ -155,5 +155,5 @@ align = 2
 margin_left = 212.0
 margin_right = 252.0
 margin_bottom = 40.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 8 )
 text = "XP"

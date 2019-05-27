@@ -1,0 +1,2 @@
+[DEBUG] [debug] [11:49:44][DEBUG]:[ID:1]: Game - all_destroyed
+[DEBUG] [debug] [11:50:3][DEBUG]:[ID:2]: Game-player_lifes - 0

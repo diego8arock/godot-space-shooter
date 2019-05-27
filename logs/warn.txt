@@ -1,0 +1,6 @@
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned
+[WARN] [warn] [WARN]:shoot_bullet - no target assigned

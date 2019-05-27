@@ -2,6 +2,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	GameManager.player_gui = self
+	$Margin/Container/HBoxContainer/VBoxContainer2/ComboContainer/ComboBar.value = 0
 
 func on_Player_update_health(_value) -> void:
 	$Margin/Container/HBoxContainer/VBoxContainer/HeatlhContainer/HealthBar.value = _value

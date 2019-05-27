@@ -4,6 +4,8 @@
 [ext_resource path="res://assets/gui/player/stats_dynamicfont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://gui/player/StatContainer.tscn" type="PackedScene" id=4]
 
+
+
 [node name="StatsGUI" type="Control"]
 script = ExtResource( 1 )
 __meta__ = {
