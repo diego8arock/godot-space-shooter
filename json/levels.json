@@ -3,6 +3,7 @@
 			{
 				"id" : 1,
 				"type" : "turret",
+				"level" : 1,
 				"row" : 5,
 				"pos" : 6
 			}			
@@ -11,12 +12,14 @@
 		{
 			"id" : "1",
 			"type" : "turret",
+			"level" : 2,
 			"row" : 5,
 			"pos" : 3
 		},
 		{
 			"id" : "2",
 			"type" : "turret",
+			"level" : 2,
 			"row" : 5,
 			"pos" : 9
 		}		

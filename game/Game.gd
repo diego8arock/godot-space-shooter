@@ -42,6 +42,9 @@ func _on_Screens_start_game() -> void:
 	init_crosshair()
 	init_player()
 	init_enemies()
+	countdown_to_start()
+	
+func countdown_to_start() -> void:
 	get_tree().paused = true
 	$Screens/Countdown.update_text_as_timer(3)
 	$Screens/Countdown.appear()
@@ -77,8 +80,10 @@ func init_enemies() -> void:
 	var enemies = LevelManager.load_level_enemies(GameManager.level)
 	for e in enemies:
 		var pos : Position2D = $Grid.get_node("R" + str(e.row)).get_node("P" + str(e.pos))
-		var npc = e.npc
+		var npc = e.npc as NPC
 		enemy_container.add_child(npc)
+		npc.adjust_stats_by_level()
+		npc.add_stats_to_debug()
 		npc.debug = false
 		npc.global_position = pos.global_position
 	
@@ -117,9 +122,11 @@ func _on_PlayerRespawnTimer_timeout() -> void:
 	emit_signal("player_respawned",player_inital_position.global_position)
 
 func _on_EnemyContainer_all_destroyed() -> void:
+	DebugManager.debug(name, "_on_EnemyContainer_all_destroyed")
 	GameManager.level += 1
 	if GameManager.level <= GameManager.max_level:
 		init_enemies()
+		countdown_to_start()
 	else:
 		get_tree().paused = true 
 		DebugManager.debug(name, "GAME OVER - YOU WON")

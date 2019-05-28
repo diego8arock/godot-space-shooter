@@ -28,8 +28,8 @@ rotation = 1.5708
 texture = ExtResource( 3 )
 
 [node name="Muzzle" type="Position2D" parent="Pivot/Ship"]
-position = Vector2( 1.5788, 7.8115e-05 )
-rotation = 1.81e-06
+position = Vector2( 1.5788, 7.8115e-005 )
+rotation = 1.81e-006
 scale = Vector2( 1, 0.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Ship"]

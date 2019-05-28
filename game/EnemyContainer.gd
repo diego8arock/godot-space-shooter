@@ -9,6 +9,7 @@ func _ready():
 
 func _process(delta: float) -> void:
 	
+	DebugManager.debug(name, get_child_count())
 	if do_process_enemies and get_child_count() == 0:	
 		do_process_enemies = false
 		emit_signal("all_destroyed")

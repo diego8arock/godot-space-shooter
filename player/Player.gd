@@ -153,10 +153,10 @@ func on_Game_player_respawned(_position) -> void:
 func on_NPC_got_hit(_value) -> void:
 	increase_combo_level(false)
 	
-func on_NPC_died(_value) -> void:
+func on_NPC_died(_xp) -> void:
 	increase_combo_level(true)
-	xp += _value
-	emit_signal("update_xp", _value)	
+	xp += _xp
+	emit_signal("update_xp", xp)	
 
 func increase_combo_level(npc_dead : bool = false) -> void:
 	combo_value += combo_rate * (3.5 if npc_dead else 1)

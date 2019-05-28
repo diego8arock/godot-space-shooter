@@ -1,8 +1,6 @@
 extends NPC
 
 export var debug : bool = false
-export var base_stats : Resource
-#export var turret_speed : float = 2.0
 
 const BUFFER_10 : int = 10
 const ZERO_VALUE_FLOAT : float = 0.0
@@ -18,7 +16,7 @@ onready var states_map = {
 }
 
 func _ready():
-	stats.initialize(base_stats)
+	._ready()
 	states_stack.push_back($States/Idle)
 	current_state = states_stack[0]
 	_change_state("idle")

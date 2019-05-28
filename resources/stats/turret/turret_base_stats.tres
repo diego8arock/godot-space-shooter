@@ -6,6 +6,10 @@
 script = ExtResource( 1 )
 npc_type = "Character"
 speed = 2.0
+speed_modifier = 0
 attack = 20.0
+attack_modifier = 3
 defense = 50.0
+defense_modifier = 0
 xp = 100
+xp_modifier = 2
