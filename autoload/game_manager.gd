@@ -4,6 +4,9 @@ extends Node
 var game 
 var player_init_position 
 var enemy_container
+var stats_gui
+
+#Level
 var level = 1
 var max_level
 
@@ -11,11 +14,15 @@ var max_level
 var player
 var crosshair
 var player_gui
+var stats = { "Armor" : 0, "Speed" : 0, "Attack" : 0, "Power" : 0, "Combo" : 0  }
+var stats_temp = stats
 
 #Player variables
 var player_lifes : int = 1
 var player_last_position : Vector2
 var is_player_alive : bool = true
+var player_xp : int = 0
+var player_level : int = 1
 
 #Enemies variables
 onready var enemy_aim_to

@@ -11,5 +11,5 @@ attack = 20.0
 attack_modifier = 3
 defense = 50.0
 defense_modifier = 0
-xp = 100
+xp = 10000
 xp_modifier = 2

@@ -19,6 +19,8 @@ signal old_life_picked()
 
 var is_countdown_tween_completed : bool = false
 
+enum SCREENS {GAMEOVER, LEVELCOMPLETED, STATS, COUNTDOWN}
+
 func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
@@ -30,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	if $LevelStartTimer.time_left > 0.0 and is_countdown_tween_completed:
-		$Screens/Countdown.update_text_as_timer(int($LevelStartTimer.time_left))
+		$Screens/CountdownScreen.update_text_as_timer(int($LevelStartTimer.time_left))
 		
 func _unhandled_key_input(event):	
 	if event.is_action_pressed("ui_cancel"):
@@ -43,12 +45,20 @@ func _on_Screens_start_game() -> void:
 	init_player()
 	init_enemies()
 	countdown_to_start()
+
+func _on_Screens_continue_game(_skip) -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	GameManager.crosshair.global_position = player_inital_position.global_position
+	init_enemies()
+	countdown_to_start()
+	if not _skip:
+		GameManager.stats = GameManager.stats_temp
+		GameManager.player.udpate_stats()
 	
 func countdown_to_start() -> void:
 	get_tree().paused = true
-	$Screens/Countdown.update_text_as_timer(3)
-	$Screens/Countdown.appear()
-	yield($Screens/Countdown.tween, "tween_completed")
+	$Screens/CountdownScreen.update_text_as_timer(3)
+	change_screen(SCREENS.COUNTDOWN)
 	is_countdown_tween_completed = true
 	yield(get_tree().create_timer(0.5), "timeout")
 	$LevelStartTimer.start()	
@@ -71,6 +81,7 @@ func init_player() -> void:
 	var player : Player = player_scene.instance()
 	player.debug = debug_player
 	add_child(player)
+	player.udpate_stats()
 	GameManager.player = player
 	GameManager.enemy_aim_to = player.aim_to
 	connect("player_died", player, "on_Game_player_died")
@@ -93,8 +104,7 @@ func create_old_life(_position) -> void:
 	old_life.connect("player_entered", self, "on_OldLife_player_entered")
 	connect("old_life_picked", old_life, "on_Game_old_life_picked")
 	old_life.start_at(_position)
-
-#Signals recieved
+	
 func on_Player_player_died(_position) -> void:
 	GameManager.player_lifes -= 1
 	GameManager.is_player_alive = false
@@ -105,6 +115,8 @@ func on_Player_player_died(_position) -> void:
 		$PlayerRespawnTimer.start()
 	if GameManager.player_lifes < 0:
 		DebugManager.debug(name, "GAME OVER - YOU LOST")
+		change_screen(SCREENS.GAMEOVER)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().paused = true 
 	
 func on_OldLife_player_entered() -> void:
@@ -112,8 +124,7 @@ func on_OldLife_player_entered() -> void:
 	emit_signal("old_life_picked")
 
 func _on_LevelStartTimer_timeout() -> void:
-	$Screens/Countdown.disappear()
-	yield($Screens/Countdown.tween, "tween_completed")
+	$Screens.change_screen(null)
 	enemy_container.start_processing()
 	get_tree().paused = false
 
@@ -125,9 +136,29 @@ func _on_EnemyContainer_all_destroyed() -> void:
 	DebugManager.debug(name, "_on_EnemyContainer_all_destroyed")
 	GameManager.level += 1
 	if GameManager.level <= GameManager.max_level:
-		init_enemies()
-		countdown_to_start()
+		change_screen(SCREENS.LEVELCOMPLETED)
+		yield(get_tree().create_timer(2.0), "timeout")
+		GameManager.stats_temp = GameManager.stats
+		GameManager.stats_gui.set_level(GameManager.player_level)
+		GameManager.stats_gui.set_xp(GameManager.player_xp)
+		GameManager.stats_gui.calculate_req_xp_value()
+		GameManager.stats_gui.validate_req_xp() 
+		GameManager.stats_gui.set_stats_values()
+		change_screen(SCREENS.STATS)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().paused = true 
 	else:
 		get_tree().paused = true 
 		DebugManager.debug(name, "GAME OVER - YOU WON")
 
+func change_screen(_screen) -> void:
+	match _screen:
+		SCREENS.GAMEOVER:
+			$Screens.change_screen($Screens/GameOverScreen)
+		SCREENS.LEVELCOMPLETED:
+			$Screens.change_screen($Screens/LevelCompletedScreen)
+		SCREENS.STATS:
+			$Screens.change_screen($Screens/StatsScreen)
+		SCREENS.COUNTDOWN:
+			$Screens.change_screen($Screens/CountdownScreen)
+			

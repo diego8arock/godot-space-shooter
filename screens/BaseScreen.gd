@@ -3,6 +3,7 @@ extends CanvasLayer
 class_name BaseScreen, "res://screens/BaseScreen.gd"
 
 onready var tween = $Tween
+onready var label = $MarginContainer/VBoxContainer/Label
 
 func disappear() -> void:
 	tween.interpolate_property(self, "offset:x", 0, 1100, 0.5, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
@@ -11,17 +12,16 @@ func disappear() -> void:
 func appear() -> void:
 	tween.interpolate_property(self, "offset:x", 1100, 0, 0.5, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 	tween.start()
-	
-func disable_buttons() -> void:
-	var buttons = get_tree().get_nodes_in_group("menu_buttons")
-	for b in buttons:
-		b.disabled = true
 
 func set_text_blank() -> void:
-	$MarginContainer/VBoxContainer/Label.text = ""
+	label.text = ""
 
-func update_text_as_timer(_value) -> void:
+func update_text_as_timer(_value : int) -> void:
 	if _value > 0:
-		$MarginContainer/VBoxContainer/Label.text = str(_value)
+		label.text = str(_value)
 	else:
-		$MarginContainer/VBoxContainer/Label.text = "GO!"
+		label.text = "GO!"
+		
+func set_text(_message : String) -> void:
+	label.text = _message
+	

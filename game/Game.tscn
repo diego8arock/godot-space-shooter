@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/black.png" type="Texture" id=2]
@@ -9,9 +9,6 @@
 [ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game/EnemyContainer.gd" type="Script" id=8]
 [ext_resource path="res://game/Grid.tscn" type="PackedScene" id=9]
-[ext_resource path="res://game/GameCommander.gd" type="Script" id=10]
-[ext_resource path="res://game/SetUpCommand.gd" type="Script" id=11]
-[ext_resource path="res://game/commands/PlayGameCommand.gd" type="Script" id=12]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -57,16 +54,7 @@ one_shot = true
 pause_mode = 2
 wait_time = 3.0
 one_shot = true
-
-[node name="GameCommander" type="Node" parent="."]
-editor/display_folded = true
-script = ExtResource( 10 )
-
-[node name="SetUpCommand" type="Node" parent="GameCommander"]
-script = ExtResource( 11 )
-
-[node name="PlayGameCommand" type="Node" parent="GameCommander"]
-script = ExtResource( 12 )
+[connection signal="continue_game" from="Screens" to="." method="_on_Screens_continue_game"]
 [connection signal="start_game" from="Screens" to="." method="_on_Screens_start_game"]
 [connection signal="all_destroyed" from="EnemyContainer" to="." method="_on_EnemyContainer_all_destroyed"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_PlayerRespawnTimer_timeout"]

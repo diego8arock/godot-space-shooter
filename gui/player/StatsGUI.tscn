@@ -2,9 +2,7 @@
 
 [ext_resource path="res://gui/player/StatGUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/player/stats_dynamicfont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://gui/player/StatContainer.tscn" type="PackedScene" id=4]
-
-
+[ext_resource path="res://gui/player/StatContainer.tscn" type="PackedScene" id=3]
 
 [node name="StatsGUI" type="Control"]
 script = ExtResource( 1 )
@@ -12,14 +10,44 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -15.0
+margin_top = -10.0
+margin_right = 250.0
+margin_bottom = 416.0
+color = Color( 0.301961, 0, 0.294118, 0.819608 )
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 196.0
-margin_bottom = 256.0
+margin_right = 229.0
+margin_bottom = 347.0
+custom_constants/separation = 10
+
+[node name="Level" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_right = 229.0
+margin_bottom = 27.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Level"]
+margin_left = 61.0
+margin_right = 146.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 2 )
+text = "LEVEL"
+
+[node name="Value" type="Label" parent="VBoxContainer/Level"]
+margin_left = 150.0
+margin_right = 167.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
 
 [node name="XP" type="HBoxContainer" parent="VBoxContainer"]
 pause_mode = 2
+editor/display_folded = true
+margin_top = 37.0
 margin_right = 229.0
-margin_bottom = 27.0
+margin_bottom = 64.0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/XP"]
@@ -37,33 +65,76 @@ custom_fonts/font = ExtResource( 2 )
 text = "0"
 align = 2
 
-[node name="Armor" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 31.0
+[node name="RequieredXP" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 74.0
 margin_right = 229.0
-margin_bottom = 75.0
+margin_bottom = 101.0
+alignment = 1
+
+[node name="Lable" type="Label" parent="VBoxContainer/RequieredXP"]
+margin_left = 47.0
+margin_right = 160.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 2 )
+text = "NEXT LV."
+
+[node name="Value" type="Label" parent="VBoxContainer/RequieredXP"]
+margin_left = 164.0
+margin_right = 181.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+
+[node name="Armor" parent="VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 111.0
+margin_right = 229.0
+margin_bottom = 155.0
 stat_name = "Armor"
 
-[node name="Speed" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 79.0
+[node name="Speed" parent="VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 165.0
 margin_right = 229.0
-margin_bottom = 123.0
+margin_bottom = 209.0
 stat_name = "Speed"
 
-[node name="Attack" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 127.0
+[node name="Attack" parent="VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 219.0
 margin_right = 229.0
-margin_bottom = 171.0
+margin_bottom = 263.0
 stat_name = "Attack"
 
-[node name="Combo" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 175.0
+[node name="Power" parent="VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 273.0
 margin_right = 229.0
-margin_bottom = 219.0
+margin_bottom = 317.0
+
+[node name="Combo" parent="VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 327.0
+margin_right = 229.0
+margin_bottom = 371.0
 stat_name = "Combo"
 
-[node name="DoneButton" type="Button" parent="VBoxContainer"]
-margin_top = 223.0
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 381.0
 margin_right = 229.0
-margin_bottom = 243.0
-text = "DONE"
-[connection signal="pressed" from="VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]
+margin_bottom = 401.0
+custom_constants/separation = 35
+alignment = 1
+
+[node name="Continue" type="Button" parent="VBoxContainer/Buttons" groups=[
+"menu_buttons",
+]]
+margin_left = 43.0
+margin_right = 112.0
+margin_bottom = 20.0
+text = "Continue"
+
+[node name="Skip" type="Button" parent="VBoxContainer/Buttons" groups=[
+"menu_buttons",
+]]
+margin_left = 147.0
+margin_right = 185.0
+margin_bottom = 20.0
+text = "Skip"

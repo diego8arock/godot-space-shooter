@@ -8,7 +8,6 @@ export var super_shoot_multiplier : float = 2.0
 export var combo_rate : float = 20.5
 export var health : float = 100.0
 
-var xp : int = 0
 var combo_value : float = 0.0
 var combo_level : int = 0
 var actual_charge : float = 0.0
@@ -30,6 +29,8 @@ onready var viewport_width = get_viewport().size.x
 onready var viewport_height = get_viewport().size.y
 onready var ship_collision = $Pivot/Ship/CollisionPolygon2D
 onready var ship_radius = $Pivot/Ship/CollisionShape2D.shape.radius
+onready var debug_stats_pivot = $Pivot/DebugPivot
+onready var debug_stats = $Pivot/DebugPivot/PlayerStatsDebug
 
 signal update_health(_value)
 signal update_power(_value)
@@ -88,6 +89,7 @@ func _physics_process(delta: float) -> void:
 	
 	pivot.look_at(GameManager.crosshair.global_position)
 	set_player_position()
+	debug_stats_pivot.global_rotation = 0
 
 func set_player_position() -> void:	
 	
@@ -155,8 +157,8 @@ func on_NPC_got_hit(_value) -> void:
 	
 func on_NPC_died(_xp) -> void:
 	increase_combo_level(true)
-	xp += _xp
-	emit_signal("update_xp", xp)	
+	GameManager.player_xp += _xp
+	emit_signal("update_xp", GameManager.player_xp)	
 
 func increase_combo_level(npc_dead : bool = false) -> void:
 	combo_value += combo_rate * (3.5 if npc_dead else 1)
@@ -167,7 +169,17 @@ func increase_combo_level(npc_dead : bool = false) -> void:
 		emit_signal("update_combo_level",combo_level)
 	emit_signal("update_combo", combo_value)
 	
-
+func udpate_stats() -> void:
+	$Stats.attack = GameManager.stats["Attack"]
+	$Stats.speed = GameManager.stats["Speed"]
+	$Stats.armor = GameManager.stats["Armor"]
+	$Stats.combo = GameManager.stats["Combo"]
+	$Stats.power = GameManager.stats["Power"]
+	debug_stats.add_stat("attack", $Stats.attack)
+	debug_stats.add_stat("speed", $Stats.speed)
+	debug_stats.add_stat("armor", $Stats.armor)
+	debug_stats.add_stat("combo", $Stats.combo)
+	debug_stats.add_stat("power", $Stats.power)
 	
 	
 	
