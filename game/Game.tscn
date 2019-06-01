@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/black.png" type="Texture" id=2]
 [ext_resource path="res://gui/debug/DebugInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/warning/Warning.tscn" type="PackedScene" id=4]
-[ext_resource path="res://gui/player/StatsGUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://gui/player/PlayerGUI.tscn" type="PackedScene" id=6]
-[ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=7]
-[ext_resource path="res://game/EnemyContainer.gd" type="Script" id=8]
-[ext_resource path="res://game/Grid.tscn" type="PackedScene" id=9]
+[ext_resource path="res://gui/player/PlayerGUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/EnemyContainer.gd" type="Script" id=7]
+[ext_resource path="res://game/Grid.tscn" type="PackedScene" id=8]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,26 +24,25 @@ stretch_mode = 2
 
 [node name="Warning" parent="." instance=ExtResource( 4 )]
 
-[node name="StatsGUI" parent="." instance=ExtResource( 5 )]
-margin_left = 448.962
-margin_top = 155.41
-margin_right = 596.962
-margin_bottom = 391.41
+[node name="PlayerGUI" parent="." instance=ExtResource( 5 )]
 
-[node name="PlayerGUI" parent="." instance=ExtResource( 6 )]
-
-[node name="Screens" parent="." instance=ExtResource( 7 )]
+[node name="Screens" parent="." instance=ExtResource( 6 )]
 editor/display_folded = true
 
 [node name="PlayerInitialPosition" type="Position2D" parent="."]
+position = Vector2( 533.5, 500 )
+
+[node name="CrosshairInitialPosition" type="Position2D" parent="."]
 position = Vector2( 533.5, 450 )
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 
-[node name="EnemyContainer" type="Node2D" parent="."]
-script = ExtResource( 8 )
+[node name="OldLifeContainer" type="Node2D" parent="."]
 
-[node name="Grid" parent="." instance=ExtResource( 9 )]
+[node name="EnemyContainer" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Grid" parent="." instance=ExtResource( 8 )]
 
 [node name="PlayerRespawnTimer" type="Timer" parent="."]
 wait_time = 3.0

@@ -21,8 +21,17 @@ const LINE_END_POINT_INDEX = 1
 func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_STOP
 
-func _ready():	
-
+func _ready() -> void:	
+	
+	set_process(GameManager.use_crosshair_as_pivot)
+	set_process_input(GameManager.use_crosshair_as_pivot)
+	set_process_unhandled_input(GameManager.use_crosshair_as_pivot)
+	set_process_unhandled_key_input(GameManager.use_crosshair_as_pivot)
+	
+	if not GameManager.use_crosshair_as_pivot:
+		hide()
+		return
+	
 	end_line.scale = Vector2(1, initial_line_length)
 	global_position.x = viewport_width / 2
 	global_position.y = viewport_height / 2	
@@ -36,9 +45,9 @@ func _process(delta : float) -> void:
 	
 	if GameManager.is_player_alive:
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
-			rotation_angle += rotation_speed
+			rotation_angle += GameManager.player.get_rotation_speed()
 		if Input.is_mouse_button_pressed(BUTTON_RIGHT):
-			rotation_angle -= rotation_speed
+			rotation_angle -= GameManager.player.get_rotation_speed()
 
 func _physics_process(delta):
 	
@@ -62,8 +71,10 @@ func on_Game_player_died() -> void:
 	hide()
 	
 func on_Game_player_respawned(_position) -> void:
-	global_position = _position
-	show()
+	if GameManager.use_crosshair_as_pivot:
+		global_position = _position
+		rotation_angle = 0.0
+		show()
 	
 	
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://screens/Screens.gd" type="Script" id=1]
 [ext_resource path="res://screens/TitleScreen.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://screens/GameOverScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://screens/LevelCompletedScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://screens/StatsScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://screens/OptionsScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://screens/ShipDestroyedScreen.tscn" type="PackedScene" id=8]
 
 [node name="Screens" type="Node"]
 script = ExtResource( 1 )
@@ -19,3 +21,7 @@ script = ExtResource( 1 )
 [node name="LevelCompletedScreen" parent="." instance=ExtResource( 5 )]
 
 [node name="StatsScreen" parent="." instance=ExtResource( 6 )]
+
+[node name="OptionsScreen" parent="." instance=ExtResource( 7 )]
+
+[node name="ShipDestroyedScreen" parent="." instance=ExtResource( 8 )]

@@ -59,6 +59,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://player/Player.gd"
 }, {
+"base": "Resource",
+"class": "PlayerStartingStats",
+"language": "GDScript",
+"path": "res://resources/stats/player_base_stats.gd"
+}, {
+"base": "HBoxContainer",
+"class": "SkillContainer",
+"language": "GDScript",
+"path": "res://gui/player/SkillContainer.gd"
+}, {
 "base": "HBoxContainer",
 "class": "StatContainer",
 "language": "GDScript",
@@ -85,6 +95,8 @@ _global_script_class_icons={
 "NPC": "res://interfaces/npc.gd",
 "NpcStartingStats": "",
 "Player": "res://player/Player.gd",
+"PlayerStartingStats": "",
+"SkillContainer": "",
 "StatContainer": "",
 "State": "res://interfaces/state.gd",
 "Weapon": "res://interfaces/weapon.gd"
@@ -105,6 +117,13 @@ WeaponManager="*res://autoload/weapon_manager.gd"
 LevelManager="*res://autoload/level_manager.gd"
 GameManager="*res://autoload/game_manager.gd"
 Logger="*res://autoload/logger.gd"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -153,3 +172,4 @@ vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_clear_color=Color( 0.301961, 0.301961, 0.301961, 1 )
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false

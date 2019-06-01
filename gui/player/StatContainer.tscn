@@ -13,14 +13,14 @@ script = ExtResource( 1 )
 
 [node name="StatName" type="Label" parent="."]
 margin_top = 8.0
-margin_right = 155.0
+margin_right = 119.0
 margin_bottom = 35.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
-text = "[StatName]"
+text = "ATTACK"
 
 [node name="StatValue" type="Label" parent="."]
-margin_left = 165.0
+margin_left = 129.0
 margin_top = 8.0
 margin_right = 248.0
 margin_bottom = 35.0

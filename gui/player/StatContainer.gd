@@ -5,17 +5,17 @@ onready var label_value = $StatValue
 export var stat_name : String = ""
 var value : int = 0
 var new_value
-onready var parent = get_parent().get_parent()
+onready var parent = get_parent().get_parent().get_parent().get_parent()
 
-signal addstat()
-signal substat()
+signal addstat(_name)
+signal substat(_name)
 
 func _ready():
 	if not stat_name.empty():
 		$StatName.text = stat_name
 	new_value = value
-	connect("addstat", parent, "on_StatContianer_add_stat")
-	connect("substat", parent, "on_StatContianer_sub_stat")
+	connect("addstat", parent, "on_StatContianer_add_stat", [name])
+	connect("substat", parent, "on_StatContianer_sub_stat", [name])
 
 func _on_AddStat_pressed() -> void:
 	if int(label_value.text) == 99:
@@ -26,6 +26,8 @@ func _on_AddStat_pressed() -> void:
 
 func _on_SubStat_pressed() -> void:
 	if int(label_value.text) == 0:
+		return
+	if new_value - 1 < GameManager.stats[name]:
 		return
 	new_value -= 1
 	update_value()

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/stats/player_base_stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+damage_reduction = null
+rotation_speed = 3.0
+bullet_damage = 90.0
+shooting_rate = 0.5
+charge_rate = 1.5
+cooldown_rate = 0.5
+combo_rate = 5.0

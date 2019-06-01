@@ -7,6 +7,9 @@ export var cooldown_rate : float = 0.5
 export var super_shoot_multiplier : float = 2.0
 export var combo_rate : float = 20.5
 export var health : float = 100.0
+export var stats_base : Resource
+
+var rotation_angle : float = -90
 
 var combo_value : float = 0.0
 var combo_level : int = 0
@@ -24,6 +27,7 @@ var super_shoot_sound = preload("res://sounds/laser3.ogg")
 
 onready var pivot = $Pivot
 onready var muzzle = $Pivot/Ship/Muzzle
+onready var crosshair = $Pivot/Ship/Muzzle/Sprite
 onready var aim_to = $Pivot/Ship/AimTo
 onready var viewport_width = get_viewport().size.x
 onready var viewport_height = get_viewport().size.y
@@ -31,25 +35,32 @@ onready var ship_collision = $Pivot/Ship/CollisionPolygon2D
 onready var ship_radius = $Pivot/Ship/CollisionShape2D.shape.radius
 onready var debug_stats_pivot = $Pivot/DebugPivot
 onready var debug_stats = $Pivot/DebugPivot/PlayerStatsDebug
+onready var stats = $Stats
 
 signal update_health(_value)
 signal update_power(_value)
 signal update_combo(_value)
 signal update_combo_level(_value)
 signal update_xp(_value)
-signal player_died(_position)
+signal player_died()
 
 func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_STOP
 
 func _ready() -> void:
+	stats.initialize(stats_base)
 	$AudioShoot.stream = shoot_sound
 	$AudioSuperShoot.stream = super_shoot_sound
 	GameManager.enemy_aim_to = aim_to
+	GameManager.player_pivot = pivot
 	radius_x = ship_radius * scale.x
 	radius_y = ship_radius * scale.y
-	set_player_position()
-	pivot.rotation += deg2rad(-90)
+	if GameManager.use_crosshair_as_pivot:
+		set_player_position()
+		pivot.rotation += deg2rad(-90)
+		crosshair.visible = false
+	else:
+		pivot.rotation += deg2rad(-90)
 	connect("update_health", GameManager.player_gui, "on_Player_update_health")
 	connect("update_power", GameManager.player_gui, "on_Player_update_power")
 	connect("update_combo", GameManager.player_gui, "on_Player_update_combo")
@@ -59,17 +70,20 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
+	DebugManager.debug(name + "", global_position)
+	DebugManager.debug(name + "-pivot", pivot.global_position)
+	
 	if GameManager.is_player_alive:
 		if Input.is_key_pressed(KEY_SPACE) and is_charge_possible:
 			DebugManager.debug("player-charge", actual_charge, debug)
 			is_charging = true
 			if actual_charge < ConstManager.MAX_CHARGE:
-				actual_charge += charge_rate
+				actual_charge += stats.charge_rate
 				actual_charge = clamp(actual_charge, ConstManager.MIN_CHARGE, ConstManager.MAX_CHARGE)
 			emit_signal("update_power", ConstManager.MAX_CHARGE - actual_charge)
 		else:
 			if actual_charge > ConstManager.MIN_CHARGE:
-				actual_charge -= cooldown_rate
+				actual_charge -= stats.combo_down_rate
 				actual_charge = clamp(actual_charge, ConstManager.MIN_CHARGE, ConstManager.MAX_CHARGE)
 			is_charge_possible = actual_charge == ConstManager.MIN_CHARGE
 			is_charging = false
@@ -77,19 +91,26 @@ func _process(delta: float) -> void:
 			emit_signal("update_power", ConstManager.MAX_CHARGE - actual_charge)
 			
 		if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+			rotation_angle += stats.rotation_speed
 			$Pivot/Ship/FireThrustLeft.start()
 		else:
 			$Pivot/Ship/FireThrustLeft.stop()
+			
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
+			rotation_angle -= stats.rotation_speed
+			
 			$Pivot/Ship/FireThrustRight.start()
 		else:
 			$Pivot/Ship/FireThrustRight.stop()	
 
 func _physics_process(delta: float) -> void:
 	
-	pivot.look_at(GameManager.crosshair.global_position)
-	set_player_position()
-	debug_stats_pivot.global_rotation = 0
+	if GameManager.use_crosshair_as_pivot:
+		pivot.look_at(GameManager.crosshair.global_position)
+		set_player_position()
+		debug_stats_pivot.global_rotation = 0
+	else:
+		pivot.global_rotation = rotation_angle * delta
 
 func set_player_position() -> void:	
 	
@@ -99,6 +120,12 @@ func set_player_position() -> void:
 
 func _input(event: InputEvent) -> void:	
 
+	if not GameManager.use_crosshair_as_pivot and GameManager.is_player_alive and event is InputEventMouseMotion:
+		DebugManager.debug("event-mouse", event.relative, debug)
+		global_position += event.relative
+		global_position.x = clamp(global_position.x, radius_x, viewport_width - radius_x)
+		global_position.y = clamp(global_position.y, radius_y, viewport_height - radius_y)	
+
 	if event is InputEventKey:
 		if event.is_action_released("player_shoot"):
 			super_shoot()
@@ -106,7 +133,7 @@ func _input(event: InputEvent) -> void:
 func _on_ShootTimer_timeout() -> void:
 	if GameManager.is_player_alive and not is_charging:
 		var new_bullet : BaseBullet = bullet.instance()
-		new_bullet.initialize( WeaponManager.PLAYER_BULLET_DAMAGE_BASE, self,  WeaponManager.GROUP_WEAPON_PLAYER) 
+		new_bullet.initialize( stats.bullet_damage, self,  WeaponManager.GROUP_WEAPON_PLAYER) 
 		$AudioShoot.play()
 		shoot(new_bullet)
 
@@ -120,7 +147,7 @@ func super_shoot() -> void:
 func calculate_super_bullet_damage() -> float:
 	var percentage : float = actual_charge / 100
 	var real_multiplier : float = super_shoot_multiplier * percentage
-	var real_damage  : float = WeaponManager.PLAYER_SUPER_BULLET_DAMAGE_BASE * real_multiplier
+	var real_damage  : float = stats.bullet_damage * real_multiplier
 	return real_damage
 
 func shoot(new_bullet : BaseBullet) -> void:
@@ -130,23 +157,31 @@ func shoot(new_bullet : BaseBullet) -> void:
 
 func _on_Ship_take_damage(_value) -> void:
 	if health > ConstManager.MIN_HEALTH:		
-		combo_level -= 1.0
-		combo_level = clamp(combo_level, 0, 100)
+		combo_level -= 1
+		combo_level = int(clamp(combo_level, 0, 100))
 		emit_signal("update_combo_level", combo_level)
 		
 		combo_value = ConstManager.MIN_COMBO
 		emit_signal("update_combo", combo_value)
 		
-		health -= _value
+		var real_health_loss = _value - (_value * stats.damage_reduction)
+		DebugManager.debug(name + "-health-loss", real_health_loss)
+		health -= real_health_loss
 		health = clamp(health, ConstManager.MIN_HEALTH, ConstManager.MAX_HEALTH)
 		emit_signal("update_health", health)
-		if health <= ConstManager.MIN_HEALTH:
-			emit_signal("player_died", aim_to.global_position)
+		if health <= ConstManager.MIN_HEALTH:		
+			var last_position = pivot.global_position
+			GameManager.player_last_position = last_position
+			pivot.global_position = Vector2(-10,-10)
+			emit_signal("player_died")			
 		
 func on_Game_player_died() -> void:
+	pivot.global_position = Vector2(-10,-10)
 	hide()
 		
 func on_Game_player_respawned(_position) -> void:
+	if not GameManager.use_crosshair_as_pivot:
+		global_position = _position
 	show()	
 	emit_signal("update_health", ConstManager.MAX_HEALTH)
 	health = ConstManager.MAX_HEALTH
@@ -161,7 +196,7 @@ func on_NPC_died(_xp) -> void:
 	emit_signal("update_xp", GameManager.player_xp)	
 
 func increase_combo_level(npc_dead : bool = false) -> void:
-	combo_value += combo_rate * (3.5 if npc_dead else 1)
+	combo_value += stats.combo_rate * (3.5 if npc_dead else 1.0)
 	combo_value = clamp(combo_value, ConstManager.MIN_COMBO, ConstManager.MAX_COMBO)
 	if combo_value >= ConstManager.MAX_COMBO:
 		combo_value = ConstManager.MIN_COMBO
@@ -170,16 +205,22 @@ func increase_combo_level(npc_dead : bool = false) -> void:
 	emit_signal("update_combo", combo_value)
 	
 func udpate_stats() -> void:
-	$Stats.attack = GameManager.stats["Attack"]
-	$Stats.speed = GameManager.stats["Speed"]
-	$Stats.armor = GameManager.stats["Armor"]
-	$Stats.combo = GameManager.stats["Combo"]
-	$Stats.power = GameManager.stats["Power"]
-	debug_stats.add_stat("attack", $Stats.attack)
-	debug_stats.add_stat("speed", $Stats.speed)
-	debug_stats.add_stat("armor", $Stats.armor)
-	debug_stats.add_stat("combo", $Stats.combo)
-	debug_stats.add_stat("power", $Stats.power)
 	
+	stats.update_stats()
 	
+	debug_stats.add_stat("attack", stats.attack)
+	debug_stats.add_stat("speed", stats.speed)
+	debug_stats.add_stat("armor", stats.armor)
+	debug_stats.add_stat("combo", stats.combo)
+	debug_stats.add_stat("power", stats.power)
 	
+	debug_stats.add_stat("damage_reduction", stats.damage_reduction)
+	debug_stats.add_stat("rotation_speed", stats.rotation_speed)
+	debug_stats.add_stat("bullet_damage", stats.bullet_damage)
+	debug_stats.add_stat("shooting_rate", stats.shooting_rate)
+	debug_stats.add_stat("charge_rate", stats.charge_rate)
+	debug_stats.add_stat("cooldown_rate", stats.cooldown_rate)
+	debug_stats.add_stat("combo_rate", stats.combo_rate)
+	
+func get_rotation_speed() -> float:
+	return stats.rotation_speed

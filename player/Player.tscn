@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
-[ext_resource path="res://player/ShipKB.gd" type="Script" id=2]
-[ext_resource path="res://assets/player/playerShip3_blue.png" type="Texture" id=3]
-[ext_resource path="res://particles/FireThrust.tscn" type="PackedScene" id=4]
-[ext_resource path="res://gui/debug/PlayerStatsDebug.tscn" type="PackedScene" id=5]
-[ext_resource path="res://player/Stats.gd" type="Script" id=6]
+[ext_resource path="res://resources/stats/player/player_base_stats.tres" type="Resource" id=2]
+[ext_resource path="res://player/ShipKB.gd" type="Script" id=3]
+[ext_resource path="res://assets/player/playerShip3_blue.png" type="Texture" id=4]
+[ext_resource path="res://assets/crosshair/crossair_red.png" type="Texture" id=5]
+[ext_resource path="res://particles/FireThrust.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gui/debug/PlayerStatsDebug.tscn" type="PackedScene" id=7]
+[ext_resource path="res://player/Stats.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 118.559
@@ -13,6 +15,7 @@ radius = 118.559
 [node name="Player" type="Node2D"]
 scale = Vector2( 0.3, 0.3 )
 script = ExtResource( 1 )
+stats_base = ExtResource( 2 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -21,52 +24,55 @@ autostart = true
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Ship" type="KinematicBody2D" parent="Pivot"]
-editor/display_folded = true
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Pivot/Ship"]
-position = Vector2( -50, 0 )
 rotation = 1.5708
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Muzzle" type="Position2D" parent="Pivot/Ship"]
-position = Vector2( 1.5788, 7.8115e-005 )
+editor/display_folded = true
+position = Vector2( 45, 0 )
 rotation = 1.81e-006
-scale = Vector2( 1, 0.5 )
+
+[node name="Sprite" type="Sprite" parent="Pivot/Ship/Muzzle"]
+position = Vector2( 485, 0 )
+scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Ship"]
 shape = SubResource( 1 )
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pivot/Ship"]
-position = Vector2( -20, 0 )
+position = Vector2( 30, 0 )
 rotation = 1.5708
 polygon = PoolVector2Array( -50.4314, 57.0115, -22.1815, 56.7086, -13.893, 67.53, 13.2339, 69.7443, 25.4133, 55.904, 49.7722, 56.4575, -0.779419, -9.52664 )
 
 [node name="AimTo" type="Position2D" parent="Pivot/Ship"]
-position = Vector2( -60, 0 )
 
-[node name="FireThrustMain" parent="Pivot/Ship" instance=ExtResource( 4 )]
-position = Vector2( -90, 0 )
+[node name="FireThrustMain" parent="Pivot/Ship" instance=ExtResource( 6 )]
+position = Vector2( -45, 0 )
 rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
 
-[node name="FireThrustLeft" parent="Pivot/Ship" instance=ExtResource( 4 )]
-position = Vector2( -75, -50 )
+[node name="FireThrustLeft" parent="Pivot/Ship" instance=ExtResource( 6 )]
+position = Vector2( -25, -50 )
 rotation = -1.5708
 scale = Vector2( 0.2, 0.2 )
 
-[node name="FireThrustRight" parent="Pivot/Ship" instance=ExtResource( 4 )]
-position = Vector2( -75, 50 )
+[node name="FireThrustRight" parent="Pivot/Ship" instance=ExtResource( 6 )]
+position = Vector2( -25, 50 )
 rotation = 1.5708
 scale = Vector2( 0.2, 0.2 )
 
 [node name="DebugPivot" type="Node2D" parent="Pivot"]
+editor/display_folded = true
 
-[node name="PlayerStatsDebug" parent="Pivot/DebugPivot" instance=ExtResource( 5 )]
+[node name="PlayerStatsDebug" parent="Pivot/DebugPivot" instance=ExtResource( 7 )]
 
 [node name="Stats" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 
 [node name="AudioShoot" type="AudioStreamPlayer2D" parent="."]
 bus = "PlayerShoot"

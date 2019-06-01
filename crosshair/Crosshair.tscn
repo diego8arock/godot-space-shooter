@@ -4,8 +4,6 @@
 [ext_resource path="res://gui/debug/DebugInfo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/crosshair/crossair_red.png" type="Texture" id=3]
 
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 73.8459
 

@@ -7,7 +7,6 @@ const ZERO_VALUE_FLOAT : float = 0.0
 
 var states_stack = []
 var current_state = null
-signal state_changed(states_stack)
 
 onready var states_map = {
 	"idle" : $States/Idle,

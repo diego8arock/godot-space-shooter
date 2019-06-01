@@ -19,13 +19,13 @@ func _on_button_pressed(_button) -> void:
 	_button.release_focus() # Prevents button to be callend when pressed space bar
 	match _button.name:
 		"Home":
-			pass
+			change_screen($TitleScreen)
 		"Play":
 			change_screen(null)
 			yield(get_tree().create_timer(0.5), "timeout")			
 			emit_signal("start_game")
-		"Settings":
-			pass
+		"Options":
+			change_screen($OptionsScreen)
 		"Continue":
 			change_screen(null)
 			emit_signal("continue_game", false)

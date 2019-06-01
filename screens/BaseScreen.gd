@@ -25,3 +25,5 @@ func update_text_as_timer(_value : int) -> void:
 func set_text(_message : String) -> void:
 	label.text = _message
 	
+func set_subtitle(_message : String) -> void:
+	$MarginContainer/VBoxContainer/SubTitle.text = _message
