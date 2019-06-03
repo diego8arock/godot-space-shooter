@@ -14,7 +14,7 @@ onready var canvas_gui = $PlayerGUI
 onready var level_start_timer = $LevelStartTimer
 onready var respawn_timer = $PlayerRespawnTimer
 onready var grid = $Grid
-onready var oldlife_container = $OldLifeContainer
+onready var paths = $Paths
 
 #Screens
 onready var screens = $Screens
@@ -34,10 +34,11 @@ onready var turret_scene : PackedScene = preload("res://enemies/turret/Turret.ts
 #Signals
 signal player_died()
 signal player_respawned(_position)
-signal old_life_picked(_value)
+signal old_life_picked()
 signal update_xp()
 
 var is_countdown_tween_completed : bool = false
+var recovered_xp : int = 0
 
 enum ACTION { START_GAME, LOAD_LEVEL, START_LEVEL,  PLAYER_DIED, PLAYER_RESPAWN, CONTINUE_LEVEL, CONTINUE_LEVEL_SKIP, OLD_LIFE_PICKED, ENEMIES_DESTROYED }
 
@@ -106,14 +107,15 @@ func continue_level(_skip : bool) -> void:
 		GameManager.copy_temp_to_stats()
 		GameManager.player.udpate_stats()	
 		GameManager.player_xp = GameManager.temp_player_xp
+		DebugManager.debug(name+"-continue_level", GameManager.player_xp, debug)
 		emit_signal("update_xp")
 	play(ACTION.LOAD_LEVEL)
 	
 func old_life_picked() -> void: 
 	GameManager.player_lifes += 1
-	var xp = oldlife_container.get_child(0).xp
-	GameManager.player_xp = xp
-	emit_signal("old_life_picked", xp)
+	GameManager.player_xp += recovered_xp
+	DebugManager.debug(name + "-old_life_picked", recovered_xp, debug)
+	emit_signal("old_life_picked")
 	emit_signal("update_xp")
 
 func player_died() -> void:
@@ -123,6 +125,8 @@ func player_died() -> void:
 	GameManager.is_player_alive = false
 	DebugManager.debug(name + "-player_lifes", GameManager.player_lifes, debug)
 	GameManager.level = 1
+	GameManager.lost_player_xp = GameManager.player_xp
+	emit_signal("update_xp")
 	for c in enemy_container.get_children():
 		c.call_deferred("free")
 	if GameManager.player_lifes == 0:
@@ -205,10 +209,9 @@ func init_enemies() -> void:
 func create_old_life() -> void:
 	if GameManager.level == GameManager.player_last_level:
 		var old_life = old_life_scene.instance()
-		oldlife_container.add_child(old_life)
+		paths.path_add_old_life(0, old_life)
 		old_life.set_xp()
 		old_life.set_level()
-		GameManager.player_xp = 0
 		old_life.connect("player_entered", self, "on_OldLife_player_entered")
 		connect("old_life_picked", old_life, "on_Game_old_life_picked")
 		old_life.start_at(Vector2(200,200))
@@ -233,7 +236,8 @@ func _on_Screens_continue_game(_skip) -> void:
 func on_Player_player_died() -> void:
 	play(ACTION.PLAYER_DIED)
 	
-func on_OldLife_player_entered() -> void:
+func on_OldLife_player_entered(_xp) -> void:
+	recovered_xp = _xp
 	play(ACTION.OLD_LIFE_PICKED)
 
 func _on_LevelStartTimer_timeout() -> void:

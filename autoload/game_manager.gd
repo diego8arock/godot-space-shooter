@@ -30,6 +30,7 @@ var is_player_alive : bool = true
 var player_xp : int = 0
 var temp_player_xp : int = 0
 var player_level : int = 1
+var lost_player_xp : int = 0
 
 #Gameplay variables
 const boss_every_level : int = 5

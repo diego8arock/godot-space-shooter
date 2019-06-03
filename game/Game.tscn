@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/black.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://screens/Screens.tscn" type="PackedScene" id=6]
 [ext_resource path="res://game/EnemyContainer.gd" type="Script" id=7]
 [ext_resource path="res://game/Grid.tscn" type="PackedScene" id=8]
+[ext_resource path="res://old_life/Paths.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -37,12 +38,12 @@ position = Vector2( 533.5, 450 )
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 
-[node name="OldLifeContainer" type="Node2D" parent="."]
-
 [node name="EnemyContainer" type="Node2D" parent="."]
 script = ExtResource( 7 )
 
 [node name="Grid" parent="." instance=ExtResource( 8 )]
+
+[node name="Paths" parent="." instance=ExtResource( 9 )]
 
 [node name="PlayerRespawnTimer" type="Timer" parent="."]
 wait_time = 3.0

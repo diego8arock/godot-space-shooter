@@ -44,11 +44,11 @@ func take_damage(_value) -> void:
 func evaluate_health() -> void:
 	
 	if health <= ConstManager.MIN_HEALTH:
-		DebugManager.debug(name +"-"+ str(id), "died xp:" + str(stats.xp))
 		emit_signal("died", stats.xp)
 		call_deferred("free")
 		
 func add_stats_to_debug() -> void:
+	
 	stats_debug.add_stat("level", level)
 	stats_debug.add_stat("xp", stats.xp)
 	stats_debug.add_stat("speed", stats.speed)

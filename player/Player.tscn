@@ -33,7 +33,7 @@ texture = ExtResource( 4 )
 [node name="Muzzle" type="Position2D" parent="Pivot/Ship"]
 editor/display_folded = true
 position = Vector2( 45, 0 )
-rotation = 1.81e-006
+rotation = 1.81e-06
 
 [node name="Sprite" type="Sprite" parent="Pivot/Ship/Muzzle"]
 position = Vector2( 485, 0 )

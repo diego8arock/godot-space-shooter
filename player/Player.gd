@@ -70,9 +70,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	
-	DebugManager.debug(name + "", global_position)
-	DebugManager.debug(name + "-pivot", pivot.global_position)
-	
 	if GameManager.is_player_alive:
 		if Input.is_key_pressed(KEY_SPACE) and is_charge_possible:
 			DebugManager.debug("player-charge", actual_charge, debug)
