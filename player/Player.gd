@@ -17,13 +17,18 @@ var actual_charge : float = 0.0
 var is_charging : bool = false
 var is_charge_possible : bool = true
 
+var give_control : bool = false
+var rotate_to_end_point : bool = false
+
 var radius_x : float
 var radius_y : float
 
-var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
-var super_bullet : PackedScene = preload("res://weapons/bullet/super_bullet/SuperBullet.tscn")
-var shoot_sound = preload("res://sounds/laser6.ogg")
-var super_shoot_sound = preload("res://sounds/laser3.ogg")
+onready var bullet : PackedScene = preload("res://weapons/bullet/mid_bullet/MidBullet.tscn")
+onready var super_bullet : PackedScene = preload("res://weapons/bullet/super_bullet/SuperBullet.tscn")
+onready var explosion : PackedScene = preload("res://particles/BulletExplosion.tscn")
+
+onready var shoot_sound = preload("res://sounds/laser6.ogg")
+onready var super_shoot_sound = preload("res://sounds/laser3.ogg")
 
 onready var pivot = $Pivot
 onready var muzzle = $Pivot/Ship/Muzzle
@@ -36,6 +41,9 @@ onready var ship_radius = $Pivot/Ship/CollisionShape2D.shape.radius
 onready var debug_stats_pivot = $Pivot/DebugPivot
 onready var debug_stats = $Pivot/DebugPivot/PlayerStatsDebug
 onready var stats = $Stats
+onready var ship = $Pivot/Ship
+onready var exit_position = $Pivot/ExitPosition
+onready var tween = $Tween
 
 signal update_health(_value)
 signal update_power(_value)
@@ -45,7 +53,7 @@ signal update_xp(_value)
 signal player_died()
 
 func _init() -> void:
-	pause_mode = Node.PAUSE_MODE_STOP
+	pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _ready() -> void:
 	stats.initialize(stats_base)
@@ -53,6 +61,7 @@ func _ready() -> void:
 	$AudioSuperShoot.stream = super_shoot_sound
 	GameManager.enemy_aim_to = aim_to
 	GameManager.player_pivot = pivot
+	GameManager.player_health = int(health)
 	radius_x = ship_radius * scale.x
 	radius_y = ship_radius * scale.y
 	if GameManager.use_crosshair_as_pivot:
@@ -80,7 +89,7 @@ func _process(delta: float) -> void:
 			emit_signal("update_power", ConstManager.MAX_CHARGE - actual_charge)
 		else:
 			if actual_charge > ConstManager.MIN_CHARGE:
-				actual_charge -= stats.combo_down_rate
+				actual_charge -= stats.cooldown_rate
 				actual_charge = clamp(actual_charge, ConstManager.MIN_CHARGE, ConstManager.MAX_CHARGE)
 			is_charge_possible = actual_charge == ConstManager.MIN_CHARGE
 			is_charging = false
@@ -112,8 +121,9 @@ func _physics_process(delta: float) -> void:
 func set_player_position() -> void:	
 	
 	pivot.global_position = GameManager.crosshair.get_line_end_position().global_position
-	pivot.global_position.x = clamp(pivot.global_position.x, radius_x, viewport_width - radius_x)
-	pivot.global_position.y = clamp(pivot.global_position.y, radius_y, viewport_height - radius_y)
+	if give_control:
+		pivot.global_position.x = clamp(pivot.global_position.x, radius_x, viewport_width - radius_x)
+		pivot.global_position.y = clamp(pivot.global_position.y, radius_y, viewport_height - radius_y)
 
 func _input(event: InputEvent) -> void:	
 
@@ -128,7 +138,7 @@ func _input(event: InputEvent) -> void:
 			super_shoot()
 
 func _on_ShootTimer_timeout() -> void:
-	if GameManager.is_player_alive and not is_charging:
+	if GameManager.is_player_alive and not is_charging and give_control:
 		var new_bullet : BaseBullet = bullet.instance()
 		new_bullet.initialize( stats.bullet_damage, self,  WeaponManager.GROUP_WEAPON_PLAYER) 
 		$AudioShoot.play()
@@ -153,11 +163,14 @@ func shoot(new_bullet : BaseBullet) -> void:
 	new_bullet.shoot(muzzle.global_position, direction)		
 
 func _on_Ship_take_damage(_value) -> void:
-	if health > ConstManager.MIN_HEALTH:		
+	if health > ConstManager.MIN_HEALTH:
+		
+		GameManager.create_bullet_explosion(pivot.global_position)
+				
 		combo_level -= 1
 		combo_level = int(clamp(combo_level, 0, 100))
 		emit_signal("update_combo_level", combo_level)
-		
+
 		combo_value = ConstManager.MIN_COMBO
 		emit_signal("update_combo", combo_value)
 		
@@ -166,6 +179,7 @@ func _on_Ship_take_damage(_value) -> void:
 		health -= real_health_loss
 		health = clamp(health, ConstManager.MIN_HEALTH, ConstManager.MAX_HEALTH)
 		emit_signal("update_health", health)
+		GameManager.player_health = int(health)
 		if health <= ConstManager.MIN_HEALTH:		
 			var last_position = pivot.global_position
 			GameManager.player_last_position = last_position
@@ -189,17 +203,24 @@ func on_NPC_got_hit(_value) -> void:
 	
 func on_NPC_died(_xp) -> void:
 	increase_combo_level(true)
-	GameManager.player_xp += _xp
+	GameManager.player_xp += _xp * combo_level
 	emit_signal("update_xp", GameManager.player_xp)	
 
 func increase_combo_level(npc_dead : bool = false) -> void:
-	combo_value += stats.combo_rate * (3.5 if npc_dead else 1.0)
+	var value_to_add : float = stats.combo_rate * (3.5 if npc_dead else 1.0)
+	var value_to_sub : float = value_to_add * get_combo_decreaser()
+	var real_value : float = value_to_add - value_to_sub
+	combo_value += real_value
 	combo_value = clamp(combo_value, ConstManager.MIN_COMBO, ConstManager.MAX_COMBO)
 	if combo_value >= ConstManager.MAX_COMBO:
 		combo_value = ConstManager.MIN_COMBO
-		combo_level += 1
+		combo_level += 1 if combo_level < ConstManager.MAX_COMBO_LEVEL else 0
 		emit_signal("update_combo_level",combo_level)
 	emit_signal("update_combo", combo_value)
+
+func get_combo_decreaser() -> float:
+	return (0.001) * pow(combo_level, 2) + (0.02) * combo_level + (0.1)
+		
 	
 func udpate_stats() -> void:
 	
@@ -221,3 +242,13 @@ func udpate_stats() -> void:
 	
 func get_rotation_speed() -> float:
 	return stats.rotation_speed
+	
+func update_health() -> void:
+	health = GameManager.player_health
+
+func on_Game_countdown_finished() -> void:
+	give_control = true
+
+func on_Game_enemies_destroyed() -> void:
+	give_control = false
+	

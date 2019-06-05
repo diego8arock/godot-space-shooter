@@ -44,6 +44,7 @@ func take_damage(_value) -> void:
 func evaluate_health() -> void:
 	
 	if health <= ConstManager.MIN_HEALTH:
+		GameManager.create_damage(global_position, 0.5)
 		emit_signal("died", stats.xp)
 		call_deferred("free")
 		

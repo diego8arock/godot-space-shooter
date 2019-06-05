@@ -8,6 +8,8 @@ var game
 var player_init_position 
 var enemy_container
 var stats_gui
+var damage_container
+var explosion_container
 
 #Level
 var level : int = 1
@@ -31,6 +33,8 @@ var player_xp : int = 0
 var temp_player_xp : int = 0
 var player_level : int = 1
 var lost_player_xp : int = 0
+var player_health : int = 0
+var temp_player_health : int = 0
 
 #Gameplay variables
 const boss_every_level : int = 5
@@ -63,3 +67,11 @@ func copy_temp_to_stats() -> void:
 	stats["Attack"] = stats_temp["Attack"]
 	stats["Power"] = stats_temp["Power"]
 	stats["Combo"] = stats_temp["Combo"]
+
+func create_bullet_explosion(_pos : Vector2) -> void:
+	explosion_container.create_bullet_explosion(_pos)
+
+func create_damage(_pos : Vector2, _scale : float = 1.0) -> void:
+	explosion_container.create_damage_explosion(_pos)
+	yield(get_tree().create_timer(0.5), "timeout")
+	damage_container.create_damage(_pos, _scale)

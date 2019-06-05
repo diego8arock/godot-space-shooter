@@ -7,7 +7,6 @@ export var debug_player : bool = false
 
 #Nodes
 onready var player_inital_position = $PlayerInitialPosition
-onready var crosshair_initial_position = $CrosshairInitialPosition
 onready var enemy_container = $EnemyContainer
 onready var margin_gui = $PlayerGUI/Margin
 onready var canvas_gui = $PlayerGUI
@@ -36,6 +35,9 @@ signal player_died()
 signal player_respawned(_position)
 signal old_life_picked()
 signal update_xp()
+signal update_health()
+signal countdown_finished()
+signal enemies_destroyed()
 
 var is_countdown_tween_completed : bool = false
 var recovered_xp : int = 0
@@ -47,6 +49,8 @@ func _init() -> void:
 	pause_mode = Node.PAUSE_MODE_PROCESS
 
 func _ready() -> void:
+	GameManager.damage_container = $DamageContainer
+	GameManager.explosion_container = $ExplosionContainer
 	margin_gui.hide()
 	LevelManager.load_levels()
 
@@ -54,7 +58,7 @@ func _process(delta: float) -> void:
 	
 	if level_start_timer.time_left > 0.0 and is_countdown_tween_completed:
 		screen_countdown.update_text_as_timer(int(level_start_timer.time_left))
-		
+				
 func _unhandled_key_input(event):	
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit()
@@ -90,6 +94,8 @@ func start_game() -> void:
 	play(ACTION.LOAD_LEVEL)
 
 func load_level() -> void:
+	get_tree().paused = true
+	GameManager.crosshair.move_to_game_position($PlayerInitialPosition.global_position, $CrosshairGamePosition.global_position)
 	init_enemies()
 	create_old_life()
 	countdown_to_start()
@@ -98,6 +104,7 @@ func start_level() -> void:
 	screens.change_screen(null)
 	enemy_container.start_processing()
 	get_tree().paused = false
+	emit_signal("countdown_finished")
 
 func continue_level(_skip : bool) -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -106,9 +113,11 @@ func continue_level(_skip : bool) -> void:
 	if not _skip:
 		GameManager.copy_temp_to_stats()
 		GameManager.player.udpate_stats()	
+		GameManager.player.update_health()
 		GameManager.player_xp = GameManager.temp_player_xp
-		DebugManager.debug(name+"-continue_level", GameManager.player_xp, debug)
+		GameManager.player_health = GameManager.temp_player_health
 		emit_signal("update_xp")
+		emit_signal("update_health")
 	play(ACTION.LOAD_LEVEL)
 	
 func old_life_picked() -> void: 
@@ -141,17 +150,18 @@ func player_died() -> void:
 func player_respawn() -> void:
 	get_tree().paused = true
 	GameManager.is_player_alive = true
-	emit_signal("player_respawned", crosshair_initial_position.global_position if GameManager.use_crosshair_as_pivot else player_inital_position.global_position)
+	emit_signal("player_respawned", player_inital_position.global_position)
 	if not GameManager.use_crosshair_as_pivot:
 		GameManager.player.global_position = player_inital_position.global_position
 	else:
-		GameManager.crosshair.global_position = crosshair_initial_position.global_position
+		GameManager.crosshair.global_position = player_inital_position.global_position
 		GameManager.player_pivot.global_position = GameManager.crosshair.get_line_end_position().global_position
 	play(ACTION.LOAD_LEVEL)
 
 func enemies_destroyed() -> void:
 	DebugManager.debug(name, "_on_EnemyContainer_all_destroyed", debug)
-	get_tree().paused = true
+	emit_signal("enemies_destroyed")
+	GameManager.crosshair.move_to_end_position(GameManager.player.exit_position.global_position)
 	GameManager.level += 1
 	if GameManager.level <= GameManager.max_level:
 		screens.change_screen(screen_levelcompleted)
@@ -173,33 +183,37 @@ func init_gui() -> void:
 	connect("player_died", canvas_gui, "on_Game_player_died")
 	connect("old_life_picked", canvas_gui, "on_Game_old_life_picked")
 	connect("update_xp", canvas_gui, "on_Game_update_xp")
+	connect("update_health", canvas_gui, "on_Game_update_health")
 	
 func init_crosshair() -> void:
 	var crosshair : Crosshair = crosshair_scene.instance()
 	crosshair.debug = debug_player
 	add_child(crosshair)
-	crosshair.global_position = crosshair_initial_position.global_position
+	crosshair.global_position = player_inital_position.global_position
 	GameManager.crosshair = crosshair
 	connect("player_died", crosshair, "on_Game_player_died")
 	connect("player_respawned", crosshair, "on_Game_player_respawned")
+	connect("countdown_finished", crosshair, "on_Game_countdown_finished")
+	connect("enemies_destroyed", crosshair, "on_Game_enemies_destroyed")
 	
 func init_player() -> void:
 	var player : Player = player_scene.instance()
 	player.debug = debug_player
 	add_child(player)
 	player.udpate_stats()
-	if not GameManager.use_crosshair_as_pivot:
-		player.global_position = player_inital_position.global_position
+	player.global_position = player_inital_position.global_position
 	GameManager.player = player
 	GameManager.enemy_aim_to = player.aim_to
 	connect("player_died", player, "on_Game_player_died")
 	connect("player_respawned", player, "on_Game_player_respawned")
+	connect("countdown_finished", player, "on_Game_countdown_finished")
+	connect("enemies_destroyed", player, "on_Game_enemies_destroyed")
 
 func init_enemies() -> void:
 	var enemies = LevelManager.load_level_enemies(GameManager.level)
 	for e in enemies:
 		var pos : Position2D = grid.get_node("R" + str(e.row)).get_node("P" + str(e.pos))
-		var npc = e.npc as NPC
+		var npc = e.npc
 		enemy_container.add_child(npc)
 		npc.adjust_stats_by_level()
 		npc.add_stats_to_debug()
@@ -220,10 +234,12 @@ func init_and_show_stats_gui() -> void:
 	GameManager.copy_stats_to_temp()
 	GameManager.stats_gui.set_level(GameManager.player_level)
 	GameManager.stats_gui.set_xp(GameManager.player_xp)
+	GameManager.temp_player_health = GameManager.player_health
 	GameManager.stats_gui.calculate_req_xp_value()
 	GameManager.stats_gui.validate_req_xp() 
 	GameManager.stats_gui.set_stats_values()
 	GameManager.stats_gui.set_skills_values()
+	GameManager.stats_gui.set_health_value()
 	screens.change_screen(screen_stats)
 
 #Signals	

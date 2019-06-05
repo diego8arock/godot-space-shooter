@@ -8,19 +8,21 @@ const ZERO_VALUE_FLOAT : float = 0.0
 var states_stack = []
 var current_state = null
 
+onready var explosion : PackedScene = preload("res://particles/BulletExplosion.tscn")
+
 onready var states_map = {
 	"idle" : $States/Idle,
 	"shoot_bullets" : $States/ShootBullet,
 	"shoot_missile" : $States/ShootMissile
 }
 
-func _ready():
+func _ready() -> void:
 	._ready()
 	states_stack.push_back($States/Idle)
 	current_state = states_stack[0]
 	_change_state("idle")
 	
-func _process(delta):
+func _process(delta: float) -> void:
 	
 	DebugManager.debug("turret-health", health, debug)
 	evaluate_health()
@@ -37,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	if state_name and not state_name.empty():
 		_change_state(state_name)
 		
-func _change_state(_state_name) -> void:
+func _change_state(_state_name : String) -> void:
 	current_state.exit(self)
 	
 	if _state_name == "previous":
@@ -52,12 +54,13 @@ func _change_state(_state_name) -> void:
 	DebugManager.debug("turret-current_state", current_state.name, debug)
 	DebugManager.debug_states("turret-states", states_stack, debug)
 
-func _on_Turret_area_entered(area):
+func _on_Turret_area_entered(area) -> void:
 	if area.is_in_group(WeaponManager.GROUP_WEAPON_PLAYER):
 		take_damage(area.weapon_damage)
+		GameManager.create_bullet_explosion(area.global_position)
 		area.queue_free()
 
-func aim_at_player(_delta) -> void:		
+func aim_at_player(_delta : float) -> void:		
 	if  GameManager.is_enemy_to_attack():
 		var target_dir = (GameManager.enemy_aim_to.global_position - global_position).normalized()
 		var current_dir = Vector2(1, 0).rotated($Pivot.global_rotation)

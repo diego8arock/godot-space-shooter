@@ -5,7 +5,7 @@ onready var label_value = $StatValue
 export var stat_name : String = ""
 var value : int = 0
 var new_value
-onready var parent = get_parent().get_parent().get_parent().get_parent()
+var parent 
 
 signal addstat(_name)
 signal substat(_name)
@@ -14,6 +14,8 @@ func _ready():
 	if not stat_name.empty():
 		$StatName.text = stat_name
 	new_value = value
+
+func connect_button_signals() -> void:
 	connect("addstat", parent, "on_StatContianer_add_stat", [name])
 	connect("substat", parent, "on_StatContianer_sub_stat", [name])
 

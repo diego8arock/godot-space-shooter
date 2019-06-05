@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gui/player/StatGUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/player/stats_dynamicfont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://gui/player/StatContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/player/SkillContainer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/gui/player/health_dynamicfont.tres" type="DynamicFont" id=5]
 
 [node name="StatsGUI" type="Control"]
 script = ExtResource( 1 )
@@ -15,7 +16,7 @@ __meta__ = {
 margin_left = -15.0
 margin_top = -10.0
 margin_right = 254.0
-margin_bottom = 447.0
+margin_bottom = 496.0
 rect_scale = Vector2( 1.84, 1 )
 color = Color( 0.301961, 0, 0.294118, 1 )
 
@@ -89,12 +90,14 @@ custom_fonts/font = ExtResource( 2 )
 text = "0"
 
 [node name="Container" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
 margin_top = 111.0
 margin_right = 469.0
 margin_bottom = 397.0
 custom_constants/separation = 36
 
 [node name="StatsContainers" type="VBoxContainer" parent="VBoxContainer/Container"]
+editor/display_folded = true
 margin_right = 170.0
 margin_bottom = 286.0
 
@@ -136,6 +139,7 @@ margin_bottom = 267.0
 stat_name = "Combo"
 
 [node name="SkillsContainer" type="VBoxContainer" parent="VBoxContainer/Container"]
+editor/display_folded = true
 margin_left = 206.0
 margin_right = 469.0
 margin_bottom = 286.0
@@ -204,10 +208,75 @@ margin_right = 263.0
 margin_bottom = 286.0
 skill_name = "Combo Rate"
 
-[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Health" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 407.0
 margin_right = 469.0
-margin_bottom = 427.0
+margin_bottom = 451.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Health"]
+margin_right = 469.0
+margin_bottom = 44.0
+custom_constants/separation = 29
+alignment = 1
+
+[node name="HealthLabel" type="Label" parent="VBoxContainer/Health/HBoxContainer"]
+margin_left = 102.0
+margin_top = 8.0
+margin_right = 201.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 2 )
+text = "HEALTH"
+
+[node name="HealthValue" type="Label" parent="VBoxContainer/Health/HBoxContainer"]
+margin_left = 230.0
+margin_top = 8.0
+margin_right = 247.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer/Health/HBoxContainer"]
+editor/display_folded = true
+margin_left = 276.0
+margin_right = 296.0
+margin_bottom = 44.0
+
+[node name="AddHealth" type="Button" parent="VBoxContainer/Health/HBoxContainer/Buttons"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="SubHealth" type="Button" parent="VBoxContainer/Health/HBoxContainer/Buttons"]
+margin_top = 24.0
+margin_right = 20.0
+margin_bottom = 44.0
+text = "-"
+
+[node name="Cost" type="VBoxContainer" parent="VBoxContainer/Health/HBoxContainer"]
+margin_left = 325.0
+margin_right = 367.0
+margin_bottom = 44.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Health/HBoxContainer/Cost"]
+margin_right = 42.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 5 )
+text = "COST"
+align = 1
+
+[node name="CostValue" type="Label" parent="VBoxContainer/Health/HBoxContainer/Cost"]
+margin_top = 22.0
+margin_right = 42.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 5 )
+text = "0"
+align = 1
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+editor/display_folded = true
+margin_top = 461.0
+margin_right = 469.0
+margin_bottom = 481.0
 custom_constants/separation = 35
 alignment = 1
 
@@ -226,3 +295,5 @@ margin_left = 267.0
 margin_right = 305.0
 margin_bottom = 20.0
 text = "Skip"
+[connection signal="pressed" from="VBoxContainer/Health/HBoxContainer/Buttons/AddHealth" to="." method="_on_AddHealth_pressed"]
+[connection signal="pressed" from="VBoxContainer/Health/HBoxContainer/Buttons/SubHealth" to="." method="_on_SubHealth_pressed"]

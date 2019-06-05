@@ -24,6 +24,7 @@ autostart = true
 [node name="Pivot" type="Position2D" parent="."]
 
 [node name="Ship" type="KinematicBody2D" parent="Pivot"]
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Pivot/Ship"]
@@ -33,7 +34,7 @@ texture = ExtResource( 4 )
 [node name="Muzzle" type="Position2D" parent="Pivot/Ship"]
 editor/display_folded = true
 position = Vector2( 45, 0 )
-rotation = 1.81e-06
+rotation = 1.81e-006
 
 [node name="Sprite" type="Sprite" parent="Pivot/Ship/Muzzle"]
 position = Vector2( 485, 0 )
@@ -71,6 +72,9 @@ editor/display_folded = true
 
 [node name="PlayerStatsDebug" parent="Pivot/DebugPivot" instance=ExtResource( 7 )]
 
+[node name="ExitPosition" type="Position2D" parent="Pivot"]
+position = Vector2( 5000, 0 )
+
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 8 )
 
@@ -79,5 +83,7 @@ bus = "PlayerShoot"
 
 [node name="AudioSuperShoot" type="AudioStreamPlayer2D" parent="."]
 bus = "PlayerShoot"
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="take_damage" from="Pivot/Ship" to="." method="_on_Ship_take_damage"]

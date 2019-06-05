@@ -14,6 +14,10 @@ onready var bttn_continue = $VBoxContainer/Buttons/Continue
 
 func _ready() -> void:
 	GameManager.stats_gui = self
+	for c in $VBoxContainer/Container/StatsContainers.get_children():
+		if c is StatContainer:
+			c.parent = self
+			c.connect_button_signals()
 
 func set_level(_level : int) -> void:
 	level = _level
@@ -118,3 +122,58 @@ func parse_to_round_int(_value : float) -> int:
 func set_skills_modified(_skill_name : String, _value : float) -> void:
 	get_skill(_skill_name).set_skill_value(str(parse_to_round_int(_value)))
 	get_skill(_skill_name).set_modifed_value()
+	
+onready var health_value_label = $VBoxContainer/Health/HBoxContainer/HealthValue
+onready var bttn_add_health = $VBoxContainer/Health/HBoxContainer/Buttons/AddHealth
+onready var bttn_sub_health = $VBoxContainer/Health/HBoxContainer/Buttons/SubHealth
+onready var cost_label = $VBoxContainer/Health/HBoxContainer/Cost/CostValue
+var health_value : int
+var inital_health : int
+export var xp_base_cost : int = 1000
+export var xp_increment : int = 100
+export var health_clicks : int = 0
+
+func set_health_value() -> void:
+	health_value = GameManager.player_health
+	inital_health = GameManager.player_health
+	cost_label.text = str(calc_xp_health_cost())
+	set_health_value_label()
+	enable_buttons()
+
+func set_health_value_label() -> void:
+	health_value_label.text = str(health_value)
+
+func _on_AddHealth_pressed() -> void:
+	health_value += 10
+	xp -= calc_xp_health_cost()
+	health_clicks += 1
+	update_health()
+
+func _on_SubHealth_pressed() -> void:
+	health_value -= 10
+	health_clicks -= 1
+	xp += calc_xp_health_cost()	
+	update_health()
+
+func update_health() -> void:
+	health_clicks  = int(clamp(health_clicks, 0, 1000))
+	health_value = int(clamp(health_value, ConstManager.MIN_HEALTH, ConstManager.MAX_HEALTH))
+	xp_value.text = "0" if xp < 0 else str(xp)
+	GameManager.temp_player_health = health_value
+	GameManager.temp_player_xp = xp
+	cost_label.text = str(calc_xp_health_cost())
+	set_health_value_label()
+	validate_req_xp()
+	enable_buttons()
+
+func calc_xp_health_cost() -> int:
+	return xp_base_cost + (health_clicks * xp_increment)
+	
+func can_get_health() -> bool:
+	if  calc_xp_health_cost() > xp:
+		return false
+	return true
+
+func enable_buttons() -> void:
+	bttn_add_health.disabled = health_value == ConstManager.MAX_HEALTH or not can_get_health()
+	bttn_sub_health.disabled = health_value == 10 or inital_health == health_value

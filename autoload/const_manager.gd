@@ -22,6 +22,7 @@ const MAX_CHARGE: float = 100.0
 const MIN_CHARGE : float = 0.0
 const MAX_COMBO : float = 100.0
 const MIN_COMBO : float = 0.0
+const MAX_COMBO_LEVEL : int = 40
 
 enum STAT_MODIFIER { BY_01, BY_05, BY_1, BY_2, BY_3, BY_4, BY_5, BY_6, BY_7, BY_8, BY_9  }
 
