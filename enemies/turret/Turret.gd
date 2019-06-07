@@ -2,9 +2,6 @@ extends NPC
 
 export var debug : bool = false
 
-const BUFFER_10 : int = 10
-const ZERO_VALUE_FLOAT : float = 0.0
-
 var states_stack = []
 var current_state = null
 
@@ -54,11 +51,8 @@ func _change_state(_state_name : String) -> void:
 	DebugManager.debug("turret-current_state", current_state.name, debug)
 	DebugManager.debug_states("turret-states", states_stack, debug)
 
-func _on_Turret_area_entered(area) -> void:
-	if area.is_in_group(WeaponManager.GROUP_WEAPON_PLAYER):
-		take_damage(area.weapon_damage)
-		GameManager.create_bullet_explosion(area.global_position)
-		area.queue_free()
+func _on_Turret_area_entered(area: Area2D) -> void:
+	process_area_entered(area)
 
 func aim_at_player(_delta : float) -> void:		
 	if  GameManager.is_enemy_to_attack():

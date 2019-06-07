@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/drone_generator/DroneGenerator.gd" type="Script" id=2]
+[ext_resource path="res://resources/stats/drone_generator/drone_generator_base_stats.tres" type="Resource" id=3]
+[ext_resource path="res://assets/drone_generator/engine4.png" type="Texture" id=4]
+[ext_resource path="res://assets/drone_generator/engine5.png" type="Texture" id=5]
+[ext_resource path="res://enemies/drone_generator/states/Idle.gd" type="Script" id=6]
+[ext_resource path="res://enemies/drone_generator/states/SendDrone.gd" type="Script" id=7]
+
+[node name="DroneGenerator" instance=ExtResource( 1 )]
+z_index = 1
+script = ExtResource( 2 )
+base_stats = ExtResource( 3 )
+
+[node name="EnemyGui" parent="." index="1"]
+margin_left = -30.9756
+margin_top = -41.5906
+margin_right = 160.024
+margin_bottom = 7.40942
+rect_scale = Vector2( 0.3, 0.3 )
+
+[node name="Sprite" parent="." index="2"]
+editor/display_folded = true
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Sprite" index="0"]
+rotation = 3.14159
+texture = ExtResource( 5 )
+offset = Vector2( 0, -25 )
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+polygon = PoolVector2Array( -18.6726, -22.7762, 17.1721, -22.7762, 24.4698, -6.89297, 21.8941, 18.3956, 17.6013, 20.3274, 21.6795, 25.4787, 22.1087, 36.4253, -21.6776, 36.6399, -22.1068, 26.7666, -17.5994, 21.8299, -22.5361, 18.6103, -24.0386, -9.25399 )
+
+[node name="Idle" type="Node" parent="States" index="0"]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="States/Idle" index="0"]
+one_shot = true
+
+[node name="SendDrone" type="Node" parent="States" index="1"]
+script = ExtResource( 7 )
+
+[node name="DroneContainer" type="Node2D" parent="." index="6"]
+z_index = -1
+
+[node name="ExitPoint" type="Position2D" parent="." index="7"]
+position = Vector2( 0, 70 )
+[connection signal="area_entered" from="." to="." method="_on_DroneGenerator_area_entered"]
+[connection signal="timeout" from="States/Idle/Timer" to="States/Idle" method="_on_Timer_timeout"]

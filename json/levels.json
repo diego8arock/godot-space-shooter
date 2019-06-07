@@ -2,7 +2,7 @@
    "1":[
       {
          "id":1,
-         "type":"turret",
+         "type":"dronegen",
          "level":1,
          "row":5,
          "pos":6

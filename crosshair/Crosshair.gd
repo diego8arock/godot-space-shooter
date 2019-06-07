@@ -71,11 +71,11 @@ func get_line_end_position():
 	return $Line2D/Position2D
 	
 func on_Game_player_died() -> void:
+	give_control = false
 	hide()
 	
-func on_Game_player_respawned(_position) -> void:
+func on_Game_player_respawned() -> void:
 	if GameManager.use_crosshair_as_pivot:
-		global_position = _position
 		rotation_angle = 0.0
 		show()
 	

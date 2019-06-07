@@ -32,7 +32,7 @@ onready var turret_scene : PackedScene = preload("res://enemies/turret/Turret.ts
 
 #Signals
 signal player_died()
-signal player_respawned(_position)
+signal player_respawned()
 signal old_life_picked()
 signal update_xp()
 signal update_health()
@@ -51,6 +51,7 @@ func _init() -> void:
 func _ready() -> void:
 	GameManager.damage_container = $DamageContainer
 	GameManager.explosion_container = $ExplosionContainer
+	GameManager.grid = $Grid
 	margin_gui.hide()
 	LevelManager.load_levels()
 
@@ -136,26 +137,26 @@ func player_died() -> void:
 	GameManager.level = 1
 	GameManager.lost_player_xp = GameManager.player_xp
 	emit_signal("update_xp")
+	emit_signal("player_died")
 	for c in enemy_container.get_children():
 		c.call_deferred("free")
 	if GameManager.player_lifes == 0:
-		emit_signal("player_died")
 		screen_ship_destroyed.set_subtitle("xp can be recovered")
 		screens.change_screen(screen_ship_destroyed)
 	if GameManager.player_lifes < 0:
 		screen_ship_destroyed.set_subtitle("xp lost")
 		screens.change_screen(screen_ship_destroyed)
+		GameManager.player_lifes = 1
+		emit_signal("old_life_picked")
 	respawn_timer.start()
 
 func player_respawn() -> void:
-	get_tree().paused = true
-	GameManager.is_player_alive = true
-	emit_signal("player_respawned", player_inital_position.global_position)
-	if not GameManager.use_crosshair_as_pivot:
-		GameManager.player.global_position = player_inital_position.global_position
-	else:
+	if GameManager.use_crosshair_as_pivot:
 		GameManager.crosshair.global_position = player_inital_position.global_position
-		GameManager.player_pivot.global_position = GameManager.crosshair.get_line_end_position().global_position
+	GameManager.is_player_alive = true
+	GameManager.player_health = ConstManager.MAX_HEALTH
+	emit_signal("update_health")
+	emit_signal("player_respawned")
 	play(ACTION.LOAD_LEVEL)
 
 func enemies_destroyed() -> void:
@@ -212,16 +213,17 @@ func init_player() -> void:
 func init_enemies() -> void:
 	var enemies = LevelManager.load_level_enemies(GameManager.level)
 	for e in enemies:
-		var pos : Position2D = grid.get_node("R" + str(e.row)).get_node("P" + str(e.pos))
+		var pos : Position2D = grid.get_grid_position("R" + str(e.row), "P" + str(e.pos))
 		var npc = e.npc
 		enemy_container.add_child(npc)
 		npc.adjust_stats_by_level()
 		npc.add_stats_to_debug()
 		npc.debug = false
 		npc.global_position = pos.global_position
+		grid.save_position("R" + str(e.row) + "P" + str(e.pos))
 
 func create_old_life() -> void:
-	if GameManager.level == GameManager.player_last_level:
+	if GameManager.level == GameManager.player_last_level and GameManager.player_lifes == 0:
 		var old_life = old_life_scene.instance()
 		paths.path_add_old_life(0, old_life)
 		old_life.set_xp()
@@ -232,16 +234,10 @@ func create_old_life() -> void:
 
 func init_and_show_stats_gui() -> void:
 	GameManager.copy_stats_to_temp()
-	GameManager.stats_gui.set_level(GameManager.player_level)
-	GameManager.stats_gui.set_xp(GameManager.player_xp)
 	GameManager.temp_player_health = GameManager.player_health
-	GameManager.stats_gui.calculate_req_xp_value()
-	GameManager.stats_gui.validate_req_xp() 
-	GameManager.stats_gui.set_stats_values()
-	GameManager.stats_gui.set_skills_values()
-	GameManager.stats_gui.set_health_value()
+	GameManager.stats_gui.initialize()
 	screens.change_screen(screen_stats)
-
+	
 #Signals	
 func _on_Screens_start_game() -> void:
 	play(ACTION.START_GAME)

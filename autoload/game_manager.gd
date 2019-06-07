@@ -5,6 +5,7 @@ var use_crosshair_as_pivot = true
  
 #Game nodes
 var game 
+var grid
 var player_init_position 
 var enemy_container
 var stats_gui
@@ -33,8 +34,8 @@ var player_xp : int = 0
 var temp_player_xp : int = 0
 var player_level : int = 1
 var lost_player_xp : int = 0
-var player_health : int = 0
-var temp_player_health : int = 0
+var player_health : float = 0.0
+var temp_player_health : float = 0.0
 
 #Gameplay variables
 const boss_every_level : int = 5

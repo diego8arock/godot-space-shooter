@@ -181,21 +181,17 @@ func _on_Ship_take_damage(_value) -> void:
 		emit_signal("update_health", health)
 		GameManager.player_health = int(health)
 		if health <= ConstManager.MIN_HEALTH:		
-			var last_position = pivot.global_position
-			GameManager.player_last_position = last_position
-			pivot.global_position = Vector2(-10,-10)
+			GameManager.player_last_position = pivot.global_position
 			emit_signal("player_died")			
 		
 func on_Game_player_died() -> void:
-	pivot.global_position = Vector2(-10,-10)
+	give_control = false
 	hide()
 		
-func on_Game_player_respawned(_position) -> void:
-	if not GameManager.use_crosshair_as_pivot:
-		global_position = _position
+func on_Game_player_respawned() -> void:
 	show()	
-	emit_signal("update_health", ConstManager.MAX_HEALTH)
 	health = ConstManager.MAX_HEALTH
+	emit_signal("update_health", ConstManager.MAX_HEALTH)
 	$Pivot/Ship.show()
 	
 func on_NPC_got_hit(_value) -> void:

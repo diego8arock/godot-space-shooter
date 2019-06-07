@@ -1,9 +1,12 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game/Grid.gd" type="Script" id=1]
 
 [node name="Grid" type="Node2D"]
-editor/display_folded = true
+script = ExtResource( 1 )
 
 [node name="R1" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -48.5, 50 )
 
 [node name="P1" type="Position2D" parent="R1"]
@@ -37,6 +40,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R2" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 100 )
 
 [node name="P1" type="Position2D" parent="R2"]
@@ -70,6 +74,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R3" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -48.5, 150 )
 
 [node name="P1" type="Position2D" parent="R3"]
@@ -103,6 +108,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R4" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 200 )
 
 [node name="P1" type="Position2D" parent="R4"]
@@ -136,6 +142,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R5" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -48.5, 250 )
 
 [node name="P1" type="Position2D" parent="R5"]
@@ -235,6 +242,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R8" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 400 )
 
 [node name="P1" type="Position2D" parent="R8"]
@@ -268,6 +276,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R9" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -48.5, 450 )
 
 [node name="P1" type="Position2D" parent="R9"]
@@ -301,6 +310,7 @@ position = Vector2( 873, 0 )
 position = Vector2( 970, 0 )
 
 [node name="R10" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 500 )
 
 [node name="P1" type="Position2D" parent="R10"]

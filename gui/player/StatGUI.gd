@@ -18,14 +18,24 @@ func _ready() -> void:
 		if c is StatContainer:
 			c.parent = self
 			c.connect_button_signals()
+			
+func initialize() -> void:
+	set_level(GameManager.player_level)
+	set_xp(GameManager.player_xp)
+	calculate_req_xp_value()
+	validate_req_xp() 
+	set_stats_values()
+	set_skills_values()
+	set_health_value()
 
 func set_level(_level : int) -> void:
 	level = _level
-	level_value.text = str(_level)
+	level_value.text = str(level)
 
-func set_xp(_xp : int) -> void:
+func set_xp(_xp : int ) -> void:
 	xp = _xp
-	xp_value.text = str(_xp)
+	xp_value.text = "0" if xp < 0 else str(xp)
+	GameManager.temp_player_xp = xp
 
 func calculate_req_xp_value() -> void:
 	var next_lvl = level + 1
@@ -38,18 +48,16 @@ func calculate_req_xp_value() -> void:
 func on_StatContianer_add_stat(_name) -> void:
 	update_skills_values(_name)
 	set_level(level + 1)
-	calculate_req_xp_value()
+	calculate_req_xp_value()	
 	xp -= req_xp
-	GameManager.temp_player_xp = xp
-	xp_value.text = "0" if xp < 0 else str(xp)
+	set_xp(xp)
 	validate_req_xp() 
 
 func on_StatContianer_sub_stat(_name) -> void:
 	update_skills_values(_name)
 	set_level(level - 1)
 	xp += req_xp
-	GameManager.temp_player_xp = xp
-	xp_value.text =  "0" if xp < 0 else str(xp)
+	set_xp(xp)
 	calculate_req_xp_value()
 	validate_req_xp() 
 	
@@ -134,8 +142,8 @@ export var xp_increment : int = 100
 export var health_clicks : int = 0
 
 func set_health_value() -> void:
-	health_value = GameManager.player_health
-	inital_health = GameManager.player_health
+	health_value = int(GameManager.player_health)
+	inital_health = int(GameManager.player_health)
 	cost_label.text = str(calc_xp_health_cost())
 	set_health_value_label()
 	enable_buttons()

@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/drone_generator/Drone.gd" type="Script" id=2]
+[ext_resource path="res://resources/stats/drone/drone_base_stats.tres" type="Resource" id=3]
+[ext_resource path="res://assets/drone_generator/enemyBlue1.png" type="Texture" id=4]
+[ext_resource path="res://enemies/drone_generator/states/Fly.gd" type="Script" id=5]
+[ext_resource path="res://enemies/drone_generator/states/Shoot.gd" type="Script" id=6]
+
+[node name="Drone" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+base_stats = ExtResource( 3 )
+
+[node name="EnemyGui" parent="." index="1"]
+margin_left = -10.2756
+margin_top = -20.1183
+margin_right = 180.724
+margin_bottom = 28.8817
+rect_scale = Vector2( 0.1, 0.1 )
+
+[node name="Sprite" parent="." index="2"]
+editor/display_folded = true
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 4 )
+
+[node name="Muzzle" type="Position2D" parent="Sprite" index="0"]
+position = Vector2( 0, 50 )
+rotation = 1.5708
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+polygon = PoolVector2Array( 8.99344, -12.6902, 14.1103, -4.43018, 7.55177, 12.4558, 3.06452, 11.3788, 5.29177, 3.33804, 4.46136, 2.50762, 3.5382, 4.52931, -3.42734, 4.52931, -4.56127, 3.1524, -5.12823, 3.1524, -2.94838, 11.2891, -7.43562, 12.6353, -14.0323, -4.64947, -8.62311, -12.6171, -2.84839, -10.3511, -2.6291, -7.57338, 2.56084, -7.35409, 2.78013, -10.1318 )
+
+[node name="Fly" type="Node" parent="States" index="0"]
+script = ExtResource( 5 )
+
+[node name="Shoot" type="Node" parent="States" index="1"]
+script = ExtResource( 6 )
+
+[node name="Tween" type="Tween" parent="." index="6"]

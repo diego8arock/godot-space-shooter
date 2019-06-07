@@ -1,0 +1,2 @@
+[DEBUG] [debug] [16:59:47][DEBUG]:[ID:1]: turret-current_state - Idle
+[DEBUG] [debug] [16:59:47][DEBUG]:[ID:2]: turret-states - Idle | 

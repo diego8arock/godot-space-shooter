@@ -56,5 +56,9 @@ func add_stats_to_debug() -> void:
 	stats_debug.add_stat("attack", stats.attack)
 	stats_debug.add_stat("defense", stats.defense)
 	
-	
+func process_area_entered(area: Area2D) -> void: 
+	if area.is_in_group(WeaponManager.GROUP_WEAPON_PLAYER):
+		take_damage(area.weapon_damage)
+		GameManager.create_bullet_explosion(area.global_position)
+		area.queue_free()
 	
