@@ -12,6 +12,9 @@ signal debug_updated(node,text,id)
 signal debug_delete(node)
 
 func _ready():
+	if not get_tree().get_root().has_node(ConstManager.GAME_NODE_NAME):
+		return
+	
 	var main_node = get_tree().get_root().get_node(ConstManager.GAME_NODE_NAME)
 			
 	if not main_node:
