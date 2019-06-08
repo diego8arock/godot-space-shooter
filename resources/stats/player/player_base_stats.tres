@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 damage_reduction = null
 rotation_speed = 3.0
-bullet_damage = 5.0
+bullet_damage = 50.0
 shooting_rate = 0.5
 charge_rate = 1.5
 cooldown_rate = 0.5
