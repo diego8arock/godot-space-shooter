@@ -18,6 +18,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 		
+	evaluate_health()
 	var state_name = current_state.update(self, delta)	
 	if state_name and not state_name.empty():
 		_change_state(state_name)

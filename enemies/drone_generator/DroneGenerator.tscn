@@ -14,14 +14,15 @@ script = ExtResource( 2 )
 base_stats = ExtResource( 3 )
 
 [node name="EnemyGui" parent="." index="1"]
-margin_left = -30.9756
-margin_top = -41.5906
-margin_right = 160.024
-margin_bottom = 7.40942
-rect_scale = Vector2( 0.3, 0.3 )
+margin_left = -19.0877
+margin_top = -32.4045
+margin_right = 171.912
+margin_bottom = 16.5955
+rect_scale = Vector2( 0.2, 0.2 )
 
 [node name="Sprite" parent="." index="2"]
 editor/display_folded = true
+scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Sprite" index="0"]
@@ -30,12 +31,14 @@ texture = ExtResource( 5 )
 offset = Vector2( 0, -25 )
 
 [node name="CollisionPolygon2D" parent="." index="3"]
+scale = Vector2( 0.8, 0.8 )
 polygon = PoolVector2Array( -18.6726, -22.7762, 17.1721, -22.7762, 24.4698, -6.89297, 21.8941, 18.3956, 17.6013, 20.3274, 21.6795, 25.4787, 22.1087, 36.4253, -21.6776, 36.6399, -22.1068, 26.7666, -17.5994, 21.8299, -22.5361, 18.6103, -24.0386, -9.25399 )
 
 [node name="Idle" type="Node" parent="States" index="0"]
 script = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="States/Idle" index="0"]
+wait_time = 3.0
 one_shot = true
 
 [node name="SendDrone" type="Node" parent="States" index="1"]

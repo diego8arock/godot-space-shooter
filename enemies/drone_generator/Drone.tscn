@@ -12,14 +12,16 @@ script = ExtResource( 2 )
 base_stats = ExtResource( 3 )
 
 [node name="EnemyGui" parent="." index="1"]
-margin_left = -10.2756
-margin_top = -20.1183
-margin_right = 180.724
-margin_bottom = 28.8817
+margin_left = -15.019
+margin_top = -9.5775
+margin_right = 175.981
+margin_bottom = 39.4225
+rect_rotation = 90.0
 rect_scale = Vector2( 0.1, 0.1 )
 
 [node name="Sprite" parent="." index="2"]
 editor/display_folded = true
+rotation = -1.5708
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 4 )
 
@@ -28,6 +30,7 @@ position = Vector2( 0, 50 )
 rotation = 1.5708
 
 [node name="CollisionPolygon2D" parent="." index="3"]
+rotation = -1.5708
 polygon = PoolVector2Array( 8.99344, -12.6902, 14.1103, -4.43018, 7.55177, 12.4558, 3.06452, 11.3788, 5.29177, 3.33804, 4.46136, 2.50762, 3.5382, 4.52931, -3.42734, 4.52931, -4.56127, 3.1524, -5.12823, 3.1524, -2.94838, 11.2891, -7.43562, 12.6353, -14.0323, -4.64947, -8.62311, -12.6171, -2.84839, -10.3511, -2.6291, -7.57338, 2.56084, -7.35409, 2.78013, -10.1318 )
 
 [node name="Fly" type="Node" parent="States" index="0"]
@@ -35,5 +38,12 @@ script = ExtResource( 5 )
 
 [node name="Shoot" type="Node" parent="States" index="1"]
 script = ExtResource( 6 )
+bullet_scale = 0.5
+
+[node name="Timer" type="Timer" parent="States/Shoot" index="0"]
+wait_time = 1.5
+one_shot = true
 
 [node name="Tween" type="Tween" parent="." index="6"]
+[connection signal="area_entered" from="." to="." method="_on_Drone_area_entered"]
+[connection signal="timeout" from="States/Shoot/Timer" to="States/Shoot" method="_on_Timer_timeout"]

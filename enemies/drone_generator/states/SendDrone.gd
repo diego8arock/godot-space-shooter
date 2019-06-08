@@ -7,7 +7,7 @@ func enter(_host) -> void:
 	.enter(_host)
 	drone_container = _host.get_node("DroneContainer")
 	
-	if drone_container.get_child_count() == 1:
+	if drone_container.get_child_count() == 3:
 		execute_state = false
 		return
 	

@@ -4,6 +4,7 @@ export var debug : bool = false
 
 var states_stack = []
 var current_state = null
+onready var muzzle = $Sprite/Muzzle
 
 onready var states_map = {
 	"fly" : $States/Fly,
@@ -20,6 +21,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 		
+	evaluate_health()
 	var state_name = current_state.update(self, delta)	
 	if state_name and not state_name.empty():
 		_change_state(state_name)	
@@ -39,5 +41,5 @@ func _change_state(_state_name : String) -> void:
 	DebugManager.debug("turret-current_state", current_state.name, debug)
 	DebugManager.debug_states("turret-states", states_stack, debug)
 
-func _on_DroneGenerator_area_entered(area: Area2D) -> void:
+func _on_Drone_area_entered(area: Area2D) -> void:
 	process_area_entered(area)
