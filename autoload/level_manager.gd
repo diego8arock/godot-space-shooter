@@ -2,6 +2,7 @@ extends Node
 
 var turret = preload("res://enemies/turret/Turret.tscn")
 var drone_generator = preload("res://enemies/drone_generator/DroneGenerator.tscn")
+var ufo_laser = preload("res://enemies/laser_ufo/LaserUfo.tscn")
 
 var levels_file = "res://json/levels.json"
 var levels
@@ -25,9 +26,10 @@ func load_level_enemies(id : int) -> Array:
 		if e.type == "turret":			
 			el.npc = turret.instance() as NPC
 		if e.type == "dronegen":
-			el = EnemyLoader.new()
+			el.npc = drone_generator.instance() as NPC
+		if e.type == "laserufo":
+			el.npc = ufo_laser.instance() as NPC
 		
-		el.npc = drone_generator.instance() as NPC
 		el.npc.level = int(e.level)
 		el.npc.id = unique_id
 		el.pos = e.pos
