@@ -4,7 +4,7 @@ class_name NPC, "res://interfaces/npc.gd"
 export var health : float = ConstManager.MAX_HEALTH
 export var base_stats : Resource
 
-onready var stats = $Stats
+onready var stats = $Stats # NpcStartingStats
 onready var gui = $EnemyGui
 onready var stats_debug = $EnemyStatsDebug
 
@@ -37,7 +37,7 @@ func adjust_stats_by_level() -> void:
 
 func take_damage(_value) -> void:	
 
-	health -= _value
+	health -= _value - (_value * stats.defense / 100)
 	health = clamp(health, ConstManager.MIN_HEALTH, ConstManager.MAX_HEALTH)
 	emit_signal("update_health", health)
 
