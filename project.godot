@@ -106,6 +106,7 @@ _global_script_class_icons={
 
 config/name="game-test"
 run/main_scene="res://game/Game.tscn"
+run/disable_stdout=true
 config/icon="res://icon.png"
 
 [autoload]
