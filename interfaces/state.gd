@@ -4,21 +4,21 @@ class_name State, "res://interfaces/state.gd"
 
 var execute_state : bool = true
 
-func enter(_host) -> void:
+func enter(_host: Node2D) -> void:
 	execute_state = true
 	return
 	
-func exit(_host) -> void:
+func exit(_host: Node2D) -> void:
 	execute_state = false
 	return
 	
-func handle_input(_host, _event) -> void:
+func handle_input(_host: Node2D, _event) -> void:
 	return
 
-func update(_host, _delta) -> String:
+func update(_host: Node2D, _delta: float) -> String:
 	return ConstManager.EMPTY_STRING
 	
-func fixed_update(_host, _delta) -> String:
+func fixed_update(_host: Node2D, _delta: float) -> String:
 	return ConstManager.EMPTY_STRING
 
 
