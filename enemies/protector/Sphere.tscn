@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/protector/Sphere.gd" type="Script" id=2]
+[ext_resource path="res://assets/protector/ufoGreen.png" type="Texture" id=3]
+
+[node name="Sphere" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="EnemyGui" parent="." index="1"]
+visible = false
+
+[node name="Sprite" parent="." index="2"]
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 3 )
+
+[node name="TweenAttack" type="Tween" parent="." index="6"]
+
+[node name="TweenRetreat" type="Tween" parent="." index="7"]

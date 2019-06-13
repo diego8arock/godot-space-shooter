@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/protector/Protector.gd" type="Script" id=2]
+[ext_resource path="res://assets/protector/enemyGreen3.png" type="Texture" id=3]
+
+[node name="Protector" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="EnemyGui" parent="." index="1"]
+visible = false
+
+[node name="Sprite" parent="." index="2"]
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 3 )
+
+[node name="SpheresContainer" type="Node2D" parent="." index="6"]
+
+[node name="Idle" type="Timer" parent="." index="7"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Protect" type="Timer" parent="." index="8"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Attack" type="Timer" parent="." index="9"]
+wait_time = 2.0
+one_shot = true
+[connection signal="timeout" from="Idle" to="." method="_on_Idle_timeout"]
+[connection signal="timeout" from="Protect" to="." method="_on_Protect_timeout"]
+[connection signal="timeout" from="Attack" to="." method="_on_Attack_timeout"]
