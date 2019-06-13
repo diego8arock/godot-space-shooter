@@ -1,6 +1,13 @@
 extends Area2D
 class_name NPC, "res://interfaces/npc.gd"
 
+export var debug : bool = false
+
+var states_stack = []
+var current_state = null
+
+onready var states_map = {}
+
 export var health : float = ConstManager.MAX_HEALTH
 export var base_stats : Resource
 
@@ -15,8 +22,9 @@ var is_initialized : bool = false
 signal update_health(_value)
 signal died(_xp)
 
+#Area2D methods
 func _init() -> void:
-	
+		
 	pause_mode = Node.PAUSE_MODE_STOP
 	
 func _ready() -> void:	
@@ -32,6 +40,36 @@ func _ready() -> void:
 	if err != 0:
 		WarningManager.warn(name + "-" + str(id), "could not connect on_NPC_died with player err_id: " + str(err))
 
+
+func _process(delta: float) -> void:
+		
+	evaluate_health()
+	var state_name = current_state.update(self, delta)	
+	if state_name and not state_name.empty():
+		_change_state(state_name)	
+
+func _physics_process(delta: float) -> void:
+	
+	var state_name = current_state.fixed_update(self, delta)
+	if state_name and not state_name.empty():
+		_change_state(state_name)
+	
+func _change_state(_state_name : String) -> void:
+	current_state.exit(self)
+	
+	if _state_name == "previous":
+		states_stack.pop_front()
+	else:
+		var new_state = states_map[_state_name]
+		states_stack[0] = new_state
+	
+	current_state = states_stack[0]
+	if _state_name != "previous":
+		current_state.enter(self)
+	DebugManager.debug(name + "-current_state", current_state.name, debug)
+	DebugManager.debug_states(name + "-states", states_stack, debug)
+
+#Private methods
 func adjust_stats_by_level() -> void:
 	stats.adjust_by_level(level)
 
@@ -61,4 +99,19 @@ func process_area_entered(area: Area2D) -> void:
 		take_damage(area.weapon_damage)
 		GameManager.create_bullet_explosion(area.global_position)
 		area.queue_free()
+	
+	
+#extends NPC
+#
+#func _ready() -> void:
+#	._ready()
+#
+#func _process(delta: float) -> void:
+#	._process(delta)
+#
+#func _physics_process(delta: float) -> void:
+#	._physics_process(delta)
+#
+#func _change_state(_state_name : String) -> void:
+#	_change_state(_state_name)
 	
