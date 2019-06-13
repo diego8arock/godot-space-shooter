@@ -36,6 +36,6 @@ func destroy_bullet() -> void:
 
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	DebugManager.debug(name,body.name,DebugManager.weapons_do_debug)
-	if body.name == "Ship":
+	if body.name == ConstManager.BODY_SHIP_NAME:
 		body.take_damage(weapon_damage)
 		call_deferred("free")
