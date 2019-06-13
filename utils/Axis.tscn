@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Axis" type="Node2D"]
+
+[node name="X" type="Line2D" parent="."]
+points = PoolVector2Array( 10, 0, 0, 0 )
+width = 1.0
+default_color = Color( 1, 0, 0, 1 )
+
+[node name="Y" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 0, 10 )
+width = 1.0
+default_color = Color( 0, 1, 0, 1 )
