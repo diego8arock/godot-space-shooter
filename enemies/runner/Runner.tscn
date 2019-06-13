@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://enemies/runner/Runner.gd" type="Script" id=2]
+[ext_resource path="res://resources/stats/runner/runner_base_stats.tres" type="Resource" id=3]
+[ext_resource path="res://assets/runner/enemyGreen5.png" type="Texture" id=4]
+[ext_resource path="res://assets/weapons/lasers/laserRed02.png" type="Texture" id=5]
+[ext_resource path="res://particles/RunnerFireThrust.tscn" type="PackedScene" id=6]
+[ext_resource path="res://enemies/runner/states/Adjust.gd" type="Script" id=7]
+[ext_resource path="res://enemies/runner/states/Aim.gd" type="Script" id=8]
+[ext_resource path="res://assets/runner/laserRed11.png" type="Texture" id=9]
+[ext_resource path="res://enemies/runner/states/Run.gd" type="Script" id=10]
+[ext_resource path="res://weapons/saber/Saber.tscn" type="PackedScene" id=11]
+
+[node name="Runner" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+base_stats = ExtResource( 3 )
+
+[node name="EnemyGui" parent="." index="1"]
+margin_left = -18.0727
+margin_top = -33.5801
+margin_right = 172.927
+margin_bottom = 15.4199
+rect_scale = Vector2( 0.2, 0.2 )
+
+[node name="Sprite" parent="." index="2"]
+editor/display_folded = true
+rotation = -1.5708
+scale = Vector2( 0.45, 0.45 )
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Line2D" type="Line2D" parent="Sprite" index="0"]
+editor/display_folded = true
+position = Vector2( 0, 50 )
+points = PoolVector2Array( 0, 0, 0, 3000 )
+texture = ExtResource( 5 )
+texture_mode = 0
+
+[node name="Position2D" type="Position2D" parent="Sprite/Line2D" index="0"]
+
+[node name="FireThrust" parent="Sprite" index="1" instance=ExtResource( 6 )]
+position = Vector2( 0, -35 )
+rotation = -1.5708
+scale = Vector2( 0.5, 0.5 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Sprite" index="2"]
+enabled = true
+cast_to = Vector2( 0, 3000 )
+
+[node name="CollisionPolygon2D" parent="." index="3"]
+scale = Vector2( 0.45, 0.45 )
+polygon = PoolVector2Array( -40.9519, -48.3181, 31.6256, -27.6658, 30.8583, -18.2041, 34.5646, -18.2041, 42.4406, -14.4978, 41.9874, 12.6215, 36.7187, 17.463, 32.4469, 17.463, 31.9763, 28.0737, -40.9519, 48.0465, -41.8784, 32.7579, -27.9797, 9.13004, -29.3696, 0.327499, -27.0531, -9.86491, -41.8784, -32.1029 )
+
+[node name="States" parent="." index="4"]
+editor/display_folded = true
+
+[node name="Adjust" type="Node" parent="States" index="0"]
+script = ExtResource( 7 )
+
+[node name="Aim" type="Node" parent="States" index="1"]
+editor/display_folded = true
+script = ExtResource( 8 )
+
+[node name="AimTimer" type="Timer" parent="States/Aim" index="0"]
+wait_time = 2.0
+one_shot = true
+
+[node name="RunTimer" type="Timer" parent="States/Aim" index="1"]
+wait_time = 3.0
+one_shot = true
+
+[node name="LockOn" type="Sprite" parent="States/Aim" index="2"]
+visible = false
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="Run" type="Node" parent="States" index="2"]
+script = ExtResource( 10 )
+
+[node name="Tween" type="Tween" parent="States/Run" index="0"]
+
+[node name="Saber" parent="." index="6" instance=ExtResource( 11 )]
+visible = false
+rotation = 1.74846e-007
+[connection signal="area_entered" from="." to="." method="_on_Runner_area_entered"]
+[connection signal="timeout" from="States/Aim/AimTimer" to="States/Aim" method="_on_AimTimer_timeout"]
+[connection signal="timeout" from="States/Aim/RunTimer" to="States/Aim" method="_on_RunTimer_timeout"]
+[connection signal="tween_completed" from="States/Run/Tween" to="States/Run" method="_on_Tween_tween_completed"]
+[connection signal="attack_ended" from="Saber" to="States/Run" method="_on_Saber_attack_ended"]
