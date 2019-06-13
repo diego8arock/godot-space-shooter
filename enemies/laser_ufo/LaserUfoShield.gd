@@ -1,7 +1,7 @@
 extends Weapon
 
 
-var rotate_speed = 3
+var rotate_speed = 1
 
 onready var tween = $Tween
 onready var shield = $Sprite
@@ -23,12 +23,9 @@ func disolve_shield() -> void:
 	collision.disabled = true
 	emit_signal("shield_disolved")
 
-func _on_Timer_timeout() -> void:
-	#disolve_shield()
-	pass
-
 func _on_LaserUfoShield_area_entered(area: Area2D) -> void:
 	if area.is_in_group(WeaponManager.GROUP_WEAPON_PLAYER):
+		GameManager.create_bullet_on_shield_explosion(area.global_position)
 		randomize()
 		var rad = deg2rad(135 * (1 if randi() % 2 == 0 else -1))
 		area.global_rotation += rad

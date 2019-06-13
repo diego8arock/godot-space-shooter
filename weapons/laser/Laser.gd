@@ -1,4 +1,4 @@
-extends Area2D
+extends Weapon
 
 onready var line = $Line2D
 onready var collision = $CollisionShape2D
@@ -38,6 +38,10 @@ func shrink_laser() -> void:
 	
 	if line.points[1].x >= 0:
 		line.points[1] -= Vector2(growth_speed, 0)
-		collision_shape.b = line.points[1]
+		collision_shape.b = line.points[1]	
 
-		
+func _on_Laser_body_entered(body: PhysicsBody2D) -> void:
+	DebugManager.debug(name,body.name,DebugManager.weapons_do_debug)
+	if body.name == "Ship":
+		body.take_damage(weapon_damage)
+
