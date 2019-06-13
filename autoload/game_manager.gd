@@ -71,6 +71,12 @@ func copy_temp_to_stats() -> void:
 
 func create_bullet_explosion(_pos : Vector2) -> void:
 	explosion_container.create_bullet_explosion(_pos)
+	
+func create_bullet_on_shield_explosion(_pos : Vector2) -> void:
+	explosion_container.create_bullet_on_shield_explosion(_pos)
+	
+func create_bomb_explosion(_pos: Vector2) -> void:
+	explosion_container.create_bomb_explosion(_pos)
 
 func create_damage(_pos : Vector2, _scale : float = 1.0) -> void:
 	explosion_container.create_damage_explosion(_pos)
