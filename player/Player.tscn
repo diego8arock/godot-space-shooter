@@ -25,6 +25,7 @@ autostart = true
 
 [node name="Ship" type="KinematicBody2D" parent="Pivot"]
 editor/display_folded = true
+collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Pivot/Ship"]
