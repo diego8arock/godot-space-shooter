@@ -5,6 +5,7 @@ onready var ligth = $Sprite/Light
 onready var animation = $AnimationPlayer
 onready var timer = $ExplodeTimer
 onready var invincible = $InivincibleTimer
+onready var shockwave = $Area2D/Shockwave
 
 var radius : float = 5.0
 var green =  Color(0.5,1,0.1,1)
@@ -35,8 +36,9 @@ func execute_damage() -> void:
 		
 func explode() -> void:
 	bomb.hide()
+	shockwave.show()
 	animation.play("shockwave")
-	GameManager.create_bomb_explosion(global_position)
+	#GameManager.create_bomb_explosion(global_position)
 	call_deferred("mode", RigidBody2D.MODE_STATIC)
 	last_position = global_position
 	GameManager.create_bullet_explosion(global_position)
