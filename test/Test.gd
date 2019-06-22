@@ -7,6 +7,7 @@ func _ready():
 	GameManager.enemy_container = $EnemyContainer
 	GameManager.explosion_container = $ExplosionContainer
 	GameManager.damage_container = $DamageContainer
+	GameManager.number_container = $NumberContainer
 	WeaponManager.weapon_container = $WeaponContainer
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	init_crosshair() 
