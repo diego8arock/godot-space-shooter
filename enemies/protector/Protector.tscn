@@ -1,32 +1,104 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemies/protector/Protector.gd" type="Script" id=2]
-[ext_resource path="res://assets/protector/enemyGreen3.png" type="Texture" id=3]
+[ext_resource path="res://resources/stats/protector/protector_base_stats.tres" type="Resource" id=3]
+[ext_resource path="res://utils/Axis.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/protector/enemyGreen3.png" type="Texture" id=5]
+[ext_resource path="res://enemies/protector/states/Idle.gd" type="Script" id=6]
+[ext_resource path="res://enemies/protector/states/Protect.gd" type="Script" id=7]
+[ext_resource path="res://enemies/protector/states/Attack.gd" type="Script" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
 
 [node name="Protector" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+base_stats = ExtResource( 3 )
 
 [node name="EnemyGui" parent="." index="1"]
+margin_left = -39.2447
+margin_top = 26.2927
+margin_right = 151.755
+margin_bottom = 75.2927
+rect_rotation = -90.0
+rect_scale = Vector2( 0.3, 0.1 )
+
+[node name="Pivot" type="Position2D" parent="." index="3"]
+editor/display_folded = true
+
+[node name="Muzzles" type="Node2D" parent="Pivot" index="0"]
+editor/display_folded = true
+rotation = -1.5708
+
+[node name="Left" type="Position2D" parent="Pivot/Muzzles" index="0"]
+position = Vector2( -23, 33 )
+rotation = 1.55334
+
+[node name="Axis" parent="Pivot/Muzzles/Left" index="0" instance=ExtResource( 4 )]
 visible = false
 
-[node name="Sprite" parent="." index="2"]
+[node name="Right" type="Position2D" parent="Pivot/Muzzles" index="1"]
+position = Vector2( 23, 33 )
+rotation = -4.69494
+
+[node name="Axis" parent="Pivot/Muzzles/Right" index="0" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="Pivot" index="1"]
+rotation = -1.5708
 scale = Vector2( 0.7, 0.7 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
-[node name="SpheresContainer" type="Node2D" parent="." index="6"]
+[node name="CollisionPolygon2D" parent="." index="4"]
+rotation = -1.5708
+polygon = PoolVector2Array( 17.751, -24.8685, 36.0828, -1.32957, 27.2495, 29.0348, 20.4405, 28.8508, 21.0797, 19.514, 8.87449, 14.5209, 6.37798, 22.8426, -7.93812, 22.9727, -9.43328, 14.2435, -22.1932, 18.6818, -20.5294, 26.4594, -26.7282, 29.1714, -36.3401, -1.56772, -18.5872, -24.8685, -12.762, -24.8685, -5.87524, -29.2567, 5.26841, -29.0294, 11.9258, -25.1459 )
 
-[node name="Idle" type="Timer" parent="." index="7"]
-wait_time = 2.0
-one_shot = true
+[node name="Idle" type="Node" parent="States" index="0"]
+script = ExtResource( 6 )
+shield_path = NodePath("../../Shield/CollisionShape2D")
 
-[node name="Protect" type="Timer" parent="." index="8"]
+[node name="Timer" type="Timer" parent="States/Idle" index="0"]
 wait_time = 10.0
 one_shot = true
 
-[node name="Attack" type="Timer" parent="." index="9"]
+[node name="Protect" type="Node" parent="States" index="1"]
+editor/display_folded = true
+script = ExtResource( 7 )
+shield_path = NodePath("../../Shield/CollisionShape2D")
+spheres_container_path = NodePath("../../SpheresContainer")
+
+[node name="Timer" type="Timer" parent="States/Protect" index="0"]
+wait_time = 10.0
+one_shot = true
+
+[node name="Attack" type="Node" parent="States" index="2"]
+editor/display_folded = true
+script = ExtResource( 8 )
+spheres_container_path = NodePath("../../SpheresContainer")
+
+[node name="Timer" type="Timer" parent="States/Attack" index="0"]
+wait_time = 20.0
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="States/Attack" index="1"]
+wait_time = 2.0
+
+[node name="SpheresContainer" type="Node2D" parent="." index="7"]
+
+[node name="Shield" type="Area2D" parent="." index="8"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" index="0"]
+shape = SubResource( 1 )
+
+[node name="ShootTimer" type="Timer" parent="." index="9"]
 wait_time = 2.0
 one_shot = true
-[connection signal="timeout" from="Idle" to="." method="_on_Idle_timeout"]
-[connection signal="timeout" from="Protect" to="." method="_on_Protect_timeout"]
-[connection signal="timeout" from="Attack" to="." method="_on_Attack_timeout"]
+autostart = true
+[connection signal="area_entered" from="." to="." method="_on_Protector_area_entered"]
+[connection signal="timeout" from="States/Idle/Timer" to="States/Idle" method="_on_Timer_timeout"]
+[connection signal="timeout" from="States/Protect/Timer" to="States/Protect" method="_on_Timer_timeout"]
+[connection signal="timeout" from="States/Attack/Timer" to="States/Attack" method="_on_Timer_timeout"]
+[connection signal="timeout" from="States/Attack/AttackTimer" to="States/Attack" method="_on_AttackTimer_timeout"]
+[connection signal="area_entered" from="Shield" to="." method="_on_Shield_area_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

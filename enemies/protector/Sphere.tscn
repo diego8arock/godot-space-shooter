@@ -1,8 +1,75 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://enemies/BaseEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemies/protector/Sphere.gd" type="Script" id=2]
 [ext_resource path="res://assets/protector/ufoGreen.png" type="Texture" id=3]
+[ext_resource path="res://assets/protector/ufoRed.png" type="Texture" id=4]
+[ext_resource path="res://enemies/protector/Sphere.shader" type="Shader" id=5]
+[ext_resource path="res://assets/protector/ufoBlue.png" type="Texture" id=6]
+[ext_resource path="res://enemies/protector/Shockwave.gd" type="Script" id=7]
+[ext_resource path="res://assets/weapons/bomb/blue-circle-outline-png-2.png" type="Texture" id=8]
+[ext_resource path="res://enemies/protector/Trail.gd" type="Script" id=9]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/blurSize = null
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "shockwave"
+length = 0.13
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape2D:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.13 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 10.0, 50.0 ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0.05, -0.25, 0, 0.25, 0, 0.195, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.05, -0.25, 0, 0.25, 0, 0.195, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "retreat"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Sphere" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -14,6 +81,55 @@ visible = false
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
 
-[node name="TweenAttack" type="Tween" parent="." index="6"]
+[node name="SpriteAttack" type="Sprite" parent="." index="3"]
+visible = false
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 4 )
 
-[node name="TweenRetreat" type="Tween" parent="." index="7"]
+[node name="SpriteProtect" type="Sprite" parent="." index="4"]
+visible = false
+material = SubResource( 1 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" parent="." index="5"]
+position = Vector2( -0.391658, -0.332029 )
+scale = Vector2( 1.41429, 1.37214 )
+polygon = PoolVector2Array( -10, -10, -10, 10, 10, 10, 10, -10 )
+
+[node name="PosAdjustTimer" type="Timer" parent="." index="8"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Shockwave" type="Area2D" parent="." index="9"]
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="Shockwave" index="0"]
+scale = Vector2( 0.05, 0.05 )
+z_index = -1
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shockwave" index="1"]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Shockwave" index="2"]
+anims/shockwave = SubResource( 3 )
+
+[node name="Trail" type="Line2D" parent="." index="10"]
+z_index = -1
+width = 8.0
+gradient = SubResource( 4 )
+script = ExtResource( 9 )
+target_path = NodePath("..")
+trail_length = 10
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="11"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="12"]
+anims/retreat = SubResource( 5 )
+[connection signal="area_entered" from="." to="." method="_on_Sphere_area_entered"]
+[connection signal="timeout" from="PosAdjustTimer" to="." method="_on_PosAdjustTimer_timeout"]
+[connection signal="body_entered" from="Shockwave" to="." method="_on_Shockwave_body_entered"]
+[connection signal="animation_finished" from="Shockwave/AnimationPlayer" to="Shockwave" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

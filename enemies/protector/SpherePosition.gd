@@ -7,6 +7,7 @@ var angle = 0
 
 func _ready():
 	centre = get_parent().position
+	$Sprite.hide()
 	pass
 
 func _process(delta: float) -> void:
