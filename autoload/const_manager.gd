@@ -40,3 +40,11 @@ func calculate_cooldown_rate(_level : int) -> float:
 	return sqrt(_level) / 99 #Max increase 10% each, total 20%
 func calculate_combo_rate(_level : int) -> float:
 	return sqrt(_level) / 49.8 #Max increase 20% each, total 40%
+	
+func distance_to_target(_origin: Vector2, _target: Vector2) -> float:
+	var diff_x = pow(_target.x - _origin.x, 2)
+	var diff_y = pow(_target.y - _origin.y, 2)
+	return sqrt(diff_x + diff_y)
+	
+func bewteen(_val, _val_min, _val_max) -> bool:
+	return _val >= _val_min and _val <= _val_max
