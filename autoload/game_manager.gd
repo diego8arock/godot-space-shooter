@@ -11,6 +11,7 @@ var enemy_container
 var stats_gui
 var damage_container
 var explosion_container
+var number_container
 
 #Level
 var level : int = 1
@@ -82,3 +83,6 @@ func create_damage(_pos : Vector2, _scale : float = 1.0) -> void:
 	explosion_container.create_damage_explosion(_pos)
 	yield(get_tree().create_timer(0.5), "timeout")
 	damage_container.create_damage(_pos, _scale)
+	
+func create_number(_position: Vector2, _rotation: Vector2, _number: String) -> void:
+	number_container.create_number(_position, _rotation, _number)
