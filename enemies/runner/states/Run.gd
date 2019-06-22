@@ -18,18 +18,13 @@ func exit(_host: Node2D) -> void:
 
 func update(_host: Node2D, _delta: float) -> String:
 	
-	if distance_to_player(_host) <= DISTANCE_THRESHOLD and can_attack:
+	if ConstManager.distance_to_target(_host.global_position, GameManager.enemy_aim_to.global_position) <= DISTANCE_THRESHOLD and can_attack:
 		attack(_host)
 	
 	if not execute_state:
 		return "adjust"
 	
 	return ConstManager.EMPTY_STRING	
-
-func distance_to_player(_host: Node2D) -> float:
-	var diff_x = pow(GameManager.enemy_aim_to.global_position.x - _host.global_position.x, 2)
-	var diff_y = pow(GameManager.enemy_aim_to.global_position.y - _host.global_position.y, 2)
-	return sqrt(diff_x + diff_y)
 	
 func attack(_host: Node2D) -> void:
 	saber.show()

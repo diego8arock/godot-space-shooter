@@ -35,7 +35,6 @@ editor/display_folded = true
 position = Vector2( 0, 50 )
 points = PoolVector2Array( 0, 0, 0, 3000 )
 texture = ExtResource( 5 )
-texture_mode = 0
 
 [node name="Position2D" type="Position2D" parent="Sprite/Line2D" index="0"]
 
@@ -51,9 +50,6 @@ cast_to = Vector2( 0, 3000 )
 [node name="CollisionPolygon2D" parent="." index="3"]
 scale = Vector2( 0.45, 0.45 )
 polygon = PoolVector2Array( -40.9519, -48.3181, 31.6256, -27.6658, 30.8583, -18.2041, 34.5646, -18.2041, 42.4406, -14.4978, 41.9874, 12.6215, 36.7187, 17.463, 32.4469, 17.463, 31.9763, 28.0737, -40.9519, 48.0465, -41.8784, 32.7579, -27.9797, 9.13004, -29.3696, 0.327499, -27.0531, -9.86491, -41.8784, -32.1029 )
-
-[node name="States" parent="." index="4"]
-editor/display_folded = true
 
 [node name="Adjust" type="Node" parent="States" index="0"]
 script = ExtResource( 7 )
@@ -83,8 +79,13 @@ script = ExtResource( 10 )
 [node name="Saber" parent="." index="6" instance=ExtResource( 11 )]
 visible = false
 rotation = 1.74846e-007
+
+[node name="GhostTimer" type="Timer" parent="." index="7"]
+wait_time = 0.1
+autostart = true
 [connection signal="area_entered" from="." to="." method="_on_Runner_area_entered"]
 [connection signal="timeout" from="States/Aim/AimTimer" to="States/Aim" method="_on_AimTimer_timeout"]
 [connection signal="timeout" from="States/Aim/RunTimer" to="States/Aim" method="_on_RunTimer_timeout"]
 [connection signal="tween_completed" from="States/Run/Tween" to="States/Run" method="_on_Tween_tween_completed"]
 [connection signal="attack_ended" from="Saber" to="States/Run" method="_on_Saber_attack_ended"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

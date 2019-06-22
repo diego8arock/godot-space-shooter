@@ -1,5 +1,7 @@
 extends NPC
 
+onready var ghost = preload("res://enemies/runner/RunnerGhost.tscn")
+
 func _ready() -> void:
 	._ready()
 	states_map = {
@@ -16,3 +18,9 @@ func _ready() -> void:
 	
 func _on_Runner_area_entered(area: Area2D) -> void:
 	process_area_entered(area)
+
+func _on_GhostTimer_timeout() -> void:
+	var new_ghost = ghost.instance()
+	GameManager.enemy_container.add_child(new_ghost)
+	new_ghost.global_position = global_position
+	new_ghost.global_rotation = $Sprite.global_rotation
