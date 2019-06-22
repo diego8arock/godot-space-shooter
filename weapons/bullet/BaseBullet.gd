@@ -9,15 +9,12 @@ onready var bullet_id_str = "bullet-" + str(bullet_id)
 
 var velocity = Vector2()
 
-func _ready():
-	pass 
-
 func _process(delta):
 	global_position += velocity * delta
 	var debug_text = "position: " + str(global_position) + " rotation:" + str(global_rotation)
 	DebugManager.debug(bullet_id_str, debug_text, DebugManager.weapons_do_debug)
 
-func shoot(_position, _rotation):
+func shoot(_position: Vector2, _rotation: Vector2):
 	global_position = _position
 	global_rotation = _rotation.angle()
 	velocity = _rotation * speed * speed_multiplier
