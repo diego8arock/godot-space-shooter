@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/black.png" type="Texture" id=2]
@@ -9,10 +9,12 @@
 [ext_resource path="res://game/EnemyContainer.gd" type="Script" id=7]
 [ext_resource path="res://game/DamageContainer.gd" type="Script" id=8]
 [ext_resource path="res://game/ExplosionContainer.gd" type="Script" id=9]
-[ext_resource path="res://game/Grid.tscn" type="PackedScene" id=10]
-[ext_resource path="res://old_life/Paths.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game/NumberContainer.gd" type="Script" id=10]
+[ext_resource path="res://game/Grid.tscn" type="PackedScene" id=11]
+[ext_resource path="res://old_life/Paths.tscn" type="PackedScene" id=12]
 
 [node name="Game" type="Node2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]
@@ -55,9 +57,12 @@ script = ExtResource( 8 )
 [node name="ExplosionContainer" type="Node2D" parent="."]
 script = ExtResource( 9 )
 
-[node name="Grid" parent="." instance=ExtResource( 10 )]
+[node name="NumberContainer" type="Node2D" parent="."]
+script = ExtResource( 10 )
 
-[node name="Paths" parent="." instance=ExtResource( 11 )]
+[node name="Grid" parent="." instance=ExtResource( 11 )]
+
+[node name="Paths" parent="." instance=ExtResource( 12 )]
 
 [node name="PlayerRespawnTimer" type="Timer" parent="."]
 wait_time = 3.0

@@ -51,6 +51,7 @@ func _init() -> void:
 func _ready() -> void:
 	GameManager.damage_container = $DamageContainer
 	GameManager.explosion_container = $ExplosionContainer
+	GameManager.number_container = $NumberContainer
 	GameManager.grid = $Grid
 	margin_gui.hide()
 	LevelManager.load_levels()
