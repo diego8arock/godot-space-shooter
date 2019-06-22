@@ -20,6 +20,7 @@ var level : int
 var is_initialized : bool = false
 
 signal update_health(_value)
+signal show_number(_number)
 signal died(_xp)
 
 #Area2D methods
@@ -33,6 +34,7 @@ func _ready() -> void:
 	is_initialized = true
 	stats.initialize(base_stats)
 	connect("update_health", gui, "update_healthbar")
+	connect("show_number", gui, "show_number")
 	var err = connect("update_health", GameManager.player, "on_NPC_got_hit")
 	if err != 0:
 		WarningManager.warn(name + "-" + str(id), "could not connect on_NPC_got_hit with player err_id: " + str(err))
@@ -75,9 +77,11 @@ func adjust_stats_by_level() -> void:
 
 func take_damage(_value) -> void:	
 
-	health -= _value - (_value * stats.defense / 100)
+	var damage = _value - (_value * stats.defense / 100)
+	health -= damage
 	health = clamp(health, ConstManager.MIN_HEALTH, ConstManager.MAX_HEALTH)
 	emit_signal("update_health", health)
+	emit_signal("show_number", int(damage))
 
 func evaluate_health() -> void:
 	
