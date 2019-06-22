@@ -1,5 +1,6 @@
 extends Control
 
+onready var font : Resource = preload("res://gui/debug/debug_dynamicfont.tres")
 onready var container = $VBoxContainer
 const TAG = "[DEBUG]:"
 var labels = {}
@@ -15,6 +16,7 @@ func _on_signal_updateLabel(_node, _text, _id) -> void:
 		labels[_node].text = new_text
 	else:
 		var label = Label.new()
+		label.add_font_override("font", font)
 		label.text = new_text
 		container.add_child(label)
 		labels[_node] = label
