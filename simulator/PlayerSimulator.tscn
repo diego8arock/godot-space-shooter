@@ -1,0 +1,180 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://simulator/PlayerSimulator.gd" type="Script" id=1]
+[ext_resource path="res://simulator/dynamicfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://simulator/StatSimulator.tscn" type="PackedScene" id=3]
+
+[node name="PlayerSimulator" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = -55.2001
+margin_top = -121.3
+margin_right = 54.7999
+margin_bottom = 118.7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 103.0
+margin_bottom = 233.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "PLAYER"
+align = 1
+
+[node name="HealthContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 18.0
+margin_right = 96.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HealthContainer"]
+margin_top = 5.0
+margin_right = 36.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "HEALTH"
+
+[node name="HealthValue" type="LineEdit" parent="PanelContainer/VBoxContainer/HealthContainer"]
+margin_left = 40.0
+margin_right = 74.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+editable = false
+
+[node name="HealthButton" type="Button" parent="PanelContainer/VBoxContainer/HealthContainer"]
+margin_left = 78.0
+margin_right = 96.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+text = "R"
+
+[node name="LevelContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 46.0
+margin_right = 96.0
+margin_bottom = 90.0
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/LevelContainer"]
+margin_top = 15.0
+margin_right = 30.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 2 )
+text = "level"
+
+[node name="LevelValue" type="LineEdit" parent="PanelContainer/VBoxContainer/LevelContainer"]
+margin_left = 34.0
+margin_right = 68.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 2 )
+text = "1"
+align = 1
+editable = false
+
+[node name="LevleButtonContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/LevelContainer"]
+margin_left = 72.0
+margin_right = 90.0
+margin_bottom = 44.0
+
+[node name="AddLevel" type="Button" parent="PanelContainer/VBoxContainer/LevelContainer/LevleButtonContainer"]
+margin_right = 18.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "+"
+
+[node name="SubLevel" type="Button" parent="PanelContainer/VBoxContainer/LevelContainer/LevleButtonContainer"]
+margin_top = 24.0
+margin_right = 18.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 2 )
+text = "-"
+
+[node name="StatsContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 94.0
+margin_right = 96.0
+margin_bottom = 174.0
+
+[node name="Attack" parent="PanelContainer/VBoxContainer/StatsContainer" instance=ExtResource( 3 )]
+margin_right = 96.0
+
+[node name="HBoxContainer" parent="PanelContainer/VBoxContainer/StatsContainer/Attack" index="0"]
+margin_right = 89.0
+
+[node name="Label" parent="PanelContainer/VBoxContainer/StatsContainer/Attack/HBoxContainer" index="0"]
+margin_left = 4.0
+margin_right = 40.0
+text = "ATTACK"
+
+[node name="Value" parent="PanelContainer/VBoxContainer/StatsContainer/Attack/HBoxContainer" index="1"]
+margin_left = 44.0
+margin_right = 78.0
+
+[node name="Defense" parent="PanelContainer/VBoxContainer/StatsContainer" instance=ExtResource( 3 )]
+margin_top = 42.0
+margin_right = 96.0
+margin_bottom = 80.0
+
+[node name="HBoxContainer" parent="PanelContainer/VBoxContainer/StatsContainer/Defense" index="0"]
+margin_right = 89.0
+
+[node name="Label" parent="PanelContainer/VBoxContainer/StatsContainer/Defense/HBoxContainer" index="0"]
+margin_left = 1.0
+margin_right = 43.0
+text = "DEFENSE"
+
+[node name="Value" parent="PanelContainer/VBoxContainer/StatsContainer/Defense/HBoxContainer" index="1"]
+margin_left = 47.0
+margin_right = 81.0
+
+[node name="ButonContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+margin_top = 178.0
+margin_right = 96.0
+margin_bottom = 226.0
+alignment = 1
+
+[node name="AttackOneContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ButonContainer"]
+margin_right = 96.0
+margin_bottom = 20.0
+alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/ButonContainer/AttackOneContainer"]
+margin_left = 1.0
+margin_right = 42.0
+margin_bottom = 20.0
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/ButonContainer/AttackOneContainer"]
+margin_left = 46.0
+margin_right = 94.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "ATTACK"
+
+[node name="AttackMultiContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ButonContainer"]
+margin_top = 24.0
+margin_right = 96.0
+margin_bottom = 24.0
+
+[node name="AttackAllContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ButonContainer"]
+margin_top = 28.0
+margin_right = 96.0
+margin_bottom = 48.0
+alignment = 1
+
+[node name="AttackAllButton" type="Button" parent="PanelContainer/VBoxContainer/ButonContainer/AttackAllContainer"]
+margin_left = 14.0
+margin_right = 82.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "ATTACK ALL"
+
+[editable path="PanelContainer/VBoxContainer/StatsContainer/Attack"]
+
+[editable path="PanelContainer/VBoxContainer/StatsContainer/Defense"]

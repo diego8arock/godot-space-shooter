@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://simulator/EnemySimulator.gd" type="Script" id=1]
+[ext_resource path="res://simulator/dynamicfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://simulator/StatSimulator.tscn" type="PackedScene" id=3]
+
+[node name="EnemySimulator" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = -57.002
+margin_top = -102.66
+margin_right = 52.998
+margin_bottom = 103.34
+
+[node name="Container" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 103.0
+margin_bottom = 199.0
+alignment = 1
+
+[node name="Type" type="Label" parent="PanelContainer/Container"]
+margin_right = 96.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "[Enemu Name]"
+align = 1
+
+[node name="StatsContainer" type="VBoxContainer" parent="PanelContainer/Container"]
+margin_top = 18.0
+margin_right = 96.0
+margin_bottom = 168.0
+
+[node name="HealthContainer" type="HBoxContainer" parent="PanelContainer/Container/StatsContainer"]
+margin_right = 96.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="Label" type="Label" parent="PanelContainer/Container/StatsContainer/HealthContainer"]
+margin_top = 5.0
+margin_right = 36.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 2 )
+text = "HEALTH"
+
+[node name="HealthValue" type="LineEdit" parent="PanelContainer/Container/StatsContainer/HealthContainer"]
+margin_left = 40.0
+margin_right = 74.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+align = 2
+editable = false
+
+[node name="HealthButton" type="Button" parent="PanelContainer/Container/StatsContainer/HealthContainer"]
+margin_left = 78.0
+margin_right = 96.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+text = "R"
+
+[node name="Attack" parent="PanelContainer/Container/StatsContainer" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_top = 28.0
+margin_right = 96.0
+margin_bottom = 66.0
+
+[node name="HBoxContainer" parent="PanelContainer/Container/StatsContainer/Attack" index="0"]
+margin_right = 89.0
+
+[node name="Label" parent="PanelContainer/Container/StatsContainer/Attack/HBoxContainer" index="0"]
+margin_left = 4.0
+margin_right = 40.0
+text = "attack"
+
+[node name="Value" parent="PanelContainer/Container/StatsContainer/Attack/HBoxContainer" index="1"]
+margin_left = 44.0
+margin_right = 78.0
+
+[node name="Defense" parent="PanelContainer/Container/StatsContainer" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_top = 70.0
+margin_right = 96.0
+margin_bottom = 108.0
+
+[node name="HBoxContainer" parent="PanelContainer/Container/StatsContainer/Defense" index="0"]
+editor/display_folded = true
+margin_right = 89.0
+
+[node name="Label" parent="PanelContainer/Container/StatsContainer/Defense/HBoxContainer" index="0"]
+margin_left = 1.0
+margin_right = 43.0
+text = "DEFENSE"
+
+[node name="Value" parent="PanelContainer/Container/StatsContainer/Defense/HBoxContainer" index="1"]
+margin_left = 47.0
+margin_right = 81.0
+
+[node name="XP" parent="PanelContainer/Container/StatsContainer" instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_top = 112.0
+margin_right = 96.0
+margin_bottom = 150.0
+
+[node name="HBoxContainer" parent="PanelContainer/Container/StatsContainer/XP" index="0"]
+margin_right = 89.0
+
+[node name="Label" parent="PanelContainer/Container/StatsContainer/XP/HBoxContainer" index="0"]
+margin_left = 16.0
+margin_right = 28.0
+text = "XP"
+
+[node name="Value" parent="PanelContainer/Container/StatsContainer/XP/HBoxContainer" index="1"]
+margin_left = 32.0
+margin_right = 66.0
+
+[node name="Button" type="Button" parent="PanelContainer/Container"]
+margin_top = 172.0
+margin_right = 96.0
+margin_bottom = 192.0
+custom_fonts/font = ExtResource( 2 )
+text = "ATTACK"
+[connection signal="pressed" from="PanelContainer/Container/StatsContainer/HealthContainer/HealthButton" to="." method="_on_HealthButton_pressed"]
+[connection signal="pressed" from="PanelContainer/Container/Button" to="." method="_on_Button_pressed"]
+
+[editable path="PanelContainer/Container/StatsContainer/Attack"]
+
+[editable path="PanelContainer/Container/StatsContainer/Defense"]
+
+[editable path="PanelContainer/Container/StatsContainer/XP"]
