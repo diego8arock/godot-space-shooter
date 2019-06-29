@@ -198,8 +198,9 @@ func on_NPC_got_hit(_value) -> void:
 	increase_combo_level(false)
 	
 func on_NPC_died(_xp) -> void:
+	DebugManager.debug(name + str(GameManager.player_xp), "on_NPC_died")
 	increase_combo_level(true)
-	GameManager.player_xp += _xp * combo_level
+	GameManager.player_xp += _xp * (1 if combo_level == 0 else combo_level)
 	emit_signal("update_xp", GameManager.player_xp)	
 
 func increase_combo_level(npc_dead : bool = false) -> void:
