@@ -18,6 +18,7 @@ onready var stats_debug = $EnemyStatsDebug
 var id : int
 var level : int
 var is_initialized : bool = false
+var is_npc_dead: bool = false
 
 signal update_health(_value)
 signal show_number(_number)
@@ -44,8 +45,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-		
-	evaluate_health()
+	
+	if not is_npc_dead:	
+		evaluate_health()
 	var state_name = current_state.update(self, delta)	
 	if state_name and not state_name.empty():
 		_change_state(state_name)	
@@ -86,6 +88,7 @@ func take_damage(_value) -> void:
 func evaluate_health() -> void:
 	
 	if health <= ConstManager.MIN_HEALTH:
+		is_npc_dead = true
 		GameManager.create_damage(global_position, 0.5)
 		emit_signal("died", stats.xp)
 		call_deferred("free")
