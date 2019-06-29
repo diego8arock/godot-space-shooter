@@ -7,264 +7,273 @@
 [ext_resource path="res://assets/gui/player/health_dynamicfont.tres" type="DynamicFont" id=5]
 
 [node name="StatsGUI" type="Control"]
+margin_right = 1024.0
+margin_bottom = 600.0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = -15.0
-margin_top = -10.0
-margin_right = 254.0
-margin_bottom = 496.0
-rect_scale = Vector2( 1.84, 1 )
-color = Color( 0.301961, 0, 0.294118, 1 )
+[node name="Panel" type="PanelContainer" parent="."]
+margin_right = 511.0
+margin_bottom = 593.0
+rect_scale = Vector2( 0.7, 0.7 )
+size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 229.0
-margin_bottom = 347.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 504.0
+margin_bottom = 614.0
 custom_constants/separation = 10
+alignment = 1
 
-[node name="Level" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
-margin_right = 469.0
+[node name="Level" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_right = 497.0
 margin_bottom = 27.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/Level"]
-margin_left = 181.0
-margin_right = 266.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Level"]
+margin_left = 195.0
+margin_right = 280.0
 margin_bottom = 27.0
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "LEVEL"
 
-[node name="Value" type="Label" parent="VBoxContainer/Level"]
-margin_left = 270.0
-margin_right = 287.0
+[node name="Value" type="Label" parent="Panel/VBoxContainer/Level"]
+margin_left = 284.0
+margin_right = 301.0
 margin_bottom = 27.0
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 
-[node name="XP" type="HBoxContainer" parent="VBoxContainer"]
+[node name="XP" type="HBoxContainer" parent="Panel/VBoxContainer"]
 pause_mode = 2
-editor/display_folded = true
 margin_top = 37.0
-margin_right = 469.0
+margin_right = 497.0
 margin_bottom = 64.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/XP"]
-margin_left = 207.0
-margin_right = 241.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/XP"]
+margin_left = 221.0
+margin_right = 255.0
 margin_bottom = 27.0
 custom_fonts/font = ExtResource( 2 )
 text = "XP"
 
-[node name="Value" type="Label" parent="VBoxContainer/XP"]
-margin_left = 245.0
-margin_right = 262.0
+[node name="Value" type="Label" parent="Panel/VBoxContainer/XP"]
+margin_left = 259.0
+margin_right = 276.0
 margin_bottom = 27.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 align = 2
 
-[node name="RequieredXP" type="HBoxContainer" parent="VBoxContainer"]
+[node name="RequieredXP" type="HBoxContainer" parent="Panel/VBoxContainer"]
 editor/display_folded = true
 margin_top = 74.0
-margin_right = 469.0
+margin_right = 497.0
 margin_bottom = 101.0
 alignment = 1
 
-[node name="Lable" type="Label" parent="VBoxContainer/RequieredXP"]
-margin_left = 167.0
-margin_right = 280.0
+[node name="Lable" type="Label" parent="Panel/VBoxContainer/RequieredXP"]
+margin_left = 181.0
+margin_right = 294.0
 margin_bottom = 27.0
 custom_fonts/font = ExtResource( 2 )
 text = "NEXT LV."
 
-[node name="Value" type="Label" parent="VBoxContainer/RequieredXP"]
-margin_left = 284.0
-margin_right = 301.0
+[node name="Value" type="Label" parent="Panel/VBoxContainer/RequieredXP"]
+margin_left = 298.0
+margin_right = 315.0
 margin_bottom = 27.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 
-[node name="Container" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
+[node name="Container" type="HBoxContainer" parent="Panel/VBoxContainer"]
 margin_top = 111.0
-margin_right = 469.0
-margin_bottom = 397.0
+margin_right = 497.0
+margin_bottom = 495.0
 custom_constants/separation = 36
 
-[node name="StatsContainers" type="VBoxContainer" parent="VBoxContainer/Container"]
-editor/display_folded = true
-margin_right = 170.0
-margin_bottom = 286.0
+[node name="StatsContainers" type="VBoxContainer" parent="Panel/VBoxContainer/Container"]
+margin_right = 184.0
+margin_bottom = 384.0
+alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/Container/StatsContainers"]
-margin_right = 170.0
-margin_bottom = 27.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Container/StatsContainers"]
+margin_right = 184.0
+margin_bottom = 60.0
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "STATS"
 align = 1
+valign = 1
 
-[node name="Armor" parent="VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
-margin_top = 31.0
-margin_right = 170.0
-margin_bottom = 75.0
+[node name="Armor" parent="Panel/VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 64.0
+margin_right = 184.0
+margin_bottom = 124.0
+size_flags_vertical = 3
 stat_name = "Armor"
 
-[node name="Speed" parent="VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
-margin_top = 79.0
-margin_right = 170.0
-margin_bottom = 123.0
+[node name="Speed" parent="Panel/VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 128.0
+margin_right = 184.0
+margin_bottom = 188.0
+size_flags_vertical = 3
 stat_name = "Speed"
 
-[node name="Attack" parent="VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
-margin_top = 127.0
-margin_right = 170.0
-margin_bottom = 171.0
+[node name="Attack" parent="Panel/VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 192.0
+margin_right = 184.0
+margin_bottom = 252.0
+size_flags_vertical = 3
 stat_name = "Attack"
 
-[node name="Power" parent="VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
-margin_top = 175.0
-margin_right = 170.0
-margin_bottom = 219.0
+[node name="Power" parent="Panel/VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 256.0
+margin_right = 184.0
+margin_bottom = 316.0
+size_flags_vertical = 3
 stat_name = "Power"
 
-[node name="Combo" parent="VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
-margin_top = 223.0
-margin_right = 170.0
-margin_bottom = 267.0
+[node name="Combo" parent="Panel/VBoxContainer/Container/StatsContainers" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 320.0
+margin_right = 184.0
+margin_bottom = 384.0
+size_flags_vertical = 3
 stat_name = "Combo"
 
-[node name="SkillsContainer" type="VBoxContainer" parent="VBoxContainer/Container"]
-editor/display_folded = true
-margin_left = 206.0
-margin_right = 469.0
-margin_bottom = 286.0
+[node name="SkillsContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Container"]
+margin_left = 220.0
+margin_right = 497.0
+margin_bottom = 384.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 14
+alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/Container/SkillsContainer"]
-margin_right = 263.0
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Container/SkillsContainer"]
+margin_right = 277.0
 margin_bottom = 27.0
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "SKILLS"
 align = 1
 
-[node name="RotationSpeed" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="RotationSpeed" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
 margin_top = 41.0
-margin_right = 263.0
-margin_bottom = 64.0
+margin_bottom = 78.0
+size_flags_vertical = 3
 skill_name = "Rotation Speed"
 
-[node name="BulletDamage" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 78.0
-margin_right = 263.0
-margin_bottom = 101.0
+[node name="BulletDamage" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 92.0
+margin_bottom = 129.0
+size_flags_vertical = 3
 skill_name = "Bullet Damage"
 
-[node name="ShootingRate" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 115.0
-margin_right = 263.0
-margin_bottom = 138.0
+[node name="ShootingRate" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 143.0
+margin_bottom = 180.0
+size_flags_vertical = 3
 skill_name = "Shooting Rate"
 
-[node name="DamageReduction" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 152.0
-margin_right = 263.0
-margin_bottom = 175.0
+[node name="DamageReduction" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 194.0
+margin_bottom = 231.0
+size_flags_vertical = 3
 skill_name = "Damage Reduction"
 
-[node name="ChargeRate" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 189.0
-margin_right = 263.0
-margin_bottom = 212.0
-skill_name = "Charge Rate"
+[node name="ChargeRate" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 245.0
+margin_bottom = 282.0
+size_flags_vertical = 3
+skill_name = "Change Rate"
 
-[node name="CooldownRate" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 226.0
-margin_right = 263.0
-margin_bottom = 249.0
+[node name="CooldownRate" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 296.0
+margin_bottom = 333.0
+size_flags_vertical = 3
 skill_name = "Cooldown Rate"
 
-[node name="ComboRate" parent="VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 263.0
-margin_right = 263.0
-margin_bottom = 286.0
+[node name="ComboRate" parent="Panel/VBoxContainer/Container/SkillsContainer" instance=ExtResource( 4 )]
+margin_top = 347.0
+margin_bottom = 384.0
+size_flags_vertical = 3
 skill_name = "Combo Rate"
 
-[node name="Health" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 407.0
-margin_right = 469.0
-margin_bottom = 451.0
+[node name="Health" type="VBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 505.0
+margin_right = 497.0
+margin_bottom = 563.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Health"]
-margin_right = 469.0
-margin_bottom = 44.0
+[node name="Panel" type="PanelContainer" parent="Panel/VBoxContainer/Health"]
+margin_right = 497.0
+margin_bottom = 58.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Health/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 490.0
+margin_bottom = 51.0
 custom_constants/separation = 29
 alignment = 1
 
-[node name="HealthLabel" type="Label" parent="VBoxContainer/Health/HBoxContainer"]
-margin_left = 102.0
+[node name="HealthLabel" type="Label" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer"]
+margin_left = 109.0
 margin_top = 8.0
-margin_right = 201.0
+margin_right = 208.0
 margin_bottom = 35.0
 custom_fonts/font = ExtResource( 2 )
 text = "HEALTH"
 
-[node name="HealthValue" type="Label" parent="VBoxContainer/Health/HBoxContainer"]
-margin_left = 230.0
+[node name="HealthValue" type="Label" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer"]
+margin_left = 237.0
 margin_top = 8.0
-margin_right = 247.0
+margin_right = 254.0
 margin_bottom = 35.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 
-[node name="Buttons" type="VBoxContainer" parent="VBoxContainer/Health/HBoxContainer"]
+[node name="Buttons" type="VBoxContainer" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer"]
 editor/display_folded = true
-margin_left = 276.0
-margin_right = 296.0
+margin_left = 283.0
+margin_right = 303.0
 margin_bottom = 44.0
 
-[node name="AddHealth" type="Button" parent="VBoxContainer/Health/HBoxContainer/Buttons"]
+[node name="AddHealth" type="Button" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons"]
 margin_right = 20.0
 margin_bottom = 20.0
 text = "+"
 
-[node name="SubHealth" type="Button" parent="VBoxContainer/Health/HBoxContainer/Buttons"]
+[node name="SubHealth" type="Button" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons"]
 margin_top = 24.0
 margin_right = 20.0
 margin_bottom = 44.0
 text = "-"
 
-[node name="Cost" type="VBoxContainer" parent="VBoxContainer/Health/HBoxContainer"]
-margin_left = 325.0
-margin_right = 367.0
+[node name="Cost" type="VBoxContainer" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer"]
+margin_left = 332.0
+margin_right = 374.0
 margin_bottom = 44.0
 
-[node name="Label" type="Label" parent="VBoxContainer/Health/HBoxContainer/Cost"]
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer/Cost"]
 margin_right = 42.0
 margin_bottom = 18.0
 custom_fonts/font = ExtResource( 5 )
 text = "COST"
 align = 1
 
-[node name="CostValue" type="Label" parent="VBoxContainer/Health/HBoxContainer/Cost"]
+[node name="CostValue" type="Label" parent="Panel/VBoxContainer/Health/Panel/HBoxContainer/Cost"]
 margin_top = 22.0
 margin_right = 42.0
 margin_bottom = 40.0
@@ -272,28 +281,33 @@ custom_fonts/font = ExtResource( 5 )
 text = "0"
 align = 1
 
-[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
-editor/display_folded = true
-margin_top = 461.0
-margin_right = 469.0
-margin_bottom = 481.0
-custom_constants/separation = 35
+[node name="Buttons" type="PanelContainer" parent="Panel/VBoxContainer"]
+margin_left = 186.0
+margin_top = 573.0
+margin_right = 311.0
+margin_bottom = 607.0
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Buttons"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 27.0
 alignment = 1
 
-[node name="Continue" type="Button" parent="VBoxContainer/Buttons" groups=[
+[node name="Continue" type="Button" parent="Panel/VBoxContainer/Buttons/HBoxContainer" groups=[
 "menu_buttons",
 ]]
-margin_left = 163.0
-margin_right = 232.0
+margin_right = 69.0
 margin_bottom = 20.0
 text = "Continue"
 
-[node name="Skip" type="Button" parent="VBoxContainer/Buttons" groups=[
+[node name="Skip" type="Button" parent="Panel/VBoxContainer/Buttons/HBoxContainer" groups=[
 "menu_buttons",
 ]]
-margin_left = 267.0
-margin_right = 305.0
+margin_left = 73.0
+margin_right = 111.0
 margin_bottom = 20.0
 text = "Skip"
-[connection signal="pressed" from="VBoxContainer/Health/HBoxContainer/Buttons/AddHealth" to="." method="_on_AddHealth_pressed"]
-[connection signal="pressed" from="VBoxContainer/Health/HBoxContainer/Buttons/SubHealth" to="." method="_on_SubHealth_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons/AddHealth" to="." method="_on_AddHealth_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons/SubHealth" to="." method="_on_SubHealth_pressed"]

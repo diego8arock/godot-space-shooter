@@ -1,7 +1,7 @@
-extends HBoxContainer
+extends PanelContainer
 class_name StatContainer
 
-onready var label_value = $StatValue
+onready var label_value = $StatContainer/StatValue
 export var stat_name : String = ""
 var value : int = 0
 var new_value
@@ -12,7 +12,7 @@ signal substat(_name)
 
 func _ready():
 	if not stat_name.empty():
-		$StatName.text = stat_name
+		$StatContainer/StatName.text = stat_name
 	new_value = value
 
 func connect_button_signals() -> void:

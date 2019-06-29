@@ -3,50 +3,59 @@
 [ext_resource path="res://gui/player/StatContainer.gd" type="Script" id=1]
 [ext_resource path="res://assets/gui/player/stats_dynamicfont.tres" type="DynamicFont" id=2]
 
-[node name="StatContainer" type="HBoxContainer"]
-pause_mode = 2
-margin_right = 278.0
-margin_bottom = 44.0
-custom_constants/separation = 10
-alignment = 1
+[node name="PanelContainer" type="PanelContainer"]
+margin_left = 1.72955
+margin_right = 185.73
+margin_bottom = 58.0
+size_flags_horizontal = 3
 script = ExtResource( 1 )
 
-[node name="StatName" type="Label" parent="."]
-margin_top = 8.0
-margin_right = 119.0
-margin_bottom = 35.0
+[node name="StatContainer" type="HBoxContainer" parent="."]
+pause_mode = 2
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 177.0
+margin_bottom = 51.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="StatName" type="Label" parent="StatContainer"]
+margin_right = 96.0
+margin_bottom = 44.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "ATTACK"
+valign = 1
 
-[node name="StatValue" type="Label" parent="."]
-margin_left = 129.0
-margin_top = 8.0
-margin_right = 248.0
-margin_bottom = 35.0
-size_flags_horizontal = 3
+[node name="StatValue" type="Label" parent="StatContainer"]
+margin_left = 106.0
+margin_right = 140.0
+margin_bottom = 44.0
+size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 text = "00"
 align = 2
+valign = 1
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="StatContainer"]
 pause_mode = 2
-margin_left = 258.0
-margin_right = 278.0
+margin_left = 150.0
+margin_right = 170.0
 margin_bottom = 44.0
 
-[node name="AddStat" type="Button" parent="Buttons"]
+[node name="AddStat" type="Button" parent="StatContainer/Buttons"]
 pause_mode = 2
 margin_right = 20.0
 margin_bottom = 20.0
 toggle_mode = true
 text = "+"
 
-[node name="SubStat" type="Button" parent="Buttons"]
+[node name="SubStat" type="Button" parent="StatContainer/Buttons"]
 margin_top = 24.0
 margin_right = 20.0
 margin_bottom = 44.0
 toggle_mode = true
 text = "-"
-[connection signal="pressed" from="Buttons/AddStat" to="." method="_on_AddStat_pressed"]
-[connection signal="pressed" from="Buttons/SubStat" to="." method="_on_SubStat_pressed"]
+[connection signal="pressed" from="StatContainer/Buttons/AddStat" to="." method="_on_AddStat_pressed"]
+[connection signal="pressed" from="StatContainer/Buttons/SubStat" to="." method="_on_SubStat_pressed"]

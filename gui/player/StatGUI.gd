@@ -5,16 +5,16 @@ var xp
 var req_xp
 var static_xp = [0,0,673,690,707,724,741,758,775,793,811,829,847,1039] #taken from Dark Souls
 
-onready var container_stats = $VBoxContainer/Container/StatsContainers
-onready var container_skills = $VBoxContainer/Container/SkillsContainer
-onready var xp_value = $VBoxContainer/XP/Value
-onready var level_value = $VBoxContainer/Level/Value
-onready var req_xp_value = $VBoxContainer/RequieredXP/Value
-onready var bttn_continue = $VBoxContainer/Buttons/Continue
+onready var container_stats = $Panel/VBoxContainer/Container/StatsContainers
+onready var container_skills = $Panel/VBoxContainer/Container/SkillsContainer
+onready var xp_value = $Panel/VBoxContainer/XP/Value
+onready var level_value = $Panel/VBoxContainer/Level/Value
+onready var req_xp_value = $Panel/VBoxContainer/RequieredXP/Value
+onready var bttn_continue = $Panel/VBoxContainer/Buttons/HBoxContainer/Continue
 
 func _ready() -> void:
 	GameManager.stats_gui = self
-	for c in $VBoxContainer/Container/StatsContainers.get_children():
+	for c in $Panel/VBoxContainer/Container/StatsContainers.get_children():
 		if c is StatContainer:
 			c.parent = self
 			c.connect_button_signals()
@@ -131,10 +131,10 @@ func set_skills_modified(_skill_name : String, _value : float) -> void:
 	get_skill(_skill_name).set_skill_value(str(parse_to_round_int(_value)))
 	get_skill(_skill_name).set_modifed_value()
 	
-onready var health_value_label = $VBoxContainer/Health/HBoxContainer/HealthValue
-onready var bttn_add_health = $VBoxContainer/Health/HBoxContainer/Buttons/AddHealth
-onready var bttn_sub_health = $VBoxContainer/Health/HBoxContainer/Buttons/SubHealth
-onready var cost_label = $VBoxContainer/Health/HBoxContainer/Cost/CostValue
+onready var health_value_label = $Panel/VBoxContainer/Health/Panel/HBoxContainer/HealthValue
+onready var bttn_add_health = $Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons/AddHealth
+onready var bttn_sub_health = $Panel/VBoxContainer/Health/Panel/HBoxContainer/Buttons/SubHealth
+onready var cost_label = $Panel/VBoxContainer/Health/Panel/HBoxContainer/Cost/CostValue
 var health_value : int
 var inital_health : int
 export var xp_base_cost : int = 1000
